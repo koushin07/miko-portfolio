@@ -1,4 +1,5 @@
 import type React from "react"
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Manrope, Geist_Mono } from "next/font/google"
 import Script from "next/script"
@@ -113,7 +114,11 @@ export default function RootLayout({
         ) : null}
       </head>
       <body className="font-sans antialiased">
-        {gaId ? <AnalyticsListener /> : null}
+        {gaId ? (
+          <Suspense fallback={null}>
+            <AnalyticsListener />
+          </Suspense>
+        ) : null}
         {children}
         <Analytics />
       </body>
