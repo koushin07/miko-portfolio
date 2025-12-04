@@ -6,7 +6,6 @@ import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { FadeIn } from "@/components/ui/motion";
 import {
-  Code2,
   ExternalLink,
   Github,
   ArrowUpRight,
@@ -48,9 +47,17 @@ const projects: Project[] = [
     title: "Roadworthy Inspection Platform - ASAP Roadworthys",
     description:
       "Built a full roadworthy inspection platform with ReactTS frontend and ExpressTS backend. Led QA to keep the build aligned with Figma designs, validated data flows, pressure-tested payments, and verified the ServiceM8 integration creates the correct job template for every new booking while Brevo (Sendinblue) automations run in sync.",
-    tech: ["React", "TypeScript", "ExpressTS", "ServiceM8 API", "Brevo API", "Node.js"],
+    tech: [
+      "React",
+      "TypeScript",
+      "ExpressTS",
+      "ServiceM8 API",
+      "Brevo API",
+      "Node.js",
+    ],
     image: "/projects/asap-pic.png",
     year: "Jan 2024 - May 2024",
+    url: "https://book.asaproadworthys.com.au",
   },
   {
     id: 3,
@@ -58,7 +65,7 @@ const projects: Project[] = [
     description:
       "Full employee management platform for academic institutions. Implemented teacher attendance tracking, payroll management, leave requests, and centralized employee and role management using Laravel and React.",
     tech: ["Laravel", "React", "PHP", "MySQL", "Payroll Systems"],
-    image: "/crm-sales-pipeline-dashboard.jpg",
+    image: "/projects/emport.jpeg",
     year: "Jan 2025 - Jun 2025",
   },
   {
@@ -69,6 +76,7 @@ const projects: Project[] = [
     tech: ["React", "Shopify", "Checkout.com", "Meta Pixel", "TailwindCSS"],
     image: "/projects/bootslab.png",
     year: "Jun 2025 - Aug 2025",
+    url: "https://boostlab.gg",
   },
   {
     id: 5,
@@ -78,6 +86,7 @@ const projects: Project[] = [
     tech: ["ASP.NET Core", "MVC", "C#", "SQL Server"],
     image: "/projects/the tech academy.png",
     year: "Jan 2025 - Jun 2025",
+    url: "https://learncodinganywhere.com"
   },
   {
     id: 6,
@@ -112,7 +121,7 @@ const projects: Project[] = [
     description:
       "Send personalized emails to recipients at a future date. Share memories, goals, and messages with your future self or loved ones. Keep the magic of surprise alive",
     image: "/projects/time-cap.png",
-
+    url: "https://timecaps.onrender.com",
     tech: [
       "Angular",
       "PrimeNG",
@@ -153,8 +162,12 @@ function ProjectCard({ project }: { project: Project }) {
         <div
           className="absolute pointer-events-none z-50 w-[480px] lg:w-[520px] aspect-[3/2] shadow-2xl"
           style={{
-            top: `calc(-220px + ${(mousePosition.y % window.innerHeight) * 0.08}px)`,
-            right: `calc(-360px + ${(mousePosition.x % window.innerWidth) * 0.08}px)`,
+            top: `calc(-220px + ${
+              (mousePosition.y % window.innerHeight) * 0.08
+            }px)`,
+            right: `calc(-360px + ${
+              (mousePosition.x % window.innerWidth) * 0.08
+            }px)`,
             transition: "all 0.15s ease-out",
           }}
         >
@@ -170,13 +183,17 @@ function ProjectCard({ project }: { project: Project }) {
       <article
         onClick={handleClick}
         className={`bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm transition-all duration-300 ${
-          project.url || project.github ? "cursor-pointer hover:-translate-y-1 hover:shadow-md" : ""
+          project.url || project.github
+            ? "cursor-pointer hover:-translate-y-1 hover:shadow-md"
+            : ""
         }`}
       >
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="flex-1 space-y-3">
             <div className="flex items-center gap-3">
-              <h3 className="text-2xl text-foreground font-semibold">{project.title}</h3>
+              <h3 className="text-2xl text-foreground font-semibold">
+                {project.title}
+              </h3>
               {(project.url || project.github) && (
                 <ArrowUpRight
                   size={20}
@@ -200,7 +217,9 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
 
           <div className="flex items-end gap-4 md:flex-col md:items-end md:gap-3">
-            <span className="text-muted-foreground text-sm">{project.year}</span>
+            <span className="text-muted-foreground text-sm">
+              {project.year}
+            </span>
             <div className="flex items-center gap-2">
               {project.github && (
                 <a
@@ -241,10 +260,12 @@ export default function FullStackPage() {
 
       <section className="pt-[120px] pb-16 md:pb-24">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+          <div className="grid grid-cols-1 gap-10 items-center h-full">
             <div className="space-y-6">
               <FadeIn>
-                <p className="text-white/60 text-eyebrow uppercase tracking-wider">Portfolio · Full-stack</p>
+                <p className="text-white/60 text-eyebrow uppercase tracking-wider">
+                  Portfolio · Full-stack
+                </p>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <h1 className="text-h0 text-white">
@@ -255,7 +276,9 @@ export default function FullStackPage() {
               </FadeIn>
               <FadeIn delay={0.2}>
                 <p className="text-white/70 text-xl-custom max-w-2xl">
-                  Product builds, API-first backends, and integrations that sync payments, auth, CRM, and analytics. Designed, shipped, and QA’d by the same person.
+                  Product builds, API-first backends, and integrations that sync
+                  payments, auth, CRM, and analytics. Designed, shipped, and
+                  QA’d by the same person.
                 </p>
               </FadeIn>
               <FadeIn delay={0.3}>
@@ -290,34 +313,7 @@ export default function FullStackPage() {
               </FadeIn>
             </div>
 
-            <FadeIn delay={0.2} direction="right">
-              <div className="bg-[#131f5b]/60 border border-white/10 rounded-2xl overflow-hidden shadow-xl">
-                <div className="p-6 md:p-8 flex flex-col gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                    <Code2 className="w-6 h-6 text-white/70" />
-                  </div>
-                  <h3 className="text-2xl text-white font-medium">Backends that talk to the business</h3>
-                  <p className="text-white/60 text-base">
-                    Build, secure, and observe APIs that power bookings, payments, automation, and analytics across multiple services.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Next.js", "Laravel", "ASP.NET", "Stripe", "Shopify"].map((tool) => (
-                      <span key={tool} className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src="/modern-coding-workspace-with-multiple-monitors-sho.jpg"
-                    alt="Full-stack development"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-hero-bg/70 to-transparent" />
-                </div>
-              </div>
-            </FadeIn>
+            {/** Removed empty hero card column */}
           </div>
         </div>
       </section>
@@ -328,9 +324,13 @@ export default function FullStackPage() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-h2 text-foreground">Freelance projects</h2>
-                <p className="text-muted-foreground text-base mt-2">2022 - 2023, 2024 - Present</p>
+                <p className="text-muted-foreground text-base mt-2">
+                  2022 - 2023, 2024 - Present
+                </p>
               </div>
-              <span className="text-muted-foreground text-sm">{projects.length} projects</span>
+              <span className="text-muted-foreground text-sm">
+                {projects.length} projects
+              </span>
             </div>
           </FadeIn>
 

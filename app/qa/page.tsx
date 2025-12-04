@@ -1,7 +1,7 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { FadeIn } from "@/components/ui/motion"
-import { MessageCircle, CheckCircle2, ArrowRight } from "lucide-react"
+import { CheckCircle2, ArrowRight } from "lucide-react"
 import { buildMetadata } from "@/lib/seo"
 
 export const metadata = buildMetadata({
@@ -71,7 +71,7 @@ export default function QAPage() {
 
       <section className="pt-[120px] pb-16 md:pb-24">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+          <div className="grid grid-cols-1 gap-10 items-center">
             <div className="space-y-6">
               <FadeIn>
                 <p className="text-white/60 text-eyebrow uppercase tracking-wider">Portfolio · QA</p>
@@ -120,34 +120,7 @@ export default function QAPage() {
               </FadeIn>
             </div>
 
-            <FadeIn delay={0.2} direction="right">
-              <div className="bg-[#131f5b]/60 border border-white/10 rounded-2xl overflow-hidden shadow-xl">
-                <div className="p-6 md:p-8 flex flex-col gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-white/70" />
-                  </div>
-                  <h3 className="text-2xl text-white font-medium">Regression, automation, and live fire drills</h3>
-                  <p className="text-white/60 text-base">
-                    Server/OS validation, terminal apps, drivers, database links, and production-simulated flows with detailed defect paths.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Panaya", "Jira", "BrowserStack", "Stripe", "Postman"].map((tool) => (
-                      <span key={tool} className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src="/desktop-setup-with-monitor-showing-colorful-analyt.jpg"
-                    alt="QA workflow"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-hero-bg/70 to-transparent" />
-                </div>
-              </div>
-            </FadeIn>
+            {/** Removed empty hero card column */}
           </div>
         </div>
       </section>

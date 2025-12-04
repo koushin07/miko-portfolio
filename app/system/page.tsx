@@ -85,7 +85,7 @@ export default function SystemPage() {
 
       <section className="pt-[120px] pb-16 md:pb-24">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+          <div className="grid grid-cols-1 gap-10 items-center">
             <div className="space-y-6">
               <FadeIn>
                 <p className="text-white/60 text-eyebrow uppercase tracking-wider">Portfolio · System</p>
@@ -134,34 +134,7 @@ export default function SystemPage() {
               </FadeIn>
             </div>
 
-            <FadeIn delay={0.2} direction="right">
-              <div className="bg-[#131f5b]/60 border border-white/10 rounded-2xl overflow-hidden shadow-xl">
-                <div className="p-6 md:p-8 flex flex-col gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                    <Server className="w-6 h-6 text-white/70" />
-                  </div>
-                  <h3 className="text-2xl text-white font-medium">Stable systems from rack to release</h3>
-                  <p className="text-white/60 text-base">
-                    Physical server setup, OS hardening, network routing, and ongoing checks that keep uptime healthy.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Ubuntu/Linux", "Automation", "Backups", "DNS", "Monitoring"].map((tool) => (
-                      <span key={tool} className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src="/server-rack-data-center-with-blue-lights.jpg"
-                    alt="System and infrastructure"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-hero-bg/70 to-transparent" />
-                </div>
-              </div>
-            </FadeIn>
+            {/** Removed empty hero card column */}
           </div>
         </div>
       </section>

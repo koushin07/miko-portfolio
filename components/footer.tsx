@@ -13,17 +13,16 @@ export default function Footer() {
   ]
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+    { icon: Github, href: "https://github.com/koushin07", label: "GitHub" },
+    { icon: Linkedin, href: "www.linkedin.com/in/miko-cañares-772525292", label: "LinkedIn" },
+
   ]
 
   const handleDownloadCV = () => {
     // Create a link to download the CV
     const link = document.createElement("a")
-    link.href = "/Miko Canares updated.pdf"
-    link.download = "Miko-Canares-CV.pdf"
+    link.href = "/Miko-Canares-CV.pdf"
+    link.download = "Miko Canares CV.pdf"
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

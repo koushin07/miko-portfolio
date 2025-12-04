@@ -172,24 +172,8 @@ export default function AboutPage() {
 
             <FadeIn delay={0.3} direction="right">
               <div className="bg-[#131f5b]/60 border border-white/10 rounded-2xl overflow-hidden shadow-xl">
-                <div className="p-6 md:p-8 flex flex-col gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                    <Briefcase className="w-6 h-6 text-white/70" />
-                  </div>
-                  <h3 className="text-2xl text-white font-medium">3 disciplines, one owner</h3>
-                  <p className="text-white/60 text-base">
-                    I design, build, and test the same systems - requirements, releases, and reliability stay aligned.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {["QA", "Full-stack", "Systems", "Integrations"].map((pill) => (
-                      <span key={pill} className="px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">
-                        {pill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img src="/profile-pic.png" alt="Miko" className="w-full h-full object-cover" />
+                <div className="relative aspect-[4/3]">
+                  <img src="/profile-pic.png" alt="Miko" className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-hero-bg/70 to-transparent" />
                 </div>
               </div>
