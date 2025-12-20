@@ -54,7 +54,7 @@ const experience = [
   {
     role: "Full-Stack Developer",
     company: "Emport",
-    period: "Jan 2025 - Jun 2025",
+    period: "Jan 2025 - Apr 2025",
     description:
       "Designed a full employee management platform for academic institutions using Laravel & React. Implemented teacher attendance tracking, payroll management, leave requests, and centralized employee and role management.",
   },

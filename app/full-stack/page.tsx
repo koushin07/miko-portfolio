@@ -66,7 +66,7 @@ const projects: Project[] = [
       "Full employee management platform for academic institutions. Implemented teacher attendance tracking, payroll management, leave requests, and centralized employee and role management using Laravel and React.",
     tech: ["Laravel", "React", "PHP", "MySQL", "Payroll Systems"],
     image: "/projects/emport.jpeg",
-    year: "Jan 2025 - Jun 2025",
+    year: "Jan 2025 - Apr 2025",
   },
   {
     id: 4,
