@@ -42,7 +42,7 @@ export default function Navigation() {
     { label: "Contact", href: "/contact" },
   ]
 
-  const bookingWebhook = process.env.NEXT_PUBLIC_BOOKING_WEBHOOK
+  const bookingWebhook = process.env.NEXT_PUBLIC_BOOKING_WEBHOOK || "https://hook.us2.make.com/jj0ks9fxup85shdzos3b7x5e1pavkhc1"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -379,8 +379,8 @@ export default function Navigation() {
           </form>
 
           <div className="rounded-lg border border-dashed border-gray-200 p-3 text-xs text-muted-foreground mt-4">
-            <p className="font-semibold text-foreground text-sm mb-1">Tip</p>
-            <p>Set <code>unavailableDates</code> to disable specific days. Connect unavailable times by marking slots as disabled.</p>
+            <p className="font-semibold text-foreground text-sm mb-1">Automation</p>
+            <p>This booking form triggers a Make.com webhook to create the calendar invite and send confirmations. Adjust availability by editing the disabled dates/times in code.</p>
           </div>
         </SheetContent>
       </Sheet>
