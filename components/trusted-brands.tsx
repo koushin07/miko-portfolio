@@ -17,8 +17,8 @@ export default function TrustedBrands() {
           <div>
             <h1 className="text-h2 font-semibold text-foreground mb-4">Trusted by leading brands</h1>
             <p className="text-muted-foreground text-base-custom max-w-[380px]">
-              Discover companies and partners I've worked with, highlighting expertise in QA, full-stack development,
-              and systems & infrastructure. Each collaboration reflects a dedication to quality, innovation, and professional growth.
+              Companies I've supported through full-stack delivery, integrations, and automation. Each collaboration
+              reflects a focus on reliability and measurable outcomes.
             </p>
           </div>
 

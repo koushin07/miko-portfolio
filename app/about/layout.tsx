@@ -4,9 +4,9 @@ import { buildMetadata } from "@/lib/seo"
 export const metadata = buildMetadata({
   title: "About",
   description:
-    "Background, experience, and capabilities of QA engineer and full-stack developer Miko Canares.",
+    "How Miko Canares approaches full-stack development, automation, and reliability across projects.",
   path: "/about",
-  keywords: ["About Miko Canares", "QA background", "Full-stack experience"],
+  keywords: ["About Miko Canares", "Full-stack experience", "Automation approach"],
 })
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

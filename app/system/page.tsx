@@ -105,7 +105,7 @@ export default function SystemPage() {
               <FadeIn delay={0.3}>
                 <div className="flex flex-wrap items-center gap-4">
                   <a
-                    href="/about#contact"
+                    href="/contact"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-[#1e308e] text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
                   >
                     Plan an infra run

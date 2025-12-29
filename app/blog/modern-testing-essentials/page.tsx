@@ -190,7 +190,7 @@ export default function ModernTestingEssentialsPage() {
               <h3 className="text-h4 text-white mb-3">Interested in improving your testing strategy?</h3>
               <p className="text-white/60 mb-6">Let's discuss how to implement a robust testing framework for your project.</p>
               <Link
-                href="/about#contact"
+                href="/contact"
                 className="inline-block px-8 py-4 bg-[#1e308e] text-white rounded-lg hover:bg-accent-primary-hover transition-colors font-medium"
               >
                 Get in touch

@@ -171,7 +171,7 @@ export default function VibeCoder() {
               <h3 className="text-h4 text-white mb-3">Building stronger development practices?</h3>
               <p className="text-white/60 mb-6">Let's discuss strategies for creating disciplined, collaborative teams that maintain system stability while delivering value.</p>
               <Link
-                href="/about#contact"
+                href="/contact"
                 className="inline-block px-8 py-4 bg-[#1e308e] text-white rounded-lg hover:bg-accent-primary-hover transition-colors font-medium"
               >
                 Get in touch

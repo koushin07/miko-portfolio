@@ -10,9 +10,9 @@ export default function PageNavigation() {
   const pathname = usePathname()
 
   const navLinks = [
-    { href: "/qa", label: "QA" },
-    { href: "/full-stack", label: "Full-Stack" },
-    { href: "/system", label: "Systems & Infrastructure Specialist" },
+    { href: "/projects", label: "Projects" },
+    { href: "/automation", label: "Automation" },
+    { href: "/case-study", label: "Case Study" },
   ]
 
   return (
@@ -62,7 +62,7 @@ export default function PageNavigation() {
 
           {/* Connect Button */}
           <Link
-            href="/about#contact"
+            href="/contact"
             className="hidden md:block px-5 py-2.5 bg-[#1e308e] text-white rounded-lg hover:bg-accent-primary-hover transition-all duration-300 text-base-custom font-medium hover:scale-105"
           >
             Connect
@@ -94,7 +94,7 @@ export default function PageNavigation() {
               </Link>
             ))}
             <Link
-              href="/about#contact"
+              href="/contact"
               onClick={() => setIsOpen(false)}
               className="mt-2 px-5 py-2.5 bg-[#1e308e] text-white rounded-lg text-center hover:bg-accent-primary-hover transition text-base-custom font-medium"
             >

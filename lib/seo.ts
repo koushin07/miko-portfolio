@@ -4,24 +4,27 @@ const DEFAULT_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://mikocanare
 
 export const siteConfig = {
   name: "Miko Canares",
-  title: "Miko Canares - QA, Full-Stack & Systems Specialist",
+  title: "Miko Canares - Full Stack Developer & Automation Engineer",
   description:
-    "QA engineer, full-stack developer, and systems specialist delivering production-ready builds across web, infrastructure, and automation.",
+    "Full-stack web developer and automation engineer building API-driven products, integrations, and reliable workflows.",
   url: DEFAULT_SITE_URL,
   locale: "en_US",
   email: "canaresmiko3@gmail.com",
   ogImage: "/modern-coding-workspace-with-multiple-monitors-sho.jpg",
   keywords: [
     "Miko Canares",
-    "QA engineer",
     "Full-stack developer",
-    "Systems specialist",
-    "Automation testing",
-    "Laravel developer",
-    "ASP.NET Core",
+    "Automation engineer",
+    "Integrations",
+    "JavaScript",
     "Next.js",
-    "Angular",
-    "Infrastructure engineering",
+    "Node.js",
+    "TypeScript",
+    "n8n",
+    "Zapier",
+    "Make",
+    "Stripe integrations",
+    "Shopify integrations",
   ],
 }
 

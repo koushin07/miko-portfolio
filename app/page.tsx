@@ -4,17 +4,16 @@ import TrustedBrands from "@/components/trusted-brands";
 import Expertise from "@/components/expertise";
 import TechStack from "@/components/tech-stack";
 import FeaturedWork from "@/components/featured-work";
-import PortfolioTabs from "@/components/portfolio-tabs";
-import Blog from "@/components/blog";
+import WhatIDo from "@/components/what-i-do";
 import Footer from "@/components/footer";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Home",
   description:
-    "QA engineer and full-stack developer delivering reliable products, infrastructure, and automation for high-stakes launches.",
+    "Full-stack web developer and automation engineer building API-driven products, integrations, and reliable workflows.",
   path: "/",
-  keywords: ["Quality assurance", "Web development", "Systems engineering"],
+  keywords: ["Full-stack developer", "Automation engineer", "Integrations", "API-first"],
 });
 
 export default function Home() {
@@ -23,12 +22,10 @@ export default function Home() {
       <Navigation />
       <Hero />
       <TrustedBrands />
+      <WhatIDo />
       <Expertise />
-
-      <PortfolioTabs />
       <TechStack />
       <FeaturedWork />
-      <Blog />
       <Footer />
     </main>
   );

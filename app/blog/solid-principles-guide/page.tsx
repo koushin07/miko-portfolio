@@ -263,7 +263,7 @@ export default function SOLIDPrinciplesPage() {
               <h3 className="text-h4 text-white mb-3">Ready to refactor your codebase?</h3>
               <p className="text-white/60 mb-6">Let's work together to build scalable, maintainable systems using clean code principles.</p>
               <Link
-                href="/about#contact"
+                href="/contact"
                 className="inline-block px-8 py-4 bg-[#1e308e] text-white rounded-lg hover:bg-accent-primary-hover transition-colors font-medium"
               >
                 Get in touch
