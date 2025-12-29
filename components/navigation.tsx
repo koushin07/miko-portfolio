@@ -59,19 +59,18 @@ export default function Navigation() {
     setStatus("loading")
     setStatusMessage("")
     try {
+      const startIso =
+        selectedDate && selectedStartTime ? formatOffsetIso(selectedDate, selectedStartTime, formData.timezone) : ""
+      const endIso =
+        selectedDate && selectedEndTime ? formatOffsetIso(selectedDate, selectedEndTime, formData.timezone) : ""
+
       const res = await fetch(bookingWebhook, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          startDateTime:
-            selectedDate && selectedStartTime
-              ? `${selectedDate.toISOString().slice(0, 10)}T${selectedStartTime}`
-              : "",
-          endDateTime:
-            selectedDate && selectedEndTime
-              ? `${selectedDate.toISOString().slice(0, 10)}T${selectedEndTime}`
-              : "",
+          startDateTime: startIso,
+          endDateTime: endIso,
           source: "nav-book-call",
           submittedAt: new Date().toISOString(),
         }),
@@ -110,29 +109,63 @@ export default function Navigation() {
   }, [])
 
   const timeOptions = ["09:00", "09:30", "10:00", "10:30", "11:00", "13:00", "14:00", "15:00", "16:00"]
-  const timezones = useMemo(() => {
-    if (typeof Intl !== "undefined" && "supportedValuesOf" in Intl && Intl.supportedValuesOf) {
-      try {
-        return Intl.supportedValuesOf("timeZone")
-      } catch {
-        // ignore
-      }
-    }
-    return [
+  const timezones = useMemo(
+    () => [
       "Asia/Manila",
       "UTC",
-      "America/Los_Angeles",
-      "America/New_York",
       "Europe/London",
+      "America/New_York",
+      "Asia/Tokyo",
+      "Australia/Sydney",
+      "Africa/Johannesburg",
+      "America/Los_Angeles",
+      "Pacific/Auckland",
       "Europe/Berlin",
-      "Asia/Singapore",
-    ]
-  }, [])
+      "America/Chicago",
+    ],
+    []
+  )
 
   const formatDate = (date?: Date) =>
     date
       ? date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
       : "Select a date"
+
+  const getOffsetMinutes = (date: Date, timeZone: string) => {
+    const formatter = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hourCycle: "h23",
+    })
+    const parts = formatter.formatToParts(date)
+    const pick = (type: Intl.DateTimeFormatPartTypes) => Number(parts.find((p) => p.type === type)?.value || 0)
+    const asUtc = Date.UTC(pick("year"), pick("month") - 1, pick("day"), pick("hour"), pick("minute"), pick("second"))
+    return (asUtc - date.getTime()) / 60000
+  }
+
+  const formatOffsetIso = (date: Date, time: string, timeZone: string) => {
+    if (!time) return ""
+    const [hour = "0", minute = "0"] = time.split(":")
+    const y = date.getFullYear()
+    const m = date.getMonth()
+    const d = date.getDate()
+    const base = new Date(Date.UTC(y, m, d, Number(hour), Number(minute), 0))
+    const offsetMinutes = getOffsetMinutes(base, timeZone)
+    const sign = offsetMinutes >= 0 ? "+" : "-"
+    const abs = Math.abs(offsetMinutes)
+    const offH = String(Math.floor(abs / 60)).padStart(2, "0")
+    const offM = String(abs % 60).padStart(2, "0")
+    const month = String(m + 1).padStart(2, "0")
+    const day = String(d).padStart(2, "0")
+    const hourPad = String(hour).padStart(2, "0")
+    const minutePad = String(minute).padStart(2, "0")
+    return `${y}-${month}-${day}T${hourPad}:${minutePad}:00`
+  }
 
   return (
     <nav className="absolute top-0 left-0 right-0 z-50">
