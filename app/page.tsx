@@ -5,7 +5,6 @@ import Expertise from "@/components/expertise";
 import TechStack from "@/components/tech-stack";
 import FeaturedWork from "@/components/featured-work";
 import WhatIDo from "@/components/what-i-do";
-import NDATeaser from "@/components/nda-teaser";
 import Footer from "@/components/footer";
 import { buildMetadata } from "@/lib/seo";
 
@@ -25,7 +24,6 @@ export default function Home() {
       <TrustedBrands />
       <WhatIDo />
       <FeaturedWork />
-      <NDATeaser />
       <Expertise />
       <TechStack />
       <Footer />

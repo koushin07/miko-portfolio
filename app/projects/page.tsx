@@ -1,7 +1,7 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { FadeIn } from "@/components/ui/motion"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowRight, CheckCircle2, Lock } from "lucide-react"
 import { buildMetadata } from "@/lib/seo"
 import Link from "next/link"
 
@@ -312,7 +312,7 @@ export default function ProjectsPage() {
           <FadeIn>
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-h2 text-foreground">Products & systems at a glance</h2>
-              <span className="text-muted-foreground text-sm">{projects.length} builds</span>
+              <span className="text-muted-foreground text-sm">{projects.length + 1} builds</span>
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -321,6 +321,28 @@ export default function ProjectsPage() {
                 <ProjectCard project={project} />
               </FadeIn>
             ))}
+            <FadeIn delay={0.08 * projects.length} direction="up">
+              <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full flex flex-col" style={{ borderTop: "2px solid var(--amber)" }}>
+                <div className="flex items-center justify-between gap-4 mb-3">
+                  <div className="flex items-center gap-2">
+                    <Lock size={13} style={{ color: "var(--amber)" }} />
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--amber)" }}>NDA</span>
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-2">Private SaaS Platform — LegalTech</h3>
+                <p className="text-muted-foreground text-sm mb-4 flex-1">
+                  4 internal production systems: document generation pipeline, data transformation engine, multi-party dispute scheduling, and a Wear OS rule engine for mediator workflows.
+                </p>
+                <div className="text-sm text-foreground/80 space-y-1 mb-4">
+                  <p><span className="font-semibold">Stack:</span> React, Node.js, Supabase</p>
+                  <p><span className="font-semibold">Integrations:</span> n8n, SurveyJS, Wear OS, Google Drive</p>
+                </div>
+                <Link href="#private-legaltech" className="inline-flex items-center gap-2 text-sm font-semibold text-foreground group mt-auto">
+                  See full breakdown
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </article>
+            </FadeIn>
           </div>
         </div>
       </section>

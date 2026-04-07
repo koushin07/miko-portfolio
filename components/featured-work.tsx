@@ -1,7 +1,7 @@
 "use client"
 
 import { FadeIn } from "@/components/ui/motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Lock } from "lucide-react"
 import Link from "next/link"
 
 const projects = [
@@ -14,6 +14,7 @@ const projects = [
     accent: "#4F6EF7",
     num: "01",
     link: "/projects#ace",
+    nda: false,
   },
   {
     title: "Roadworthy Inspection Platform",
@@ -24,16 +25,18 @@ const projects = [
     accent: "#E8A020",
     num: "02",
     link: "/projects#roadworthy",
+    nda: false,
   },
   {
-    title: "Emergency Resource Information System",
+    title: "Private SaaS Platform — LegalTech",
     description:
-      "Regional responders had no central view of equipment availability or movement history during incidents. Built a real-time resource management system with dispatch-ready dashboards, movement audit trails, and RBAC across municipalities.",
-    stack: ["Laravel", "Inertia", "Vue"],
-    integrations: ["Inventory", "Dispatch", "Reporting"],
-    accent: "#2D9A6E",
+      "Built 4 internal production systems: a document generation pipeline, a data transformation engine for lead generation, a multi-party dispute scheduling system, and a Wear OS rule engine for mediator workflows.",
+    stack: ["React", "Node.js", "Supabase"],
+    integrations: ["n8n", "SurveyJS", "Wear OS", "Google Drive"],
+    accent: "#E8A020",
     num: "03",
-    link: "/case-study",
+    link: "/projects#private-legaltech",
+    nda: true,
   },
 ]
 
@@ -70,13 +73,19 @@ export default function FeaturedWork() {
                 className="bg-white/[0.04] rounded-2xl border border-white/10 p-6 h-full flex flex-col gap-4 hover:-translate-y-1 hover:bg-white/[0.07] transition-all duration-300"
                 style={{ borderTop: `2px solid ${project.accent}` }}
               >
-                <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center justify-between gap-2">
                   <span
                     className="text-xs font-bold tracking-widest"
                     style={{ color: project.accent, fontFamily: "var(--font-display)" }}
                   >
                     {project.num}
                   </span>
+                  {project.nda && (
+                    <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide border" style={{ color: "var(--amber)", borderColor: "var(--amber)", backgroundColor: "rgba(232,160,32,0.08)" }}>
+                      <Lock size={9} />
+                      NDA
+                    </span>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-xl font-semibold text-white">{project.title}</h3>
@@ -106,7 +115,7 @@ export default function FeaturedWork() {
                   href={project.link}
                   className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium mt-auto group relative transition-colors duration-200"
                 >
-                  View details
+                  {project.nda ? "See full breakdown" : "View details"}
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   <span className="absolute bottom-0 left-0 h-[1px] bg-white/60 w-0 group-hover:w-full transition-all duration-300 origin-left" />
                 </Link>
