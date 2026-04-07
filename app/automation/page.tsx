@@ -103,6 +103,54 @@ export default function AutomationPage() {
         </div>
       </section>
 
+      <section className="py-16 md:py-20 bg-[#080c24]">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-8">
+          <FadeIn>
+            <div className="space-y-3">
+              <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/40">Real-world n8n flows</p>
+              <h2 className="text-h2 text-white">Production pipelines built with n8n</h2>
+              <p className="text-white/55 text-base max-w-2xl">
+                These flows were built for a LegalTech firm (NDA). Included to show the depth and complexity of
+                automation work — no company name or identifying details.
+              </p>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                num: "01",
+                title: "Document Generation Pipeline",
+                description:
+                  "SurveyJS form submission triggers an n8n workflow that pulls dynamic form data from Supabase, merges it with file metadata, generates a document, and delivers it to the user's email. Handles data mapping, file generation, and delivery in a single automated sequence.",
+                tags: ["SurveyJS", "Supabase", "n8n", "Email delivery"],
+              },
+              {
+                num: "02",
+                title: "Lead Generation from Bulk Data Uploads",
+                description:
+                  "n8n watches a Google Drive folder for new zip file uploads. On detection, it retrieves the file, sends it to a custom Node/Express backend for extraction and transformation of ^-separated data into structured leads, then moves the processed file to an archive folder as a completion signal.",
+                tags: ["Google Drive API", "n8n", "Node.js", "Express"],
+              },
+            ].map((flow, i) => (
+              <FadeIn key={flow.num} delay={0.1 * i} direction="up">
+                <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-6 md:p-8 space-y-4 h-full flex flex-col">
+                  <span className="text-xs font-bold tracking-widest text-white/30">{flow.num}</span>
+                  <h3 className="text-lg font-semibold text-white">{flow.title}</h3>
+                  <p className="text-white/55 text-sm leading-relaxed flex-1">{flow.description}</p>
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
+                    {flow.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 rounded text-xs text-white/60 border border-white/10 bg-white/5">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 md:py-20 bg-accent-secondary">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-8">
           <FadeIn>
