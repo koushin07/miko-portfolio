@@ -10,8 +10,7 @@ export default function WhatIDo() {
           <div className="bg-accent-secondary border border-gray-200 rounded-2xl p-8 md:p-10 space-y-4">
             <p className="text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">What I do</p>
             <p className="text-xl-custom text-foreground max-w-4xl leading-relaxed">
-              I design and develop full-stack web applications, integrate third-party systems, and build automation
-              workflows that reduce manual work and improve operational reliability.
+              I partner with startups and businesses to build the systems their teams rely on daily — from client-facing SaaS platforms to backend automation pipelines that eliminate manual work. Whether integrating a new tool into your stack or architecting a system from scratch, I work end-to-end: design, backend, frontend, deployment, and automation.
             </p>
           </div>
         </FadeIn>
