@@ -100,6 +100,59 @@ export default function AutomationPage() {
               </FadeIn>
             ))}
           </div>
+
+          <FadeIn delay={0.1} direction="up">
+            <div className="space-y-4 pt-4">
+              <div className="flex items-center gap-3">
+                <p className="text-sm font-medium text-muted-foreground uppercase tracking-[0.14em]">LegalTech flows (NDA)</p>
+                <span className="px-2 py-0.5 rounded text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200">Private · NDA</span>
+              </div>
+
+              {/* Flow 1 — Document Generation */}
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 space-y-4">
+                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-[0.12em]">01 — Document Generation Pipeline</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  {[
+                    { label: "Trigger", name: "SurveyJS Form", highlight: false },
+                    { label: "Storage", name: "Supabase", highlight: false },
+                    { label: "Orchestrator", name: "n8n", highlight: true },
+                    { label: "Action", name: "Doc Generator", highlight: false },
+                    { label: "Output", name: "Email Delivery", highlight: false },
+                  ].map((step, i, arr) => (
+                    <div key={step.name} className="flex items-center gap-2">
+                      <div className={`rounded-lg px-3 py-2 text-center border ${step.highlight ? "bg-[#1e308e] border-[#1e308e]" : "bg-accent-secondary border-gray-200"}`}>
+                        <p className={`text-[10px] leading-none mb-1 ${step.highlight ? "text-white/60" : "text-muted-foreground"}`}>{step.label}</p>
+                        <p className={`text-sm font-semibold whitespace-nowrap ${step.highlight ? "text-white" : "text-foreground"}`}>{step.name}</p>
+                      </div>
+                      {i < arr.length - 1 && <ArrowRight size={14} className="text-gray-300 shrink-0" />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Flow 2 — Lead Generation */}
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 space-y-4">
+                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-[0.12em]">02 — Lead Generation Pipeline</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  {[
+                    { label: "Trigger", name: "Zip Upload", highlight: false },
+                    { label: "Watch", name: "Google Drive", highlight: false },
+                    { label: "Orchestrator", name: "n8n", highlight: true },
+                    { label: "Transform", name: "Node / Express", highlight: false },
+                    { label: "Output", name: "Leads + Archive", highlight: false },
+                  ].map((step, i, arr) => (
+                    <div key={step.name} className="flex items-center gap-2">
+                      <div className={`rounded-lg px-3 py-2 text-center border ${step.highlight ? "bg-[#1e308e] border-[#1e308e]" : "bg-accent-secondary border-gray-200"}`}>
+                        <p className={`text-[10px] leading-none mb-1 ${step.highlight ? "text-white/60" : "text-muted-foreground"}`}>{step.label}</p>
+                        <p className={`text-sm font-semibold whitespace-nowrap ${step.highlight ? "text-white" : "text-foreground"}`}>{step.name}</p>
+                      </div>
+                      {i < arr.length - 1 && <ArrowRight size={14} className="text-gray-300 shrink-0" />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
