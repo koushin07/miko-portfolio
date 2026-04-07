@@ -71,7 +71,6 @@ export default function FeaturedWork() {
             <FadeIn key={project.title} delay={0.08 * (index + 1)} direction="up">
               <article
                 className="bg-white/[0.04] rounded-2xl border border-white/10 p-6 h-full flex flex-col gap-4 hover:-translate-y-1 hover:bg-white/[0.07] transition-all duration-300"
-                style={{ borderTop: `2px solid ${project.accent}` }}
               >
                 <div className="flex items-center justify-between gap-2">
                   <span

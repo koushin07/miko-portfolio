@@ -322,7 +322,7 @@ export default function ProjectsPage() {
               </FadeIn>
             ))}
             <FadeIn delay={0.08 * projects.length} direction="up">
-              <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full flex flex-col" style={{ borderTop: "2px solid var(--amber)" }}>
+              <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full flex flex-col">
                 <div className="flex items-center justify-between gap-4 mb-3">
                   <div className="flex items-center gap-2">
                     <Lock size={13} style={{ color: "var(--amber)" }} />
