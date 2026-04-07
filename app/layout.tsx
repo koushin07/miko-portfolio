@@ -1,7 +1,7 @@
 import type React from "react"
 import { Suspense } from "react"
 import type { Metadata } from "next"
-import { Manrope, Geist_Mono } from "next/font/google"
+import { Manrope, Geist_Mono, Syne } from "next/font/google"
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
 import AnalyticsListener from "@/components/analytics-listener"
@@ -15,6 +15,7 @@ import "./globals.css"
 
 const _manrope = Manrope({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _syne = Syne({ subsets: ["latin"], weight: ["400", "600", "700", "800"] })
 
 const defaultOgImage = `${siteConfig.url}${siteConfig.ogImage}`
 

@@ -53,6 +53,7 @@
   --neutral-inverse: #080c24;
   --hero-bg: #0a0e1a;
   --hero-foreground: #ffffff;
+  --amber: #E8A020;
 }
 
 .dark {
@@ -92,6 +93,7 @@
 
 @theme inline {
   --font-sans: "Manrope", "Manrope Fallback", system-ui, sans-serif;
+  --font-display: "Syne", system-ui, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -139,6 +141,7 @@
   --color-neutral-inverse: var(--neutral-inverse);
   --color-hero-bg: var(--hero-bg);
   --color-hero-foreground: var(--hero-foreground);
+  --color-amber: var(--amber);
 }
 
 @layer base {
@@ -152,9 +155,36 @@
     @apply bg-background text-foreground font-sans;
   }
 
+  /* Display font utility */
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* Hero gradient mesh */
+  .hero-mesh {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-mesh::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 80% 15%, oklch(0.38 0.14 264 / 0.55), transparent),
+      radial-gradient(ellipse 45% 65% at 5% 85%, oklch(0.30 0.10 278 / 0.45), transparent),
+      radial-gradient(ellipse 35% 45% at 50% 110%, oklch(0.22 0.08 252 / 0.35), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-mesh > * {
+    position: relative;
+    z-index: 1;
+  }
+
   /* Typography - H0 (5.61rem desktop → 2.87rem mobile) */
   .text-h0 {
     font-size: 2.87rem;
+    font-family: var(--font-display);
     font-weight: 400;
     line-height: 1.04;
     letter-spacing: -0.01em;
@@ -178,6 +208,7 @@
   /* Typography - H1 (4.21rem desktop → 2.15rem mobile) */
   .text-h1 {
     font-size: 2.15rem;
+    font-family: var(--font-display);
     font-weight: 400;
     line-height: 1.04;
     letter-spacing: -0.01em;
@@ -201,6 +232,7 @@
   /* Typography - H2 (2.37rem desktop → 1.21rem mobile) */
   .text-h2 {
     font-size: 1.21rem;
+    font-family: var(--font-display);
     font-weight: 400;
     line-height: 1.04;
     letter-spacing: -0.01em;
