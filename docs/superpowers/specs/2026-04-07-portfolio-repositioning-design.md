@@ -6,6 +6,42 @@
 
 ---
 
+## UI / Visual Design Updates
+
+Based on the original Webflow inspiration site. Fonts and colors already match — changes are layout and scale.
+
+### Hero
+- **Headline**: Switch to Syne display font, very large (clamp ~5rem→9rem), bold/black weight (700-800), line-height tight (~0.95). Make it commanding — it should dominate the viewport.
+- **Layout**: Remove the current 2-column split. Full-width headline stacked above subtext and CTAs. The highlights card moves below or is removed — the headline does the heavy lifting.
+- **Subtext**: Smaller, `text-white/70`, max-width ~600px, sits below the headline.
+- **CTAs**: Two buttons side-by-side below subtext. Primary solid blue, secondary ghost/outline.
+
+### Typography Scale
+- Hero h1: Syne, `font-weight: 800`, very large display size
+- Section headings: Keep Manrope, `font-weight: 600-700`
+- Body/descriptions: Manrope regular, `text-white/60` or `text-foreground/60`
+
+### Cards
+- White background, `border border-gray-200`, subtle `shadow-sm`
+- Clean icon or number label at top
+- Title → description → arrow CTA link at bottom
+- Hover: `-translate-y-1` + `shadow-md` (already in place)
+
+### Section Rhythm
+- Hard alternation: dark navy → white → dark navy → white
+- Each section boundary is clean and pronounced
+
+### NDA Teaser Card (home page)
+- Dark card on a white section background (inverted from public project cards)
+- Lock or shield icon indicator
+- "Under NDA" badge in amber/gold
+
+### Additional files touched for UI
+- `app/globals.css` — confirm display font utility class is wired up
+- `components/hero.tsx` — layout change (full-width headline, remove 2-col split)
+
+---
+
 ## Goal
 
 Reposition the portfolio from "general full-stack developer" to:
