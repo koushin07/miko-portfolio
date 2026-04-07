@@ -35,11 +35,12 @@ const projects: Project[] = [
   {
     id: "ace",
     title: "ACE Clinical Placement Platform",
-    summary: "Placement booking with location search, secure onboarding, and automated document packs.",
+    summary:
+      "CRM-synced booking platform with location search, automated onboarding flows, and document packs triggered on placement milestones.",
     stack: "Next.js, Laravel, TypeScript",
     integrations: "Mapbox, Clerk, PandaDoc, Pipedrive",
     context:
-      "The team ran preceptors, students, and booking leads through Pipedrive as the single source of truth, handling comms via calls and email. Bookings, profiles, and documents had to stay locked to CRM records—no more fragmented spreadsheets or inbox juggling.",
+      "Placement coordinators managed bookings, student profiles, and document packs across Pipedrive, email threads, and spreadsheets. Any status update required manual reconciliation across all three.",
     role: "Architecture, full-stack build, integrations, deployment, QA",
     techStack: {
       frontend: "Next.js + TypeScript + Tailwind component system",
@@ -53,16 +54,17 @@ const projects: Project[] = [
       "Centralized error handling around third-party calls with retries and audit logs.",
     ],
     outcome:
-      "Onboarding is templated, placements stay in sync with CRM records, and teams see where each placement sits without manual reconciliation.",
+      "Onboarding is templated, bookings stay in sync with CRM records, and coordinators see placement status without manual reconciliation.",
   },
   {
     id: "roadworthy",
     title: "Roadworthy Inspection Platform",
-    summary: "Booking-to-inspection flow with payments, templated jobs, and lifecycle communications.",
+    summary:
+      "Booking-to-inspection pipeline integrating payments, job creation, and lifecycle comms in one reliable flow.",
     stack: "React, Node.js, TypeScript",
     integrations: "Stripe, ServiceM8, Brevo, Figma QA",
     context:
-      "Roadworthy inspections required payments, job creation, and messaging to stay in sync across web, ServiceM8, and email automations.",
+      "Roadworthy inspections required payments, job creation, and customer messaging to stay in sync across three separate systems. A failure in any one broke the entire flow.",
     role: "Frontend and backend pairing with QA on every release",
     techStack: {
       frontend: "React + TypeScript aligned to Figma for pixel fidelity",
@@ -71,21 +73,22 @@ const projects: Project[] = [
       apis: "Stripe for payments, ServiceM8 for job templates, Brevo for lifecycle comms",
     },
     keyDecisions: [
-      "Validation paths for payment success/failure and retries to keep bookings consistent.",
+      "Idempotent API calls for payment and job creation to prevent duplicates on retry.",
+      "Validation paths for payment success/failure to keep bookings consistent.",
       "Automated QA passes against Figma components to protect UX quality.",
-      "ServiceM8 job creation wrapped in idempotent calls to avoid duplicates.",
     ],
     outcome:
-      "Bookings reliably trigger payments, job templates, and emails in one flow, cutting manual cleanup and keeping operations aligned to the design system.",
+      "Bookings reliably trigger payments, job templates, and lifecycle emails — cutting manual cleanup and eliminating sync failures.",
   },
   {
     id: "eris",
     title: "Emergency Resource Information System",
-    summary: "Live resource visibility for responders with dispatch history and audits.",
+    summary:
+      "Real-time resource management for responders with dispatch dashboards, movement audit trails, and RBAC.",
     stack: "Laravel, Inertia, Vue",
     integrations: "Inventory, dispatch workflows, reporting",
     context:
-      "Regional responders needed to see what equipment was available, where it was headed, and who moved it without losing audit trails.",
+      "Regional responders had no central view of what equipment was available, where it was headed, or who moved it — critical visibility gaps during high-pressure incidents.",
     role: "Product architecture, development, and QA for critical workflows",
     techStack: {
       frontend: "Vue + Inertia for fast dashboards and filtering",
@@ -99,17 +102,18 @@ const projects: Project[] = [
       "Reporting endpoints to enable post-incident reviews and oversight.",
     ],
     outcome:
-      "Teams can locate and dispatch resources quickly with clear histories, improving coordination during high-pressure incidents.",
+      "Teams locate and dispatch resources faster with clear accountability — reducing coordination failures during incidents.",
     cta: { label: "Read the case study", href: "/case-study" },
   },
   {
     id: "emport",
     title: "Emport Employee Management",
-    summary: "HR suite for academic institutions covering attendance, payroll, leave, and roles.",
+    summary:
+      "Unified HR platform linking attendance, payroll, and leave workflows with role-based access and audit exports.",
     stack: "Laravel, React, MySQL",
     integrations: "Payroll exports, role management, notifications",
     context:
-      "Schools needed to move attendance, payroll, and approvals out of scattered sheets and into one permissioned system that finance and admins could trust.",
+      "Schools were managing attendance, payroll, and leave approvals across scattered spreadsheets shared between HR and finance — reconciliation was manual and error-prone.",
     role: "Product architecture, full-stack build, QA, deployment",
     techStack: {
       frontend: "React with reusable dashboards and forms",
@@ -123,16 +127,17 @@ const projects: Project[] = [
       "Audit-friendly exports so finance could reconcile without rework.",
     ],
     outcome:
-      "Attendance, leave, and payroll stay aligned with approvals and exports, removing spreadsheet handoffs between HR and finance.",
+      "Attendance, leave, and payroll stay aligned with approvals and exports — removing manual reconciliation between HR and finance.",
   },
   {
     id: "boostlab",
     title: "Boostlab Digital Storefront",
-    summary: "Ecommerce experience for digital boosting with reliable checkout and tracking.",
+    summary:
+      "Conversion-focused storefront with Shopify backend, Checkout.com payments, and Meta Pixel on key funnel steps.",
     stack: "React, Shopify, Checkout.com",
     integrations: "Shopify, Checkout.com, Meta Pixel",
     context:
-      "The team needed a conversion-focused storefront with payments, order syncing, and analytics that matched the designed experience.",
+      "The team needed a conversion-focused storefront where payments, order syncing, and analytics matched the designed experience exactly — no gaps between design and production.",
     role: "Frontend build, integrations, QA, deployment",
     techStack: {
       frontend: "React + Tailwind pages tuned to the Figma design system",
@@ -146,16 +151,17 @@ const projects: Project[] = [
       "Analytics tagged on key funnel steps for clear attribution.",
     ],
     outcome:
-      "Customers get a smooth checkout and orders sync cleanly to Shopify with accurate tracking, reducing cart drop-offs and support pings.",
+      "Customers get a smooth checkout, orders sync cleanly to Shopify, and attribution is accurate — reducing cart drop-offs and support load.",
   },
   {
     id: "logiware",
     title: "LogiWare Inventory Platform",
-    summary: "One-stop inventory and shipment tracking for logistics teams.",
+    summary:
+      "Centralized inventory and shipment management with movement history, fulfillment dashboards, and staged rollouts.",
     stack: "ASP.NET, Angular, SQL Server",
     integrations: "Shipment tracking, product flow monitoring",
     context:
-      "Logistics teams needed visibility into stock, shipments, and product movements without reconciling multiple trackers.",
+      "Logistics teams were reconciling stock levels and shipment status across multiple trackers — no single source of truth meant slow fulfillment decisions.",
     role: "Frontend and backend delivery with QA and deployment",
     techStack: {
       frontend: "Angular + Tailwind dashboards for status visibility",
@@ -169,7 +175,7 @@ const projects: Project[] = [
       "Deployment pipeline with staged rollouts to protect uptime.",
     ],
     outcome:
-      "Teams see inventory and shipment status in one place, reducing manual reconciliations and enabling faster fulfillment decisions.",
+      "Teams see inventory and shipment status in one place — reducing manual reconciliation and enabling faster fulfillment decisions.",
   },
 ]
 
@@ -341,6 +347,78 @@ export default function ProjectsPage() {
         </div>
       </section>
 
+      <section id="private-legaltech" className="py-16 md:py-24 bg-[#080c24]">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-10">
+          <FadeIn>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--amber)" }}>
+                  Under NDA
+                </span>
+              </div>
+              <h2 className="text-h2 text-white">Private SaaS Platform — LegalTech</h2>
+              <p className="text-white/50 text-sm">Full-Stack Developer · 4 Internal Systems · Active Production</p>
+              <p className="text-white/60 text-base max-w-2xl">
+                No company name, links, or screenshots. Descriptions cover system architecture and outcomes only.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                num: "01",
+                title: "Dynamic Document Generation Pipeline",
+                body: "Legal forms are complex — static templates break the moment data changes. Built a form-driven document generation pipeline where users complete a SurveyJS form embedded in WordPress via shortcode. On submission, form data flows into Supabase, triggers an n8n workflow, merges dynamic user data and metadata into a document, and delivers it to the user's email automatically.",
+                stack: ["React", "SurveyJS", "WordPress", "Supabase", "n8n"],
+                outcome: "Zero manual document handling. Form submission → file in inbox.",
+              },
+              {
+                num: "02",
+                title: "Lead Generation & Data Transformation Pipeline",
+                body: "The firm received bulk data exports in a proprietary ^-separated format inside zip files. Built a fully automated pipeline: files are uploaded to a watched Google Drive folder, n8n detects the upload and triggers a custom Node/Express backend that extracts and transforms the raw data into structured leads, then moves the zip to a processed folder as a completion signal.",
+                stack: ["Node.js", "Express", "n8n", "Google Drive API"],
+                outcome: "Zero manual data processing. Upload → leads generated → file archived.",
+              },
+              {
+                num: "03",
+                title: "Multi-Party Dispute Scheduling System",
+                body: "Dispute negotiations require all three parties — creator, receiver, and mediator — to agree on a meeting time. Built a scheduling system where a creator proposes a date, the receiver accepts or declines, and on agreement all three parties are notified automatically. Designed for legal dispute workflows where neutral coordination matters.",
+                stack: ["React", "Node.js", "Supabase"],
+                outcome: "Three-party consent model with automated notifications on agreement.",
+              },
+              {
+                num: "04",
+                title: "Mediator Rule Engine with Wear OS Integration",
+                body: "Mediators need to trigger timed actions during sessions — reminders, check-ins, delays — without interrupting the flow. Built a rule engine with three rule types: instant (fires immediately), delay (fires after a set timer), and cron (fires on a set schedule). Rules are configured in a frontend dashboard, mapped to named buttons, and surfaced on a Wear OS watch so the mediator can fire any rule with a single button press. Also includes a voice command system for natural-language scheduling.",
+                stack: ["React", "Node.js", "Wear OS", "Android"],
+                outcome: "Frontend rule configuration → one-tap execution from a watch during live sessions.",
+              },
+            ].map((system, i) => (
+              <FadeIn key={system.num} delay={0.08 * i} direction="up">
+                <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-6 md:p-8 space-y-4 h-full flex flex-col">
+                  <span className="text-xs font-bold tracking-widest text-white/30">{system.num}</span>
+                  <h3 className="text-lg font-semibold text-white">{system.title}</h3>
+                  <p className="text-white/55 text-sm leading-relaxed flex-1">{system.body}</p>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {system.stack.map((tech) => (
+                        <span key={tech} className="px-2 py-0.5 rounded text-xs text-white/60 border border-white/10 bg-white/5">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex items-start gap-2 pt-2 border-t border-white/10">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "var(--amber)" }} />
+                      <p className="text-white/70 text-sm">{system.outcome}</p>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
       <Footer />
     </main>
   )
