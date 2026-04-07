@@ -100,59 +100,6 @@ export default function AutomationPage() {
               </FadeIn>
             ))}
           </div>
-
-          <FadeIn delay={0.1} direction="up">
-            <div className="space-y-4 pt-4">
-              <div className="flex items-center gap-3">
-                <p className="text-sm font-medium text-muted-foreground uppercase tracking-[0.14em]">LegalTech flows (NDA)</p>
-                <span className="px-2 py-0.5 rounded text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200">Private · NDA</span>
-              </div>
-
-              {/* Flow 1 — Document Generation */}
-              <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 space-y-4">
-                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-[0.12em]">01 — Document Generation Pipeline</p>
-                <div className="flex flex-wrap items-center gap-2">
-                  {[
-                    { label: "Trigger", name: "SurveyJS Form", highlight: false },
-                    { label: "Storage", name: "Supabase", highlight: false },
-                    { label: "Orchestrator", name: "n8n", highlight: true },
-                    { label: "Action", name: "Doc Generator", highlight: false },
-                    { label: "Output", name: "Email Delivery", highlight: false },
-                  ].map((step, i, arr) => (
-                    <div key={step.name} className="flex items-center gap-2">
-                      <div className={`rounded-lg px-3 py-2 text-center border ${step.highlight ? "bg-[#1e308e] border-[#1e308e]" : "bg-accent-secondary border-gray-200"}`}>
-                        <p className={`text-[10px] leading-none mb-1 ${step.highlight ? "text-white/60" : "text-muted-foreground"}`}>{step.label}</p>
-                        <p className={`text-sm font-semibold whitespace-nowrap ${step.highlight ? "text-white" : "text-foreground"}`}>{step.name}</p>
-                      </div>
-                      {i < arr.length - 1 && <ArrowRight size={14} className="text-gray-300 shrink-0" />}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Flow 2 — Lead Generation */}
-              <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 space-y-4">
-                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-[0.12em]">02 — Lead Generation Pipeline</p>
-                <div className="flex flex-wrap items-center gap-2">
-                  {[
-                    { label: "Trigger", name: "Zip Upload", highlight: false },
-                    { label: "Watch", name: "Google Drive", highlight: false },
-                    { label: "Orchestrator", name: "n8n", highlight: true },
-                    { label: "Transform", name: "Node / Express", highlight: false },
-                    { label: "Output", name: "Leads + Archive", highlight: false },
-                  ].map((step, i, arr) => (
-                    <div key={step.name} className="flex items-center gap-2">
-                      <div className={`rounded-lg px-3 py-2 text-center border ${step.highlight ? "bg-[#1e308e] border-[#1e308e]" : "bg-accent-secondary border-gray-200"}`}>
-                        <p className={`text-[10px] leading-none mb-1 ${step.highlight ? "text-white/60" : "text-muted-foreground"}`}>{step.label}</p>
-                        <p className={`text-sm font-semibold whitespace-nowrap ${step.highlight ? "text-white" : "text-foreground"}`}>{step.name}</p>
-                      </div>
-                      {i < arr.length - 1 && <ArrowRight size={14} className="text-gray-300 shrink-0" />}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </FadeIn>
         </div>
       </section>
 
@@ -169,37 +116,73 @@ export default function AutomationPage() {
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                num: "01",
-                title: "Document Generation Pipeline",
-                description:
-                  "SurveyJS form submission triggers an n8n workflow that pulls dynamic form data from Supabase, merges it with file metadata, generates a document, and delivers it to the user's email. Handles data mapping, file generation, and delivery in a single automated sequence.",
-                tags: ["SurveyJS", "Supabase", "n8n", "Email delivery"],
-              },
-              {
-                num: "02",
-                title: "Lead Generation from Bulk Data Uploads",
-                description:
-                  "n8n watches a Google Drive folder for new zip file uploads. On detection, it retrieves the file, sends it to a custom Node/Express backend for extraction and transformation of ^-separated data into structured leads, then moves the processed file to an archive folder as a completion signal.",
-                tags: ["Google Drive API", "n8n", "Node.js", "Express"],
-              },
-            ].map((flow, i) => (
-              <FadeIn key={flow.num} delay={0.1 * i} direction="up">
-                <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-6 md:p-8 space-y-4 h-full flex flex-col">
-                  <span className="text-xs font-bold tracking-widest text-white/30">{flow.num}</span>
-                  <h3 className="text-lg font-semibold text-white">{flow.title}</h3>
-                  <p className="text-white/55 text-sm leading-relaxed flex-1">{flow.description}</p>
-                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
-                    {flow.tags.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 rounded text-xs text-white/60 border border-white/10 bg-white/5">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+            {/* Card 01 — Document Generation */}
+            <FadeIn delay={0} direction="up">
+              <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-6 md:p-8 space-y-5 h-full flex flex-col">
+                <span className="text-xs font-bold tracking-widest text-white/30">01</span>
+                <h3 className="text-lg font-semibold text-white">Document Generation Pipeline</h3>
+                <p className="text-white/55 text-sm leading-relaxed">
+                  SurveyJS form submission triggers an n8n workflow that pulls dynamic form data from Supabase, merges it with file metadata, generates a document, and delivers it to the user's email.
+                </p>
+                {/* Visual flow */}
+                <div className="flex flex-wrap items-center gap-2 py-4 border-y border-white/10">
+                  {[
+                    { label: "Trigger", name: "SurveyJS Form" },
+                    { label: "Storage", name: "Supabase" },
+                    { label: "Orchestrator", name: "n8n", highlight: true },
+                    { label: "Action", name: "Doc Generator" },
+                    { label: "Output", name: "Email Delivery" },
+                  ].map((step, i, arr) => (
+                    <div key={step.name} className="flex items-center gap-2">
+                      <div className={`rounded-lg px-3 py-2 text-center border ${step.highlight ? "bg-[#1e308e] border-[#1e308e]" : "bg-white/[0.06] border-white/10"}`}>
+                        <p className={`text-[10px] leading-none mb-1 ${step.highlight ? "text-white/60" : "text-white/35"}`}>{step.label}</p>
+                        <p className={`text-xs font-semibold whitespace-nowrap ${step.highlight ? "text-white" : "text-white/75"}`}>{step.name}</p>
+                      </div>
+                      {i < arr.length - 1 && <ArrowRight size={12} className="text-white/20 shrink-0" />}
+                    </div>
+                  ))}
                 </div>
-              </FadeIn>
-            ))}
+                <div className="flex flex-wrap gap-1.5 mt-auto">
+                  {["SurveyJS", "Supabase", "n8n", "Email delivery"].map((tag) => (
+                    <span key={tag} className="px-2 py-0.5 rounded text-xs text-white/60 border border-white/10 bg-white/5">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Card 02 — Lead Generation */}
+            <FadeIn delay={0.1} direction="up">
+              <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-6 md:p-8 space-y-5 h-full flex flex-col">
+                <span className="text-xs font-bold tracking-widest text-white/30">02</span>
+                <h3 className="text-lg font-semibold text-white">Lead Generation from Bulk Data Uploads</h3>
+                <p className="text-white/55 text-sm leading-relaxed">
+                  n8n watches a Google Drive folder for new zip file uploads. On detection, it triggers a custom Node/Express backend that extracts and transforms the raw data into structured leads, then archives the file as a completion signal.
+                </p>
+                {/* Visual flow */}
+                <div className="flex flex-wrap items-center gap-2 py-4 border-y border-white/10">
+                  {[
+                    { label: "Trigger", name: "Zip Upload" },
+                    { label: "Watch", name: "Google Drive" },
+                    { label: "Orchestrator", name: "n8n", highlight: true },
+                    { label: "Transform", name: "Node / Express" },
+                    { label: "Output", name: "Leads + Archive" },
+                  ].map((step, i, arr) => (
+                    <div key={step.name} className="flex items-center gap-2">
+                      <div className={`rounded-lg px-3 py-2 text-center border ${step.highlight ? "bg-[#1e308e] border-[#1e308e]" : "bg-white/[0.06] border-white/10"}`}>
+                        <p className={`text-[10px] leading-none mb-1 ${step.highlight ? "text-white/60" : "text-white/35"}`}>{step.label}</p>
+                        <p className={`text-xs font-semibold whitespace-nowrap ${step.highlight ? "text-white" : "text-white/75"}`}>{step.name}</p>
+                      </div>
+                      {i < arr.length - 1 && <ArrowRight size={12} className="text-white/20 shrink-0" />}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-1.5 mt-auto">
+                  {["Google Drive API", "n8n", "Node.js", "Express"].map((tag) => (
+                    <span key={tag} className="px-2 py-0.5 rounded text-xs text-white/60 border border-white/10 bg-white/5">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>
