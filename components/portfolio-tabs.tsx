@@ -46,7 +46,7 @@ const tabContent: TabContent[] = [
       icon: <Code2 className="w-6 h-6 text-white/60" />,
       title: "Full-Stack Development",
       description:
-        "Building scalable web applications using Laravel, ASP.NET Core, Angular, React, Vue, and Next.js. Integrating Stripe, Shopify, and CRM platforms for optimized business workflows.",
+        "Building scalable web and AI-powered applications across Laravel, ASP.NET Core, FastAPI, Angular, React, Vue, and Next.js. Integrating Stripe, Shopify, OpenAI, pgvector, and CRM platforms for optimized business workflows.",
       linkText: "View Projects",
       linkHref: "/full-stack",
       image: "/modern-coding-workspace-with-multiple-monitors-sho.jpg",

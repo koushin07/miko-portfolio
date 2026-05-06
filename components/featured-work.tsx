@@ -17,14 +17,14 @@ const projects = [
     nda: false,
   },
   {
-    title: "Roadworthy Inspection Platform",
+    title: "ReadMindMe Bible Study Platform",
     description:
-      "Inspection bookings required manual coordination across payments, job creation, and customer comms — any failure broke the chain. Built an end-to-end pipeline with idempotent Stripe payments, ServiceM8 job creation, and Brevo lifecycle comms in one reliable flow.",
-    stack: ["React", "Node.js", "TypeScript"],
-    integrations: ["Stripe", "ServiceM8", "Brevo"],
+      "Personal full-stack RAG build. A 14-stage AI pipeline retrieves verses via pgvector across 36,819 embeddings, enriches with Greek/Hebrew morphology and 603K cross-references, and personalizes answers using per-user memory — wrapped in a community layer, prayer journaling, devotionals, and a full admin console with TOTP, audit log, and AI kill switch.",
+    stack: ["FastAPI", "PostgreSQL/pgvector", "Redis"],
+    integrations: ["OpenAI GPT-4o", "Google OAuth", "TOTP", "APScheduler"],
     accent: "#E8A020",
     num: "02",
-    link: "/projects#roadworthy",
+    link: "/projects#readmindme",
     nda: false,
   },
   {

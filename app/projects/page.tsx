@@ -33,6 +33,30 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: "readmindme",
+    title: "ReadMindMe Bible Study Platform",
+    summary:
+      "Personal full-stack RAG platform: scripture-aware AI Q&A, social community, prayer journaling, devotionals, and a full admin console.",
+    stack: "FastAPI, PostgreSQL/pgvector, Redis",
+    integrations: "OpenAI GPT-4o, Google OAuth, TOTP, APScheduler",
+    context:
+      "Personal project to push production-grade RAG end-to-end. A Bible study app where users ask theological questions and receive scripture-grounded answers from a 14-stage pipeline that retrieves verses via pgvector similarity across 36,819 embeddings, enriches with Greek/Hebrew morphology, cross-references, and historical context, then personalizes responses using per-user memory and active prayer requests.",
+    role: "Solo build — architecture, AI pipeline, backend, data modeling, DevOps, security",
+    techStack: {
+      frontend: "Mobile/web client and admin dashboard as separate repos within the monorepo",
+      backend: "FastAPI async Python, SQLAlchemy 2.0, Alembic (33 migrations), Pydantic v2",
+      infra: "Docker Compose orchestrating 12 services with seed runners, profiles, and reset paths",
+      apis: "OpenAI GPT-4o / GPT-4o-mini / embeddings / moderation, Google OAuth, JWT + refresh-token rotation, pgvector, Redis, APScheduler, SlowAPI",
+    },
+    keyDecisions: [
+      "Two pgvector spaces — Bible verses for RAG retrieval and per-user memories for personalization — with hybrid fallbacks (vector → keyword → Nave's Topical → community-voted topic-to-verse) so retrieval never fails silently.",
+      "Tiered model selection (GPT-4o for answers, GPT-4o-mini for background memory extraction and rolling session summaries) plus parallel context retrieval across 10+ enrichment datasets in isolated DB sessions for throughput.",
+      "Two-schema Postgres design separating static bible (24 read-only tables, 603K cross-references) from versioned app data, with refresh-token family revocation, admin TOTP via Fernet-encrypted secrets, content moderation, audit log, feature flags, and an AI kill switch.",
+    ],
+    outcome:
+      "Production-shaped backend (~3,400 LOC AI service, 20 routers, 25 services, 33 migrations, ~40 tables) demonstrating applied RAG, domain modeling depth, and operational maturity.",
+  },
+  {
     id: "ace",
     title: "ACE Clinical Placement Platform",
     summary:
