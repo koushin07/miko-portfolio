@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
+const esc = (s: unknown) =>
+  String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+
 export async function POST(request: NextRequest) {
   try {
     const { name, email, message } = await request.json()
@@ -9,6 +17,12 @@ export async function POST(request: NextRequest) {
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
+    if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+      return NextResponse.json(
+        { error: 'Invalid email address' },
         { status: 400 }
       )
     }
@@ -29,13 +43,13 @@ export async function POST(request: NextRequest) {
       from: 'onboarding@resend.dev',
       to: 'canaresmiko3@gmail.com',
       replyTo: email,
-      subject: `New Contact Form Submission from ${name}`,
+      subject: `New Contact Form Submission from ${String(name).slice(0, 100)}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Name:</strong> ${esc(name)}</p>
+        <p><strong>Email:</strong> ${esc(email)}</p>
         <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
+        <p>${esc(message).replace(/\n/g, '<br>')}</p>
       `,
     })
 

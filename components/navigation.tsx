@@ -1,13 +1,14 @@
 "use client"
 
-import { useMemo, useState } from "react"
-import { CalendarIcon, ChevronDown, Menu, X } from "lucide-react"
+import { useEffect, useMemo, useState } from "react"
+import { CalendarIcon, Check, ChevronDown, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { TIME_OPTIONS, toDateString, zonedTimeToIso } from "@/lib/booking"
 import {
   Command,
   CommandEmpty,
@@ -42,44 +43,89 @@ export default function Navigation() {
     { label: "Contact", href: "/contact" },
   ]
 
-  const bookingWebhook = process.env.NEXT_PUBLIC_BOOKING_WEBHOOK || "https://hook.us2.make.com/jj0ks9fxup85shdzos3b7x5e1pavkhc1"
+  const [slotAvailability, setSlotAvailability] = useState<Record<string, { start: boolean; end: boolean }> | null>(null)
+  const [availabilityVersion, setAvailabilityVersion] = useState(0)
+  const [confirmation, setConfirmation] = useState<{ name: string; when: string; meetLink: string | null } | null>(
+    null
+  )
+
+  useEffect(() => {
+    if (!selectedDate) {
+      setSlotAvailability(null)
+      return
+    }
+    let cancelled = false
+    const load = async () => {
+      try {
+        const params = new URLSearchParams({ date: toDateString(selectedDate), timezone: formData.timezone })
+        const res = await fetch(`/api/availability?${params}`)
+        if (!res.ok) throw new Error(`Availability request failed: ${res.status}`)
+        const data = await res.json()
+        if (cancelled) return
+        const map: Record<string, { start: boolean; end: boolean }> = {}
+        for (const slot of data.slots || []) map[slot.time] = { start: slot.start, end: slot.end }
+        setSlotAvailability(map)
+        setSelectedStartTime((cur) => (cur && map[cur]?.start === false ? "" : cur))
+        setSelectedEndTime((cur) => (cur && map[cur]?.end === false ? "" : cur))
+      } catch (err) {
+        console.error(err)
+        if (!cancelled) setSlotAvailability(null)
+      }
+    }
+    load()
+    return () => {
+      cancelled = true
+    }
+  }, [selectedDate, formData.timezone, availabilityVersion])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!bookingWebhook) {
-      setStatus("error")
-      setStatusMessage("Booking webhook not configured. Add NEXT_PUBLIC_BOOKING_WEBHOOK to .env.")
-      return
-    }
     if (!selectedDate) {
       setStatus("error")
       setStatusMessage("Please select a date.")
       return
     }
+    if (!selectedStartTime || !selectedEndTime) {
+      setStatus("error")
+      setStatusMessage("Please select a start and end time.")
+      return
+    }
+    if (selectedEndTime <= selectedStartTime) {
+      setStatus("error")
+      setStatusMessage("End time must be after start time.")
+      return
+    }
     setStatus("loading")
     setStatusMessage("")
     try {
-      const startIso =
-        selectedDate && selectedStartTime ? formatOffsetIso(selectedDate, selectedStartTime, formData.timezone) : ""
-      const endIso =
-        selectedDate && selectedEndTime ? formatOffsetIso(selectedDate, selectedEndTime, formData.timezone) : ""
-
-      const res = await fetch(bookingWebhook, {
+      const dateStr = toDateString(selectedDate)
+      const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          startDateTime: startIso,
-          endDateTime: endIso,
+          startDateTime: zonedTimeToIso(dateStr, selectedStartTime, formData.timezone),
+          endDateTime: zonedTimeToIso(dateStr, selectedEndTime, formData.timezone),
           source: "nav-book-call",
           submittedAt: new Date().toISOString(),
         }),
       })
+      const data = await res.json().catch(() => null)
       if (!res.ok) {
-        throw new Error(`Request failed: ${res.status}`)
+        setStatus("error")
+        setStatusMessage(data?.error || "Could not send request. Please try again.")
+        if (res.status === 409) {
+          // The slot was taken meanwhile — refresh the dropdowns
+          setAvailabilityVersion((v) => v + 1)
+        }
+        return
       }
+      setConfirmation({
+        name: formData.name,
+        when: `${formatDate(selectedDate)}, ${selectedStartTime}–${selectedEndTime} (${formData.timezone})`,
+        meetLink: data?.meetLink || null,
+      })
       setStatus("success")
-      setStatusMessage("Request sent. I'll confirm a time shortly.")
       setFormData({
         name: "",
         email: "",
@@ -108,7 +154,6 @@ export default function Navigation() {
     return list
   }, [])
 
-  const timeOptions = ["09:00", "09:30", "10:00", "10:30", "11:00", "13:00", "14:00", "15:00", "16:00"]
   const timezones = useMemo(
     () => [
       "Asia/Manila",
@@ -126,46 +171,25 @@ export default function Navigation() {
     []
   )
 
+  const isStartDisabled = (time: string) => slotAvailability?.[time]?.start === false
+
+  // An end time is out if it's booked, not after the chosen start, or if the
+  // range from the chosen start would span a busy block in between.
+  const isEndDisabled = (time: string) => {
+    if (slotAvailability?.[time]?.end === false) return true
+    if (selectedStartTime) {
+      if (time <= selectedStartTime) return true
+      if (TIME_OPTIONS.some((t) => t > selectedStartTime && t < time && slotAvailability?.[t]?.start === false)) {
+        return true
+      }
+    }
+    return false
+  }
+
   const formatDate = (date?: Date) =>
     date
       ? date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
       : "Select a date"
-
-  const getOffsetMinutes = (date: Date, timeZone: string) => {
-    const formatter = new Intl.DateTimeFormat("en-US", {
-      timeZone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hourCycle: "h23",
-    })
-    const parts = formatter.formatToParts(date)
-    const pick = (type: Intl.DateTimeFormatPartTypes) => Number(parts.find((p) => p.type === type)?.value || 0)
-    const asUtc = Date.UTC(pick("year"), pick("month") - 1, pick("day"), pick("hour"), pick("minute"), pick("second"))
-    return (asUtc - date.getTime()) / 60000
-  }
-
-  const formatOffsetIso = (date: Date, time: string, timeZone: string) => {
-    if (!time) return ""
-    const [hour = "0", minute = "0"] = time.split(":")
-    const y = date.getFullYear()
-    const m = date.getMonth()
-    const d = date.getDate()
-    const base = new Date(Date.UTC(y, m, d, Number(hour), Number(minute), 0))
-    const offsetMinutes = getOffsetMinutes(base, timeZone)
-    const sign = offsetMinutes >= 0 ? "+" : "-"
-    const abs = Math.abs(offsetMinutes)
-    const offH = String(Math.floor(abs / 60)).padStart(2, "0")
-    const offM = String(abs % 60).padStart(2, "0")
-    const month = String(m + 1).padStart(2, "0")
-    const day = String(d).padStart(2, "0")
-    const hourPad = String(hour).padStart(2, "0")
-    const minutePad = String(minute).padStart(2, "0")
-    return `${y}-${month}-${day}T${hourPad}:${minutePad}:00`
-  }
 
   return (
     <nav className="absolute top-0 left-0 right-0 z-50">
@@ -234,13 +258,62 @@ export default function Navigation() {
         </div>
       </div>
 
-      <Sheet open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Sheet
+        open={isDialogOpen}
+        onOpenChange={(open) => {
+          setIsDialogOpen(open)
+          if (!open) {
+            setStatus("idle")
+            setStatusMessage("")
+            setConfirmation(null)
+          }
+        }}
+      >
         <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto px-6 py-6">
           <SheetHeader className="mb-4">
             <SheetTitle>Book a call</SheetTitle>
-            <SheetDescription>Your request goes to my automation; you'll get a calendar invite.</SheetDescription>
+            <SheetDescription>Pick a time that works for you — you'll get a Google Calendar invite with a Meet link.</SheetDescription>
           </SheetHeader>
 
+          {status === "success" ? (
+            <div className="space-y-5 text-center py-8">
+              <div className="mx-auto w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                <Check className="h-6 w-6 text-green-600" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-foreground">
+                  Thank you{confirmation?.name ? `, ${confirmation.name}` : ""}!
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Your call is booked{confirmation?.when ? ` for ${confirmation.when}` : ""}. A Google Calendar
+                  invite with the Meet link is on its way to your email.
+                </p>
+              </div>
+              {confirmation?.meetLink ? (
+                <a
+                  href={confirmation.meetLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block px-5 py-2.5 bg-[#1e308e] text-white rounded-lg hover:bg-accent-primary-hover transition-all duration-200 text-sm font-medium"
+                >
+                  Open Google Meet link
+                </a>
+              ) : null}
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStatus("idle")
+                    setStatusMessage("")
+                    setConfirmation(null)
+                  }}
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Book another time
+                </button>
+              </div>
+            </div>
+          ) : (
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="space-y-1">
               <label className="block text-sm font-medium text-foreground">Name</label>
@@ -288,9 +361,11 @@ export default function Navigation() {
                     mode="single"
                     selected={selectedDate}
                     onSelect={setSelectedDate}
-                    disabled={(date) =>
-                      unavailableDates.includes(date.toISOString().slice(0, 10)) || date < new Date()
-                    }
+                    disabled={(date) => {
+                      const startOfToday = new Date()
+                      startOfToday.setHours(0, 0, 0, 0)
+                      return unavailableDates.includes(date.toISOString().slice(0, 10)) || date < startOfToday
+                    }}
                   />
                 </PopoverContent>
               </Popover>
@@ -304,14 +379,26 @@ export default function Navigation() {
                     <div className="space-y-1">
                       <span className="text-xs text-muted-foreground">Start</span>
                       <select
+                        required
                         value={selectedStartTime}
-                        onChange={(e) => setSelectedStartTime(e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.value
+                          setSelectedStartTime(value)
+                          setSelectedEndTime((cur) => {
+                            if (!cur || cur <= value) return ""
+                            if (TIME_OPTIONS.some((t) => t > value && t < cur && slotAvailability?.[t]?.start === false)) {
+                              return ""
+                            }
+                            return cur
+                          })
+                        }}
                         className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e308e]"
                       >
                         <option value="">Select start time</option>
-                        {timeOptions.map((time) => (
-                          <option key={time} value={time}>
+                        {TIME_OPTIONS.map((time) => (
+                          <option key={time} value={time} disabled={isStartDisabled(time)}>
                             {time}
+                            {isStartDisabled(time) ? " — booked" : ""}
                           </option>
                         ))}
                       </select>
@@ -319,14 +406,16 @@ export default function Navigation() {
                     <div className="space-y-1">
                       <span className="text-xs text-muted-foreground">End</span>
                       <select
+                        required
                         value={selectedEndTime}
                         onChange={(e) => setSelectedEndTime(e.target.value)}
                         className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e308e]"
                       >
                         <option value="">Select end time</option>
-                        {timeOptions.map((time) => (
-                          <option key={time} value={time}>
+                        {TIME_OPTIONS.map((time) => (
+                          <option key={time} value={time} disabled={isEndDisabled(time)}>
                             {time}
+                            {isEndDisabled(time) ? " — unavailable" : ""}
                           </option>
                         ))}
                       </select>
@@ -383,12 +472,8 @@ export default function Navigation() {
               />
             </div>
 
-            {status !== "idle" ? (
-              <div
-                className={`text-sm rounded-lg px-3 py-2 ${
-                  status === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
-                }`}
-              >
+            {status === "error" ? (
+              <div className="text-sm rounded-lg px-3 py-2 bg-red-50 text-red-700 border border-red-200">
                 {statusMessage}
               </div>
             ) : null}
@@ -410,17 +495,14 @@ export default function Navigation() {
               </button>
             </div>
           </form>
+          )}
 
           <div className="rounded-lg border border-dashed border-gray-200 p-3 text-xs text-muted-foreground mt-4">
-            <p className="font-semibold text-foreground text-sm mb-1">Automation</p>
-            <p>This booking form triggers a Make.com webhook to create the calendar invite and send confirmations. Adjust availability by editing the disabled dates/times in code.</p>
+            <p className="font-semibold text-foreground text-sm mb-1">How it works</p>
+            <p>Availability comes straight from my calendar — booked times are disabled. Booking creates a Google Calendar event with a Meet link and emails you the invite.</p>
           </div>
         </SheetContent>
       </Sheet>
     </nav>
   )
 }
-              <div className="rounded-lg border border-dashed border-gray-200 p-3 text-xs text-muted-foreground">
-                <p className="font-semibold text-foreground text-sm mb-1">Pro tip</p>
-                <p>Unavailable dates can be listed in code via the <code>unavailableDates</code> array. We'll skip disabled dates and send your chosen slot to automation.</p>
-              </div>
