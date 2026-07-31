@@ -6,14 +6,14 @@ import Link from "next/link"
 
 const projects = [
   {
-    title: "ACE Clinical Placement Platform",
+    title: "Atlas NHD Hazard Disclosure Platform",
     description:
-      "Placement coordinators were juggling bookings, student profiles, and document packs across spreadsheets and email. Built a CRM-synced booking platform with location search, automated onboarding flows, and PandaDoc document packs triggered on placement milestones.",
-    stack: ["Next.js", "Laravel", "TypeScript"],
-    integrations: ["Mapbox", "Clerk", "PandaDoc", "Pipedrive"],
+      "California law requires a Natural Hazard Disclosure on every residential sale — a parcel checked against dozens of state and federal hazard datasets, rendered into a statutory document. Built the determination engine and customer portal: 38 report generators, a queued rendering pipeline, and Terraform-defined AWS infrastructure.",
+    stack: ["Python/FastAPI", "PostGIS", "Next.js"],
+    integrations: ["GeoServer", "Celery", "Prefect", "FEMA NFHL", "AWS ECS"],
     accent: "#4F6EF7",
     num: "01",
-    link: "/projects#ace",
+    link: "/case-study",
     nda: false,
   },
   {

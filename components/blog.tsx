@@ -24,7 +24,7 @@ export default function Blog() {
     {
       category: "Case Study",
       title: "Flagship build",
-      description: "Emergency Resource Information System with dispatch and audit trails.",
+      description: "Atlas NHD — statutory hazard disclosure automated from geodata to delivered PDF.",
       image: "/clean-minimal-desk-setup-with-imac-showing-design-.jpg",
       href: "/case-study",
       cta: "Read case study ->",

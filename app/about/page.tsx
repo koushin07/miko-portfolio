@@ -6,21 +6,32 @@ import Link from "next/link"
 
 const experience = [
   {
+    role: "Lead Full-Stack Engineer",
+    company: "Atlas Geotech LLC",
+    period: "Feb 2026 - Present",
+    kind: "Employment",
+    outcome:
+      "Determination and reporting pipeline behind California statutory hazard disclosure — 38 PDF report generators, a queued rendering pipeline, and the customer portal.",
+  },
+  {
     role: "Analyst II ERP Product Application",
     company: "DXC Technology",
     period: "Aug 2023 - Dec 2025",
+    kind: "Employment",
     outcome: "Enterprise QA across server/OS, database links, and user access with automated scripts for stable releases.",
   },
   {
     role: "Full-Stack Developer",
     company: "ACE",
     period: "Oct 2025 - Feb 2026",
+    kind: "Contract",
     outcome: "Built a placement platform with Mapbox search, Clerk auth, PandaDoc document packs, and Pipedrive sync.",
   },
   {
     role: "Backend Developer",
     company: "ASAP Roadworthys",
     period: "Jan 2024 - May 2024",
+    kind: "Contract",
     outcome: "Delivered booking, payments, and ServiceM8 job automation while pairing QA to keep flows reliable.",
   },
 ]
@@ -146,7 +157,12 @@ export default function AboutPage() {
               <FadeIn key={exp.role} delay={0.08 * i} direction="up">
                 <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm h-full flex flex-col gap-3">
                   <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">{exp.period}</p>
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <p className="text-sm text-muted-foreground">{exp.period}</p>
+                      <span className="px-2 py-0.5 rounded-md bg-accent-secondary text-muted-foreground text-[11px] font-medium uppercase tracking-[0.1em]">
+                        {exp.kind}
+                      </span>
+                    </div>
                     <h3 className="text-lg font-semibold text-foreground">{exp.role}</h3>
                     <p className="text-[#1e308e] text-sm font-medium">{exp.company}</p>
                   </div>

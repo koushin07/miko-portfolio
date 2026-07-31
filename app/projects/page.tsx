@@ -33,6 +33,58 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: "atlas-sdi",
+    title: "Atlas SDI Report Engine",
+    summary:
+      "Determination and rendering engine behind California statutory hazard disclosure — 38 report generators over a PostGIS/GeoServer spatial data infrastructure.",
+    stack: "Python/FastAPI, PostGIS, GeoServer",
+    integrations: "Celery, Prefect, WeasyPrint, FEMA NFHL, Terraform/AWS ECS",
+    context:
+      "Every residential property sale in California legally requires a Natural Hazard Disclosure. Producing one means checking a parcel against dozens of state and federal hazard datasets — flood, fire severity, seismic, landslide, liquefaction, dam inundation, airport noise — and emitting a document in a statutorily prescribed format. A slow report is an inconvenience; a wrong one is legal liability.",
+    role: "Lead engineer on the determination and reporting pipeline — 561 of 957 commits",
+    techStack: {
+      frontend: "Server-rendered PDF templates; report map and details pages consumed by the customer portal",
+      backend: "FastAPI async Python over PostGIS/GeoAlchemy2, SQLAlchemy 2.0, Celery queue for async report orders",
+      infra: "Terraform-defined AWS — ECS Fargate, RDS, ALB, Secrets Manager, ECR — plus Prefect flows promoting datasets from on-prem NAS to AWS",
+      apis: "GeoServer WMS/WFS, FEMA NFHL with local-copy failover, FAA ADHP, CAL FIRE FHSZ, USGS 3DEP, libpostal via gRPC",
+    },
+    keyDecisions: [
+      "Bounded an unbounded warmup fan-out with a per-worker semaphore, then removed the redundant work underneath: shared httpx client, LRU basemap cache with async-lock dedup, and rendering on a ProcessPoolExecutor. Fixed worker crashes that had PIDs accumulating to 80.",
+      "Zero-downtime dataset promotion via atomic table swap that carries dependent sequences and applies additive schema changes only behind an explicit flag — never silently.",
+      "Failover to a locally held NFHL copy when FEMA is unreachable, so an upstream government outage degrades freshness rather than halting report generation.",
+      "Seventeen design specs and ten implementation plans written before the code, with report templates pinned by markup-contract tests — including an explicit HTML escaping contract for the cover page.",
+    ],
+    outcome:
+      "38 statutory report types in production with 710 backend tests passing. Report generation moved from synchronous request-time rendering to a queued pipeline with warmup caching.",
+    cta: { label: "Read the case study", href: "/case-study" },
+  },
+  {
+    id: "atlas-portal",
+    title: "Atlas NHD Customer Portal",
+    summary:
+      "Order-to-delivery portal for hazard disclosure reports: address search with APN disambiguation, entitlement gating, checkout, and PDF delivery.",
+    stack: "Next.js, TypeScript, Tailwind",
+    integrations: "Zustand, JWT auth, portal-admin API, Atlas SDI report queue",
+    context:
+      "Escrow officers and agents ordering a hazard disclosure need to find one specific parcel — often from a partial address, sometimes with several APNs matching — then pick the right report type, and receive a PDF they can attach to a transaction. Getting the wrong parcel means the wrong disclosure on a legally binding sale.",
+    role: "Effectively sole author — 160 of 167 commits; architecture, build, and QA",
+    techStack: {
+      frontend: "Next.js App Router with route groups, an AuthGuard app shell, Zustand stores, and a Tailwind component system built to Figma frames",
+      backend: "Typed API client over the portal-admin JSON API and the Atlas SDI report endpoints",
+      infra: "Multi-stage Docker with Next.js standalone output, non-root user, and a health endpoint; env-driven proxying to the SDI",
+      apis: "JWT auth with refresh, per-user report access limits, auto-generated escrow numbering, email delivery",
+    },
+    keyDecisions: [
+      "Address search resolves through a single backend endpoint with typeahead and structured fallback, after removing a third-party address vendor — the backend handles fuzzy matching natively.",
+      "Entitlement gating enforced at the order boundary rather than the UI, so per-user report limits cannot be bypassed by navigating directly.",
+      "Report type labels come from a backend catalog rather than a hardcoded frontend map, so adding a report type does not require a frontend release.",
+      "Routing restructured into route groups with a shared AuthGuard shell, separating the public marketing site from the authenticated portal.",
+    ],
+    outcome:
+      "Full order-to-delivery flow in production with 151 of 151 tests passing, and a marketing site rebuilt to Figma with the portal ported onto it.",
+    cta: { label: "Read the case study", href: "/case-study" },
+  },
+  {
     id: "readmindme",
     title: "ReadMindMe Bible Study Platform",
     summary:
@@ -127,7 +179,7 @@ const projects: Project[] = [
     ],
     outcome:
       "Teams locate and dispatch resources faster with clear accountability — reducing coordination failures during incidents.",
-    cta: { label: "Read the case study", href: "/case-study" },
+    cta: { label: "Read the case study", href: "/case-study/eris" },
   },
   {
     id: "emport",

@@ -2,18 +2,25 @@ import Navigation from "@/components/navigation";
 import Hero from "@/components/hero";
 import TrustedBrands from "@/components/trusted-brands";
 import Expertise from "@/components/expertise";
-import TechStack from "@/components/tech-stack";
 import FeaturedWork from "@/components/featured-work";
-import WhatIDo from "@/components/what-i-do";
+import CTA from "@/components/cta";
 import Footer from "@/components/footer";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Home",
   description:
-    "Full-stack developer specializing in automation-driven systems, internal tools, and scalable SaaS platforms. I help teams eliminate manual work and ship production systems that scale.",
+    "Full-stack engineer building production systems for regulated and data-heavy industries — geospatial compliance platforms, RAG pipelines, and automation for teams that can't afford to get it wrong.",
   path: "/",
-  keywords: ["Full-stack developer", "Automation engineer", "Internal tools", "SaaS platforms", "n8n"],
+  keywords: [
+    "Full-stack engineer",
+    "Geospatial platforms",
+    "Compliance systems",
+    "RAG pipelines",
+    "Automation engineer",
+    "Next.js",
+    "FastAPI",
+  ],
 });
 
 export default function Home() {
@@ -22,10 +29,9 @@ export default function Home() {
       <Navigation />
       <Hero />
       <TrustedBrands />
-      <WhatIDo />
       <FeaturedWork />
       <Expertise />
-      <TechStack />
+      <CTA />
       <Footer />
     </main>
   );
