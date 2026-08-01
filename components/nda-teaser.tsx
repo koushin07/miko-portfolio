@@ -4,7 +4,7 @@ import { FadeIn } from "@/components/ui/motion"
 import { ArrowRight, Lock } from "lucide-react"
 import Link from "next/link"
 
-const tools = ["React", "n8n", "Supabase", "Node.js", "SurveyJS", "Wear OS", "WordPress"]
+const tools = ["React", "n8n", "Supabase", "Node.js", "SurveyJS", "BullMQ", "Docker", "Wear OS"]
 
 export default function NDATeaser() {
   return (
@@ -26,14 +26,15 @@ export default function NDATeaser() {
                 <h2 className="text-h2 font-semibold text-white">
                   Private SaaS Platform — LegalTech
                 </h2>
-                <p className="text-white/50 text-sm">Full-Stack Developer · 4 Production Systems · Active</p>
+                <p className="text-white/50 text-sm">Full-Stack Developer · 6 Production Systems · Active</p>
               </div>
             </div>
 
             <p className="text-white/70 text-base-custom max-w-3xl leading-relaxed">
-              Built four internal systems for a LegalTech firm — a document generation pipeline, a data transformation
-              engine for lead generation, a multi-party dispute scheduling system, and a Wear OS–integrated rule engine
-              for mediator workflows. All systems are in active production handling sensitive legal data.
+              Built six internal systems for a LegalTech firm — a form-driven document generation pipeline, per-buyer
+              anti-piracy fingerprinting, a court-record lead classification engine, a multi-party dispute scheduling
+              system, a containerized job-queue service, and a Wear OS–integrated rule engine for mediator workflows.
+              All systems are in active production handling sensitive legal data.
             </p>
 
             <div className="flex flex-wrap gap-2">

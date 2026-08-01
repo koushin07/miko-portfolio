@@ -34,7 +34,7 @@ function LogoRow({ logos }: { logos: Logo[] }) {
 
 export default function TrustedBrands() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-20 md:py-28">
       <div className="max-w-[1200px] mx-auto px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-20">
           {/* Left — framing */}

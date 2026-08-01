@@ -8,7 +8,7 @@ const projects = [
   {
     title: "Atlas NHD Hazard Disclosure Platform",
     description:
-      "California law requires a Natural Hazard Disclosure on every residential sale — a parcel checked against dozens of state and federal hazard datasets, rendered into a statutory document. Built the determination engine and customer portal: 38 report generators, a queued rendering pipeline, and Terraform-defined AWS infrastructure.",
+      "California law requires a Natural Hazard Disclosure on every residential sale — a parcel checked against dozens of state and federal hazard datasets, rendered into a statutory document. Built the determination engine and the customer portal that escrow officers and agents use to order reports.",
     stack: ["Python/FastAPI", "PostGIS", "Next.js"],
     integrations: ["GeoServer", "Celery", "Prefect", "FEMA NFHL", "AWS ECS"],
     accent: "#4F6EF7",
@@ -30,9 +30,9 @@ const projects = [
   {
     title: "Private SaaS Platform — LegalTech",
     description:
-      "Built 4 internal production systems: a document generation pipeline, a data transformation engine for lead generation, a multi-party dispute scheduling system, and a Wear OS rule engine for mediator workflows.",
-    stack: ["React", "Node.js", "Supabase"],
-    integrations: ["n8n", "SurveyJS", "Wear OS", "Google Drive"],
+      "Six internal production systems for a legal-document platform: a form-driven document pipeline, per-buyer anti-piracy fingerprinting, a court-record lead classification engine, multi-party dispute scheduling, a containerized job-queue service, and a Wear OS rule engine for mediator workflows.",
+    stack: ["React", "Node.js/Express", "Supabase"],
+    integrations: ["n8n", "SurveyJS", "BullMQ", "Docker", "Wear OS"],
     accent: "#E8A020",
     num: "03",
     link: "/projects#private-legaltech",
@@ -42,7 +42,7 @@ const projects = [
 
 export default function FeaturedWork() {
   return (
-    <section className="bg-[#080c24] py-16 md:py-24">
+    <section className="bg-[#080c24] py-20 md:py-32">
       <div className="max-w-[1200px] mx-auto px-6 lg:px-8 w-full">
         <div className="flex items-center justify-between gap-4 mb-10">
           <FadeIn>

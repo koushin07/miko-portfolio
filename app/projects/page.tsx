@@ -31,17 +31,21 @@ type Project = {
   cta?: { label: string; href: string }
 }
 
+// Only these get the full inline breakdown. The rest stay as scannable cards —
+// three complete stories read better than ten partial ones.
+const FEATURED_IDS = ["atlas-sdi", "atlas-portal", "readmindme"]
+
 const projects: Project[] = [
   {
     id: "atlas-sdi",
     title: "Atlas SDI Report Engine",
     summary:
-      "Determination and rendering engine behind California statutory hazard disclosure — 38 report generators over a PostGIS/GeoServer spatial data infrastructure.",
+      "Determination and rendering engine behind California statutory hazard disclosure covering the full range of disclosure products, built over a PostGIS and GeoServer spatial data infrastructure.",
     stack: "Python/FastAPI, PostGIS, GeoServer",
     integrations: "Celery, Prefect, WeasyPrint, FEMA NFHL, Terraform/AWS ECS",
     context:
       "Every residential property sale in California legally requires a Natural Hazard Disclosure. Producing one means checking a parcel against dozens of state and federal hazard datasets — flood, fire severity, seismic, landslide, liquefaction, dam inundation, airport noise — and emitting a document in a statutorily prescribed format. A slow report is an inconvenience; a wrong one is legal liability.",
-    role: "Lead engineer on the determination and reporting pipeline — 561 of 957 commits",
+    role: "Primary developer on the determination and reporting pipeline",
     techStack: {
       frontend: "Server-rendered PDF templates; report map and details pages consumed by the customer portal",
       backend: "FastAPI async Python over PostGIS/GeoAlchemy2, SQLAlchemy 2.0, Celery queue for async report orders",
@@ -55,7 +59,7 @@ const projects: Project[] = [
       "Seventeen design specs and ten implementation plans written before the code, with report templates pinned by markup-contract tests — including an explicit HTML escaping contract for the cover page.",
     ],
     outcome:
-      "38 statutory report types in production with 710 backend tests passing. Report generation moved from synchronous request-time rendering to a queued pipeline with warmup caching.",
+      "The full range of statutory disclosure products in production. Report generation moved from synchronous request-time rendering to a queued pipeline with warmup caching.",
     cta: { label: "Read the case study", href: "/case-study" },
   },
   {
@@ -67,7 +71,7 @@ const projects: Project[] = [
     integrations: "Zustand, JWT auth, portal-admin API, Atlas SDI report queue",
     context:
       "Escrow officers and agents ordering a hazard disclosure need to find one specific parcel — often from a partial address, sometimes with several APNs matching — then pick the right report type, and receive a PDF they can attach to a transaction. Getting the wrong parcel means the wrong disclosure on a legally binding sale.",
-    role: "Effectively sole author — 160 of 167 commits; architecture, build, and QA",
+    role: "Sole developer — architecture, build, and QA",
     techStack: {
       frontend: "Next.js App Router with route groups, an AuthGuard app shell, Zustand stores, and a Tailwind component system built to Figma frames",
       backend: "Typed API client over the portal-admin JSON API and the Atlas SDI report endpoints",
@@ -81,7 +85,7 @@ const projects: Project[] = [
       "Routing restructured into route groups with a shared AuthGuard shell, separating the public marketing site from the authenticated portal.",
     ],
     outcome:
-      "Full order-to-delivery flow in production with 151 of 151 tests passing, and a marketing site rebuilt to Figma with the portal ported onto it.",
+      "Full order-to-delivery flow in production, and a marketing site rebuilt to Figma with the portal ported onto it.",
     cta: { label: "Read the case study", href: "/case-study" },
   },
   {
@@ -256,14 +260,21 @@ const projects: Project[] = [
 ]
 
 function ProjectCard({ project }: { project: Project }) {
+  const hasBreakdown = FEATURED_IDS.includes(project.id)
+
   return (
-    <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-      <div className="flex items-center justify-between gap-4 mb-3">
+    <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full flex flex-col">
+      <div className="flex items-start justify-between gap-4 mb-3">
         <h3 className="text-xl font-semibold text-foreground">{project.title}</h3>
-        <Link href={`#${project.id}`} className="text-sm text-foreground flex items-center gap-1 group">
-          View details
-          <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-        </Link>
+        {hasBreakdown ? (
+          <Link
+            href={`#${project.id}`}
+            className="text-sm text-foreground flex items-center gap-1 group shrink-0 whitespace-nowrap"
+          >
+            Read breakdown
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+        ) : null}
       </div>
       <p className="text-muted-foreground text-sm mb-4">{project.summary}</p>
       <div className="text-sm text-foreground/80 space-y-1">
@@ -274,8 +285,18 @@ function ProjectCard({ project }: { project: Project }) {
           <span className="font-semibold">Integrations:</span> {project.integrations}
         </p>
       </div>
+      {/* Cards without an inline breakdown carry the outcome so they stand alone. */}
+      {!hasBreakdown ? (
+        <div className="flex items-start gap-2 mt-4 pt-4 border-t border-gray-200">
+          <CheckCircle2 className="w-4 h-4 text-[#1e308e] shrink-0 mt-0.5" />
+          <p className="text-sm text-foreground/80 leading-relaxed">{project.outcome}</p>
+        </div>
+      ) : null}
       {project.cta ? (
-        <Link href={project.cta.href} className="inline-flex items-center gap-2 text-sm font-semibold text-foreground mt-4 group">
+        <Link
+          href={project.cta.href}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-foreground group mt-auto pt-4"
+        >
           {project.cta.label}
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -407,11 +428,11 @@ export default function ProjectsPage() {
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">Private SaaS Platform — LegalTech</h3>
                 <p className="text-muted-foreground text-sm mb-4 flex-1">
-                  4 internal production systems: document generation pipeline, data transformation engine, multi-party dispute scheduling, and a Wear OS rule engine for mediator workflows.
+                  6 internal production systems: document generation, anti-piracy fingerprinting, a court-record lead classification engine, multi-party dispute scheduling, a containerized scheduling service, and a Wear OS rule engine for mediator workflows.
                 </p>
                 <div className="text-sm text-foreground/80 space-y-1 mb-4">
-                  <p><span className="font-semibold">Stack:</span> React, Node.js, Supabase</p>
-                  <p><span className="font-semibold">Integrations:</span> n8n, SurveyJS, Wear OS, Google Drive</p>
+                  <p><span className="font-semibold">Stack:</span> React, Node.js/Express, TypeScript, Supabase</p>
+                  <p><span className="font-semibold">Integrations:</span> n8n, SurveyJS, BullMQ, Docker, Wear OS</p>
                 </div>
                 <Link href="#private-legaltech" className="inline-flex items-center gap-2 text-sm font-semibold text-foreground group mt-auto">
                   See full breakdown
@@ -427,20 +448,23 @@ export default function ProjectsPage() {
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-8">
           <FadeIn>
             <div className="space-y-3">
-              <p className="text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">Details</p>
+              <p className="text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">Featured breakdowns</p>
               <h2 className="text-h2 text-foreground">Context, decisions, and outcomes</h2>
               <p className="text-muted-foreground text-base max-w-2xl">
-                Standardized breakdowns show what was built, why, and how reliability and automation were addressed.
+                Three builds in full — the problem each one solved, the decisions that shaped it, and what shipped.
+                The rest are summarized above; happy to walk through any of them.
               </p>
             </div>
           </FadeIn>
 
           <div className="space-y-6">
-            {projects.map((project, i) => (
-              <FadeIn key={project.id} delay={0.06 * i} direction="up">
-                <ProjectDetail project={project} />
-              </FadeIn>
-            ))}
+            {projects
+              .filter((project) => FEATURED_IDS.includes(project.id))
+              .map((project, i) => (
+                <FadeIn key={project.id} delay={0.06 * i} direction="up">
+                  <ProjectDetail project={project} />
+                </FadeIn>
+              ))}
           </div>
         </div>
       </section>
@@ -455,7 +479,7 @@ export default function ProjectsPage() {
                 </span>
               </div>
               <h2 className="text-h2 text-white">Private SaaS Platform — LegalTech</h2>
-              <p className="text-white/50 text-sm">Full-Stack Developer · 4 Internal Systems · Active Production</p>
+              <p className="text-white/50 text-sm">Full-Stack Developer · 6 Internal Systems · Active Production</p>
               <p className="text-white/60 text-base max-w-2xl">
                 No company name, links, or screenshots. Descriptions cover system architecture and outcomes only.
               </p>
@@ -467,26 +491,40 @@ export default function ProjectsPage() {
               {
                 num: "01",
                 title: "Dynamic Document Generation Pipeline",
-                body: "Legal forms are complex — static templates break the moment data changes. Built a form-driven document generation pipeline where users complete a SurveyJS form embedded in WordPress via shortcode. On submission, form data flows into Supabase, triggers an n8n workflow, merges dynamic user data and metadata into a document, and delivers it to the user's email automatically.",
-                stack: ["React", "SurveyJS", "WordPress", "Supabase", "n8n"],
-                outcome: "Zero manual document handling. Form submission → file in inbox.",
+                body: "Legal forms are complex — static templates break the moment data changes. Built a form-driven pipeline where users complete a SurveyJS questionnaire embedded in the storefront, with answers auto-saving as they go. On submission the data triggers an n8n workflow that merges it into a Word template, converts to PDF, and delivers it by email. Paired with an internal admin app — built on the SurveyJS form builder — where staff manage forms, templates, and bundles without a developer, with all writes routed through a resource-style API rather than direct database access.",
+                stack: ["React", "Vite", "SurveyJS", "Supabase", "n8n"],
+                outcome: "Zero manual document handling, and non-developers can ship new form types.",
               },
               {
                 num: "02",
-                title: "Lead Generation & Data Transformation Pipeline",
-                body: "The firm received bulk data exports in a proprietary ^-separated format inside zip files. Built a fully automated pipeline: files are uploaded to a watched Google Drive folder, n8n detects the upload and triggers a custom Node/Express backend that extracts and transforms the raw data into structured leads, then moves the zip to a processed folder as a completion signal.",
-                stack: ["Node.js", "Express", "n8n", "Google Drive API"],
-                outcome: "Zero manual data processing. Upload → leads generated → file archived.",
+                title: "Anti-Piracy Document Fingerprinting",
+                body: "Self-help legal documents are trivially resold once they leave your system. Built a two-part fingerprinting subsystem: a Node/Express/TypeScript microservice that stamps formatted footers into .docx files over a REST API (bold, italic, color, font, alignment), and a companion service that injects per-purchase identity — user ID, email, timestamp — into the generated PDF's metadata via pdf-lib. Both are called from the document pipeline, so every delivered file is uniquely traceable to the buyer.",
+                stack: ["Node.js", "Express", "TypeScript", "pdf-lib", "Docker"],
+                outcome: "Every delivered document carries an invisible, per-buyer fingerprint.",
               },
               {
                 num: "03",
-                title: "Multi-Party Dispute Scheduling System",
-                body: "Dispute negotiations require all three parties — creator, receiver, and mediator — to agree on a meeting time. Built a scheduling system where a creator proposes a date, the receiver accepts or declines, and on agreement all three parties are notified automatically. Designed for legal dispute workflows where neutral coordination matters.",
-                stack: ["React", "Node.js", "Supabase"],
-                outcome: "Three-party consent model with automated notifications on agreement.",
+                title: "Court-Record Lead Classification Engine",
+                body: "Daily public court-record exports arrive as zipped, caret-delimited flat files with separate lookup tables for party types, case types, and judges. Built a Node/Express/TypeScript backend that parses the feed, filters to active family-law matters filed within 180 days, detects trigger events in the docket — service returned, motion to withdraw — and classifies each unrepresented party into one of four lead profiles with priority tiers: newly filed, recently served, dropped by counsel, or simply unrepresented. Leads are enriched with human-readable labels and batch-upserted behind a CRUD API.",
+                stack: ["Node.js", "Express", "TypeScript", "Supabase", "n8n"],
+                outcome: "A raw daily court feed becomes a prioritized, deduplicated lead queue with no manual triage.",
               },
               {
                 num: "04",
+                title: "Multi-Party Dispute Scheduling System",
+                body: "Dispute negotiations require all three parties — creator, receiver, and mediator — to agree on a meeting time. Built a scheduling system where a creator proposes a date, the receiver accepts or declines, and on agreement all three parties are notified automatically. Designed for legal dispute workflows where neutral coordination matters.",
+                stack: ["React", "Node.js", "Supabase", "Google Calendar"],
+                outcome: "Three-party consent model with automated notifications on agreement.",
+              },
+              {
+                num: "05",
+                title: "Containerized Scheduling Service",
+                body: "The scheduling workload outgrew a single process once reminders, confirmations, and calendar sync all needed to survive restarts. Split it into an Express API and a separate BullMQ worker over Redis, with Postgres for state and migrations applied automatically on container start. The whole stack — API, worker, database, cache, Traefik reverse proxy — ships as a documented compose deployment with a written production runbook.",
+                stack: ["Node.js", "Express", "BullMQ", "Redis", "Postgres", "Traefik"],
+                outcome: "Background jobs survive restarts; the full stack deploys from one documented runbook.",
+              },
+              {
+                num: "06",
                 title: "Mediator Rule Engine with Wear OS Integration",
                 body: "Mediators need to trigger timed actions during sessions — reminders, check-ins, delays — without interrupting the flow. Built a rule engine with three rule types: instant (fires immediately), delay (fires after a set timer), and cron (fires on a set schedule). Rules are configured in a frontend dashboard, mapped to named buttons, and surfaced on a Wear OS watch so the mediator can fire any rule with a single button press. Also includes a voice command system for natural-language scheduling.",
                 stack: ["React", "Node.js", "Wear OS", "Android"],

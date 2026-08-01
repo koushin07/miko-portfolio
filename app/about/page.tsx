@@ -6,15 +6,23 @@ import Link from "next/link"
 
 const experience = [
   {
-    role: "Lead Full-Stack Engineer",
+    role: "Full-Stack Developer",
     company: "Atlas Geotech LLC",
     period: "Feb 2026 - Present",
     kind: "Employment",
     outcome:
-      "Determination and reporting pipeline behind California statutory hazard disclosure — 38 PDF report generators, a queued rendering pipeline, and the customer portal.",
+      "Determination and reporting pipeline behind California statutory hazard disclosure — the full range of disclosure products, a queued rendering pipeline, and the customer portal.",
   },
   {
-    role: "Analyst II ERP Product Application",
+    role: "Lead Full-Stack Developer",
+    company: "Private SaaS Platform — LegalTech (under NDA)",
+    period: "Jan 2026 - Apr 2026",
+    kind: "Contract",
+    outcome:
+      "Six internal systems for a legal-document platform — document generation, copy protection, lead generation, and scheduling.",
+  },
+  {
+    role: "Analyst II, ERP Product Application",
     company: "DXC Technology",
     period: "Aug 2023 - Dec 2025",
     kind: "Employment",
@@ -23,16 +31,30 @@ const experience = [
   {
     role: "Full-Stack Developer",
     company: "ACE",
-    period: "Oct 2025 - Feb 2026",
+    period: "Oct 2025 - Jan 2026",
     kind: "Contract",
     outcome: "Built a placement platform with Mapbox search, Clerk auth, PandaDoc document packs, and Pipedrive sync.",
   },
   {
     role: "Backend Developer",
     company: "ASAP Roadworthys",
-    period: "Jan 2024 - May 2024",
+    period: "Sep 2025 - Nov 2025",
     kind: "Contract",
     outcome: "Delivered booking, payments, and ServiceM8 job automation while pairing QA to keep flows reliable.",
+  },
+  {
+    role: "Frontend Developer",
+    company: "Boostlab",
+    period: "Jun 2025 - Aug 2025",
+    kind: "Contract",
+    outcome: "Conversion-focused storefront with Shopify checkout, Checkout.com payments, and Meta Pixel tracking.",
+  },
+  {
+    role: "Instructor & Developer",
+    company: "The Tech Academy",
+    period: "Jan 2025 - Jun 2025",
+    kind: "Contract",
+    outcome: "Maintained the academy's ASP.NET MVC learning platform, reviewed student work, and mentored learners.",
   },
 ]
 

@@ -45,7 +45,7 @@ const capabilities = [
 
 export default function Expertise() {
   return (
-    <section className="bg-accent-secondary py-16 md:py-24">
+    <section className="bg-accent-secondary py-20 md:py-32">
       <div className="max-w-[1200px] mx-auto px-6 lg:px-8 w-full">
         <FadeIn>
           <div className="mb-10 space-y-3">

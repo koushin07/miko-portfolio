@@ -8,16 +8,16 @@ import Link from "next/link"
 const proofPoints = [
   { value: "7", label: "production systems" },
   { value: "4", label: "industries" },
-  { value: "38", label: "report generators shipped" },
+  { value: "3 yrs", label: "building for clients" },
 ]
 
 export default function Hero() {
   return (
     <section className="hero-mesh bg-hero-bg text-hero-foreground pt-[72px]">
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-8 py-12 md:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 lg:gap-14 items-center">
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-8 py-16 md:py-24 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-16 items-center">
           {/* Left — identity, headline, CTA */}
-          <div className="space-y-5 md:space-y-6">
+          <div className="space-y-6 md:space-y-8">
             <FadeIn delay={0.05} duration={0.8}>
               <div className="flex items-center gap-3">
                 <span className="h-px w-8 bg-white/30" aria-hidden="true" />
@@ -28,9 +28,11 @@ export default function Hero() {
             </FadeIn>
 
             <FadeIn delay={0.1} duration={0.8}>
+              {/* Light weight gives the airy look; size is held just below text-h0
+                  so the headline stays 3 lines and the CTA remains above the fold. */}
               <h1
-                className="text-h1 font-bold text-white leading-[1.05] tracking-tight max-w-[16ch]"
-                style={{ fontFamily: "var(--font-display)" }}
+                className="text-h1 text-white leading-[1.08] max-w-[19ch]"
+                style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
               >
                 I build production systems for regulated industries.
               </h1>
@@ -66,7 +68,7 @@ export default function Hero() {
                 {proofPoints.map((point) => (
                   <div key={point.label} className="flex items-baseline gap-2">
                     <span
-                      className="text-white text-2xl font-bold"
+                      className="text-white text-2xl font-medium"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
                       {point.value}
@@ -80,7 +82,7 @@ export default function Hero() {
 
           {/* Right — portrait */}
           <FadeIn delay={0.18} duration={0.9} direction="up">
-            <div className="relative mx-auto w-full max-w-[300px] lg:max-w-none">
+            <div className="relative mx-auto w-full max-w-[260px] lg:max-w-[340px] lg:ml-auto">
               <div
                 className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-[#1e308e]/40 to-transparent blur-2xl"
                 aria-hidden="true"

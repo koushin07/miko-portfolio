@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Miko Canares — Full-Stack Engineer</title>
+<style>
+  /* ------------------------------------------------------------------
+     ATS notes — this file is optimised for Applicant Tracking Systems:
+       * Strictly single-column. Side-by-side blocks get read in scrambled
+         order by linear text extractors (verified with `pdftotext`).
+       * ASCII separators only ( | and - ). No arrows or bullets-as-glyphs.
+       * Standard section headings: SUMMARY / EXPERIENCE / PROJECTS /
+         TECHNICAL SKILLS / EDUCATION.
+       * Real selectable text, no images, no tables, no header/footer text.
+     Verify after editing:
+       pdftotext cv.pdf - | less     (this is roughly what an ATS sees)
+     ------------------------------------------------------------------ */
+  @page { size: A4; margin: 12mm 14mm; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 9.6pt;
+    line-height: 1.4;
+    color: #16181d;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: #1e308e; text-decoration: none; }
+
+  /* Header ---------------------------------------------------------- */
+  .name {
+    font-size: 23pt;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: #1e308e;
+    line-height: 1.05;
+    margin: 0;
+  }
+  .title {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #16181d;
+    margin: 3px 0 5px;
+  }
+  .contact { font-size: 8.8pt; color: #444a55; }
+  .contact span::after { content: "  |  "; color: #b6bcc6; }
+  .contact span:last-child::after { content: ""; }
+
+  hr.rule { border: 0; border-top: 1.6pt solid #1e308e; margin: 8px 0 10px; }
+
+  /* Sections -------------------------------------------------------- */
+  h2 {
+    font-size: 8.6pt;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: #1e308e;
+    margin: 13px 0 6px;
+    padding-bottom: 3px;
+    border-bottom: 0.6pt solid #d3d7de;
+  }
+  h2:first-of-type { margin-top: 10px; }
+
+  .summary { margin: 0; text-align: justify; }
+
+  /* Roles ----------------------------------------------------------- */
+  .role { margin-bottom: 9px; page-break-inside: avoid; }
+  .role-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .role-title { font-weight: 700; font-size: 10pt; }
+  .org { font-weight: 400; color: #16181d; }
+  .dates { font-size: 8.6pt; color: #545a66; white-space: nowrap; }
+
+  .meta { font-size: 8.4pt; color: #545a66; margin: 1px 0 3px; }
+  .tag {
+    display: inline-block;
+    font-size: 7.2pt;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #545a66;
+    background: #eef0f4;
+    border-radius: 3px;
+    padding: 1px 5px;
+    vertical-align: 1px;
+  }
+  .stack { font-style: italic; color: #545a66; }
+
+  ul { margin: 3px 0 0; padding-left: 15px; }
+  li { margin-bottom: 2px; }
+  li::marker { color: #9aa1ad; }
+
+  /* Compact rows for older roles ------------------------------------ */
+  .compact { margin-bottom: 5px; page-break-inside: avoid; }
+  .compact .role-head { align-items: baseline; }
+  .compact .role-title { font-size: 9.6pt; }
+  .compact p { margin: 1px 0 0; }
+
+  /* Skills ---------------------------------------------------------- */
+  .skills p { margin: 0 0 3px; }
+  .skills b { color: #16181d; }
+
+  /* Deliberately NOT two columns — see ATS notes at the top of this file. */
+
+  strong { font-weight: 700; }
+</style>
+</head>
+<body>
+
+  <header>
+    <h1 class="name">MIKO CANARES</h1>
+    <p class="title">Full-Stack Engineer &mdash; Business Systems, Automation &amp; Cloud</p>
+    <div class="contact">
+      <span>canaresmiko3@gmail.com</span>
+      <span>+63 909 611 6995</span>
+      <span>mikocanares.com</span>
+      <span>linkedin.com/in/miko-canares-772525292</span>
+      <span>github.com/koushin07</span>
+    </div>
+  </header>
+  <hr class="rule">
+
+  <h2>Summary</h2>
+  <p class="summary">
+    Full-stack engineer with three years' experience building business systems that companies depend on daily —
+    legal compliance reporting, customer portals, booking platforms, and workflow automation. Works across
+    <strong>Python</strong>, <strong>FastAPI</strong>, <strong>TypeScript</strong>, <strong>React</strong>,
+    <strong>Next.js</strong> and <strong>PostgreSQL</strong>, deploying to <strong>AWS</strong> with
+    <strong>Docker</strong> and <strong>Terraform</strong>. Two years of enterprise quality assurance behind the
+    development work, so testing and reliability are habits rather than afterthoughts. Comfortable owning a
+    project from first requirement through to live support.
+  </p>
+
+  <h2>Experience</h2>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Full-Stack Developer | <span class="org">Atlas Geotech LLC</span></div>
+      <div class="dates">Feb 2026 - Present</div>
+    </div>
+    <p class="meta"><span class="tag">Employment</span>
+      <span class="stack">Python, FastAPI, PostGIS, GeoServer, Celery, Next.js, Terraform, AWS ECS</span></p>
+    <ul>
+      <li>Appointed front-end lead on the hazard analysis application, coordinating two developers and owning
+          delivery tracking for the team.</li>
+      <li>Primary developer on the platform that produces California's legally required natural hazard disclosure
+          reports — checking a property against dozens of state and federal hazard datasets and generating the
+          finished legal document automatically, replacing a manual research and formatting process.</li>
+      <li>Designed and built the report generation service covering the company's full range of disclosure products,
+          from residential and commercial reports through to tax and tenancy disclosures.</li>
+      <li>Diagnosed and fixed a recurring production outage that was crashing the reporting service under load,
+          restoring stability during peak ordering periods.</li>
+      <li>Built the customer portal end to end — property search, report ordering, checkout, and delivery — used by
+          escrow officers and real estate agents to buy reports.</li>
+      <li>Automated the pipeline that keeps hazard data current, so dataset updates publish without taking the service
+          offline, and added a fallback so a federal data outage cannot stop reports being issued.</li>
+      <li>Set up the cloud infrastructure and deployment process on AWS using Docker and Terraform.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Lead Full-Stack Developer | <span class="org">Private SaaS Platform, LegalTech (under NDA)</span></div>
+      <div class="dates">Jan 2026 - Apr 2026</div>
+    </div>
+    <p class="meta"><span class="tag">Contract</span>
+      <span class="stack">React, Node.js, Express, TypeScript, Supabase, n8n, BullMQ, Docker</span></p>
+    <ul>
+      <li>Delivered six internal systems for a self-help legal-document platform, covering document generation,
+          copy protection, lead generation, and appointment scheduling.</li>
+      <li>Built the document pipeline that turns a customer's completed questionnaire into a finished legal document
+          delivered to their inbox, plus an admin tool letting staff create new document types without a developer.</li>
+      <li>Added copy protection that marks every document with details identifying the customer who bought it,
+          so resold copies can be traced back to source.</li>
+      <li>Built a system that turns daily public court records into a ranked list of sales leads, automatically
+          identifying and prioritising people likely to need the service.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Analyst II, ERP Product Application | <span class="org">DXC Technology</span></div>
+      <div class="dates">Aug 2023 - Dec 2025</div>
+    </div>
+    <p class="meta"><span class="tag">Employment</span>
+      <span class="stack">Enterprise ERP, SAP Signavio, Automated test scripting</span></p>
+    <ul>
+      <li>Enterprise QA across server/OS, terminal-based applications, database links, drivers, and user access
+          provisioning for business-critical ERP systems.</li>
+      <li>Developed and maintained automated test scripts, raising regression coverage and cutting manual verification
+          effort each release cycle.</li>
+      <li>Ran system checks, validated process changes, and escalated defects to keep enterprise operations stable
+          and secure.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Full-Stack Developer | <span class="org">ACE</span></div>
+      <div class="dates">Oct 2025 - Jan 2026</div>
+    </div>
+    <p class="meta"><span class="tag">Contract</span>
+      <span class="stack">Next.js, Laravel, TypeScript</span></p>
+    <ul>
+      <li>Built a clinical placement booking platform connecting students and preceptors, integrating Mapbox for
+          location search, Clerk for authentication, PandaDoc for document packs, and Pipedrive for CRM sync.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Backend Developer | <span class="org">ASAP Roadworthys</span></div>
+      <div class="dates">Sep 2025 - Nov 2025</div>
+    </div>
+    <p class="meta"><span class="tag">Contract</span>
+      <span class="stack">React, Express, TypeScript</span></p>
+    <ul>
+      <li>Built the booking backend for a vehicle inspection service, syncing jobs and customer records with
+          ServiceM8 and sending automated customer emails through Brevo. Designed the payment and booking flow so
+          customers were never double-charged or double-booked when a request was retried.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Frontend Developer | <span class="org">Boostlab</span></div>
+      <div class="dates">Jun 2025 - Aug 2025</div>
+    </div>
+    <p class="meta"><span class="tag">Contract</span>
+      <span class="stack">React, TypeScript, Shopify</span></p>
+    <ul>
+      <li>Built a conversion-focused storefront with Shopify checkout, Checkout.com payments, and Meta Pixel
+          tracking on key funnel steps.</li>
+    </ul>
+  </div>
+
+  <div class="compact">
+    <div class="role-head">
+      <div class="role-title">Instructor &amp; Developer | <span class="org">The Tech Academy</span></div>
+      <div class="dates">Jan 2025 - Jun 2025</div>
+    </div>
+    <p><span class="tag">Contract</span> Maintained the academy's ASP.NET MVC learning management system; reviewed
+      student submissions and mentored learners through technical troubleshooting.</p>
+  </div>
+
+  <div class="compact">
+    <div class="role-head">
+      <div class="role-title">Full-Stack Developer | <span class="org">Emport</span></div>
+      <div class="dates">Jan 2025 - Apr 2025</div>
+    </div>
+    <p><span class="tag">Contract</span> Built an employee management platform for academic institutions —
+      attendance tracking, workload scheduling, leave approval workflow, and automated reporting (Laravel, React).</p>
+  </div>
+
+  <div class="compact">
+    <div class="role-head">
+      <div class="role-title">Full-Stack Developer | <span class="org">Freelance</span></div>
+      <div class="dates">2022 - 2023</div>
+    </div>
+    <p>Delivered booking systems, POS modules, and reservation platforms for small and mid-sized businesses across
+      ASP.NET MVC, Laravel, React, Vue, and InertiaJS — requirements through deployment and production support.</p>
+  </div>
+
+  <div class="compact">
+    <div class="role-head">
+      <div class="role-title">System &amp; Infrastructure Engineer, Intern | <span class="org">Apollo Tech</span></div>
+      <div class="dates">Feb 2023 - May 2023</div>
+    </div>
+    <p>Set up and maintained physical servers and system software; handled networking tasks and server issue
+      resolution.</p>
+  </div>
+
+  <h2>Projects</h2>
+  <div class="compact">
+    <div class="role-head">
+      <div class="role-title">ReadMindMe | <span class="org">AI-Powered Bible Study Platform</span></div>
+      <div class="dates">Personal</div>
+    </div>
+    <p><span class="stack">FastAPI, PostgreSQL, Redis, OpenAI</span> — A Bible study app that answers users'
+      questions with relevant scripture, using AI search across the full biblical text enriched with original-language
+      detail and cross-references, and tailored to each user's history. Includes a complete admin console with
+      two-factor authentication, content moderation, and audit logging.</p>
+  </div>
+
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <p><b>Languages:</b> TypeScript, JavaScript, Python, PHP, C#, SQL</p>
+    <p><b>Frontend:</b> React, Next.js, Vue, Inertia, Tailwind CSS, Angular</p>
+    <p><b>Backend:</b> FastAPI, Node.js, Express, Laravel, ASP.NET Core</p>
+    <p><b>Databases:</b> PostgreSQL, PostGIS, Supabase, MySQL, Redis, pgvector</p>
+    <p><b>Cloud &amp; Infrastructure:</b> AWS (ECS, RDS, S3, CloudFront), Docker, Terraform, CI/CD, Linux</p>
+    <p><b>AI &amp; Machine Learning:</b> OpenAI API, embeddings, vector search, retrieval-augmented generation (RAG)</p>
+    <p><b>Testing &amp; QA:</b> Pytest, Vitest, PHPUnit, Postman, regression testing, API testing, ERP validation</p>
+    <p><b>Automation &amp; Integrations:</b> n8n, Celery, BullMQ, Stripe, Shopify, ServiceM8, Pipedrive, PandaDoc</p>
+  </div>
+
+  <!-- Dates inline here, not in a right-aligned flex child: on the final page the
+       flex dates were being extracted after the whole document, detaching them
+       from their entry. Inline keeps reading order correct for ATS parsers. -->
+  <h2>Education &amp; Certification</h2>
+  <div class="compact">
+    <p class="role-title">BSc Information Technology, <span class="org">Mindanao State University, Naawan</span>
+      <span class="dates">&nbsp;&nbsp;Aug 2018 - Jul 2023</span></p>
+    <p>Major in Database Systems</p>
+  </div>
+  <div class="compact">
+    <p class="role-title">Process Data Analyst, <span class="org">SAP Signavio (Certified Associate)</span>
+      <span class="dates">&nbsp;&nbsp;Sept 2025 - Sept 2026</span></p>
+    <p>Process mining, SiGNAL, SAP Signavio Process Insights &amp; Intelligence</p>
+  </div>
+
+</body>
+</html>

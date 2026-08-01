@@ -9,7 +9,7 @@ import Link from "next/link"
 export const metadata = buildMetadata({
   title: "Flagship Case Study — Atlas NHD Hazard Disclosure Platform",
   description:
-    "How California statutory hazard disclosure was automated end to end — from raw government geodata to a signed PDF in a homebuyer's inbox. 38 report generators, four-tier architecture, spec-driven delivery.",
+    "How California statutory hazard disclosure was automated end to end — from raw government geodata to a signed PDF in a homebuyer's inbox. A four-tier system covering the full range of statutory disclosure products.",
   path: "/case-study",
   keywords: [
     "Case study",
@@ -26,10 +26,10 @@ export const metadata = buildMetadata({
 })
 
 const stats = [
-  { value: "38", label: "PDF report generators in production" },
-  { value: "710", label: "backend tests passing" },
-  { value: "4", label: "services, one pipeline" },
-  { value: "561", label: "of 957 commits authored" },
+  { value: "Statewide", label: "every residential sale in California" },
+  { value: "End to end", label: "government geodata to delivered report" },
+  { value: "4 services", label: "one automated pipeline" },
+  { value: "Front-end lead", label: "on the hazard analysis app" },
 ]
 
 const decisions = [
@@ -74,7 +74,7 @@ const architecture = [
     tier: "geocoding-service",
     role: "Determination and rendering engine",
     detail:
-      "FastAPI service that resolves an address to a parcel and APN, runs the hazard determinations, and renders the result. 38 report generators, a Celery queue for async orders.",
+      "FastAPI service that resolves an address to a parcel and APN, runs the hazard determinations, and renders the result. Covers the full range of disclosure products, with a queue for asynchronous orders.",
   },
   {
     tier: "portal-admin",
@@ -91,10 +91,10 @@ const architecture = [
 ]
 
 const results = [
-  "38 distinct statutory report types in production — residential NHD, tax disclosure, tenant flood, FHSZ variants, Williamson Act, Mello-Roos, and more.",
-  "710 backend tests passing, with report templates pinned by markup-contract assertions.",
-  "Report generation moved from synchronous request-time rendering to a queued pipeline with warmup caching.",
-  "Infrastructure defined in Terraform — ECS Fargate, RDS, ALB, Secrets Manager, ECR — with IAM scoped to least privilege after a security review.",
+  "The full range of statutory disclosure products in production — residential, commercial, tax, tenancy, fire severity, and more.",
+  "Report content locked down by automated checks, so a formatting change cannot quietly alter a legally binding document.",
+  "Report generation moved off the request path onto a queue, so a slow dataset no longer blocks a customer's order.",
+  "Infrastructure defined as code on AWS, with access permissions tightened to least privilege after a security review.",
 ]
 
 export default function CaseStudyPage() {
@@ -112,7 +112,7 @@ export default function CaseStudyPage() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <p className="text-white/50 text-sm">
-              Atlas Geotech LLC · Lead Full-Stack Engineer · Feb 2026–present
+              Atlas Geotech LLC · Full-Stack Developer · Feb 2026–present
             </p>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -145,7 +145,7 @@ export default function CaseStudyPage() {
               {stats.map((stat) => (
                 <div key={stat.label} className="space-y-1">
                   <p
-                    className="text-white text-3xl font-bold"
+                    className="text-white text-xl font-bold"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {stat.value}
@@ -297,8 +297,8 @@ export default function CaseStudyPage() {
                 <p className="text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">My role</p>
                 <div className="rounded-2xl border border-gray-200 bg-accent-secondary p-6 space-y-3">
                   <p className="text-foreground/80 text-sm leading-relaxed">
-                    Lead engineer on the determination and reporting pipeline — 561 of 957 commits on the SDI, and
-                    effectively sole author of the customer portal at 160 of 167 commits.
+                    Primary developer on the determination and reporting pipeline, and sole developer of the
+                    customer-facing portal.
                   </p>
                   <p className="text-foreground/80 text-sm leading-relaxed">
                     Scope covered report generation, the data refresh pipeline, AWS infrastructure, the customer-facing

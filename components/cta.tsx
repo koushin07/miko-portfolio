@@ -12,7 +12,7 @@ const reassurances = [
 
 export default function CTA() {
   return (
-    <section className="bg-accent-secondary py-16 md:py-24">
+    <section className="bg-accent-secondary py-20 md:py-32">
       <div className="max-w-[1200px] mx-auto px-6 lg:px-8 w-full">
         <FadeIn>
           <div className="bg-hero-bg rounded-3xl p-8 md:p-12 lg:p-14 text-center">

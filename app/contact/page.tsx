@@ -8,7 +8,7 @@ const contacts = [
   { label: "Email", value: "canaresmiko3@gmail.com", href: "mailto:canaresmiko3@gmail.com", icon: Mail },
   { label: "LinkedIn", value: "linkedin.com/in/miko-canares-772525292", href: "https://www.linkedin.com/in/miko-canares-772525292", icon: Linkedin },
   { label: "GitHub", value: "github.com/koushin07", href: "https://github.com/koushin07", icon: Github },
-  { label: "WhatsApp", value: "+63 953 322 1805", href: "https://wa.me/639533221805", icon: Phone },
+  { label: "WhatsApp", value: "+63 909 611 6995", href: "https://wa.me/639096116995", icon: Phone },
 ]
 
 export default function ContactPage() {

@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog/solid-principles-guide",
     "/blog/modern-testing-essentials",
     "/blog/vibe-coder-impact",
-    "/full-stack",
     "/qa",
     "/system",
   ]
