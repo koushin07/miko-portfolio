@@ -22,7 +22,7 @@ export default function Hero() {
               <div className="flex items-center gap-3">
                 <span className="h-px w-8 bg-white/30" aria-hidden="true" />
                 <p className="text-white/70 text-sm font-semibold uppercase tracking-[0.16em]">
-                  Miko Canares — Full-Stack Engineer
+                  Miko Cañares — Full-Stack Engineer
                 </p>
               </div>
             </FadeIn>
@@ -90,7 +90,7 @@ export default function Hero() {
               <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-white/5">
                 <Image
                   src="/profile-pic.png"
-                  alt="Miko Canares"
+                  alt="Miko Cañares"
                   width={520}
                   height={520}
                   priority

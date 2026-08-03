@@ -8,7 +8,7 @@ import { buildMetadata, getBlogListingJsonLd } from "@/lib/seo"
 export const metadata = buildMetadata({
   title: "Blog",
   description:
-    "Insights on QA, engineering workflows, and full-stack delivery from Miko Canares.",
+    "Insights on QA, engineering workflows, and full-stack delivery from Miko Cañares.",
   path: "/blog",
   keywords: ["QA blog", "Full-stack articles", "Engineering insights"],
 })

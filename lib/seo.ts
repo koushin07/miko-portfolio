@@ -1,17 +1,22 @@
 import type { Metadata } from "next"
 
-const DEFAULT_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://mikocanares.com"
+// NOTE: mikocanares.com belongs to a different person (a consultant with a similar
+// name) — do not use it here. Production sets NEXT_PUBLIC_SITE_URL; this fallback
+// keeps local and preview builds pointing at the real deployment.
+const DEFAULT_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ikoy.vercel.app"
 
 export const siteConfig = {
-  name: "Miko Canares",
-  title: "Miko Canares — Full-Stack Developer · Automation & Internal Tools",
+  name: "Miko Cañares",
+  title: "Miko Cañares — Full-Stack Engineer · Production Systems & Automation",
   description:
-    "Full-stack developer specializing in automation-driven systems, internal tools, and scalable SaaS platforms. I help teams eliminate manual work and ship production systems that scale.",
+    "Full-stack engineer building production systems for regulated and data-heavy industries — compliance reporting, geospatial platforms, customer portals, and workflow automation.",
   url: DEFAULT_SITE_URL,
   locale: "en_US",
   email: "canaresmiko3@gmail.com",
   ogImage: "/modern-coding-workspace-with-multiple-monitors-sho.jpg",
   keywords: [
+    // Both spellings — people search the ASCII form far more often than the ñ.
+    "Miko Cañares",
     "Miko Canares",
     "Full-stack developer",
     "Automation engineer",

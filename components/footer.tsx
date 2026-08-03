@@ -34,7 +34,7 @@ export default function Footer() {
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/koushin07", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/miko-canares-772525292", label: "LinkedIn" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/mikocanares", label: "LinkedIn" },
   ]
 
   const handleDownloadCV = () => {
@@ -143,7 +143,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8 py-6">
           <p className="text-white/40 text-sm-custom text-center">
-            © {new Date().getFullYear()} Miko Canares. All rights reserved.
+            © {new Date().getFullYear()} Miko Cañares. All rights reserved.
           </p>
         </div>
       </div>

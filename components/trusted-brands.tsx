@@ -2,12 +2,15 @@ import Image from "next/image"
 
 type Logo = { name: string; src: string }
 
-const employers: Logo[] = [
+// Grouped by engagement length, not employment status. Atlas is an independent
+// contractor arrangement like the others, but it's ongoing and full-time hours —
+// filing it under "clients" alongside one-off projects would misrepresent it.
+const longTermRoles: Logo[] = [
   { name: "Atlas Geotech", src: "/trustedbrand/Atlas Geotech.png" },
   { name: "DXC Technology", src: "/trustedbrand/DXC technology.png" },
 ]
 
-const clients: Logo[] = [
+const projectClients: Logo[] = [
   { name: "ACE", src: "/trustedbrand/ACE.png" },
   { name: "ASAP Roadworthys", src: "/trustedbrand/ASAP Roadworthys.png" },
   { name: "Boostlab", src: "/trustedbrand/Boostlab.jpg" },
@@ -50,16 +53,16 @@ export default function TrustedBrands() {
           <div className="space-y-8">
             <div className="space-y-4">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                Employed at
+                Long-term roles
               </p>
-              <LogoRow logos={employers} />
+              <LogoRow logos={longTermRoles} />
             </div>
 
             <div className="space-y-4 pt-6 border-t border-gray-200">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                Freelance &amp; contract clients
+                Project clients
               </p>
-              <LogoRow logos={clients} />
+              <LogoRow logos={projectClients} />
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo"
 
 export const metadata = buildMetadata({
   title: "System & Infrastructure",
-  description: "Systems engineering, server provisioning, and infrastructure QA by Miko Canares.",
+  description: "Systems engineering, server provisioning, and infrastructure QA by Miko Cañares.",
   path: "/system",
   keywords: ["Infrastructure", "Server configuration", "Systems engineering"],
 })

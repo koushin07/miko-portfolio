@@ -6,7 +6,7 @@ import Link from "next/link"
 
 const contacts = [
   { label: "Email", value: "canaresmiko3@gmail.com", href: "mailto:canaresmiko3@gmail.com", icon: Mail },
-  { label: "LinkedIn", value: "linkedin.com/in/miko-canares-772525292", href: "https://www.linkedin.com/in/miko-canares-772525292", icon: Linkedin },
+  { label: "LinkedIn", value: "linkedin.com/in/mikocanares", href: "https://www.linkedin.com/in/mikocanares", icon: Linkedin },
   { label: "GitHub", value: "github.com/koushin07", href: "https://github.com/koushin07", icon: Github },
   { label: "WhatsApp", value: "+63 909 611 6995", href: "https://wa.me/639096116995", icon: Phone },
 ]

@@ -9,17 +9,9 @@ const experience = [
     role: "Full-Stack Developer",
     company: "Atlas Geotech LLC",
     period: "Feb 2026 - Present",
-    kind: "Employment",
-    outcome:
-      "Determination and reporting pipeline behind California statutory hazard disclosure — the full range of disclosure products, a queued rendering pipeline, and the customer portal.",
-  },
-  {
-    role: "Lead Full-Stack Developer",
-    company: "Private SaaS Platform — LegalTech (under NDA)",
-    period: "Jan 2026 - Apr 2026",
     kind: "Contract",
     outcome:
-      "Six internal systems for a legal-document platform — document generation, copy protection, lead generation, and scheduling.",
+      "Determination and reporting pipeline behind California statutory hazard disclosure — the full range of disclosure products, a queued rendering pipeline, and the customer portal.",
   },
   {
     role: "Analyst II, ERP Product Application",
@@ -71,7 +63,7 @@ export default function AboutPage() {
                 <p className="text-white/60 text-eyebrow uppercase tracking-wider">About</p>
               </FadeIn>
               <FadeIn delay={0.1}>
-                <h1 className="text-h0 text-white">Miko Canares</h1>
+                <h1 className="text-h0 text-white">Miko Cañares</h1>
               </FadeIn>
               <FadeIn delay={0.2}>
                 <p className="text-white/70 text-xl-custom max-w-2xl">

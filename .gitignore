@@ -28,3 +28,9 @@ Thumbs.db
 # IDE settings
 .vscode/
 .idea/
+
+# Playwright MCP debug output
+.playwright-mcp/
+
+# Stale Make.com export, superseded by the in-house Google Calendar integration
+*.blueprint.json

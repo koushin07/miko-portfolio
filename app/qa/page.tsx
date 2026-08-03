@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo"
 
 export const metadata = buildMetadata({
   title: "QA Portfolio",
-  description: "Enterprise QA engagements and integration testing delivered by Miko Canares.",
+  description: "Enterprise QA engagements and integration testing delivered by Miko Cañares.",
   path: "/qa",
   keywords: ["QA services", "Testing portfolio", "Automation testing"],
 })
