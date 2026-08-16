@@ -52,7 +52,7 @@ export default function ModernTestingEssentialsPage() {
         <div className="max-w-[900px] mx-auto px-6 lg:px-8">
           <FadeIn>
             <div className="mb-8">
-              <span className="text-[#1e308e] text-sm-custom font-medium">QA & Testing</span>
+              <span className="text-primary text-sm-custom font-medium">QA & Testing</span>
             </div>
           </FadeIn>
 
@@ -191,7 +191,7 @@ export default function ModernTestingEssentialsPage() {
               <p className="text-white/60 mb-6">Let's discuss how to implement a robust testing framework for your project.</p>
               <Link
                 href="/contact"
-                className="inline-block px-8 py-4 bg-[#1e308e] text-white rounded-lg hover:bg-accent-primary-hover transition-colors font-medium"
+                className="inline-block px-8 py-4 bg-accent-primary text-white rounded-lg hover:bg-accent-primary-hover transition-colors font-medium"
               >
                 Get in touch
               </Link>

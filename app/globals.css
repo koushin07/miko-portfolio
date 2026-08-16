@@ -3,101 +3,89 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  Dark-first design system — see docs/Miko_Portfolio_Rebuild_Spec.md §3-§4.
+  Color grammar: structure (nodes, lines, panels) is quiet indigo/neutral;
+  moving data (packets, live states) is amber. Keep that split everywhere.
+*/
+
 :root {
-  /* User's exact color palette */
-  /* Accent Primary #131f5b, Accent Primary Hover #1e308e */
-  /* Accent Secondary #eff1f7, Accent Tertiary #f2e9d1 */
-  /* Neutral Primary white, Neutral Secondary #f5f4f1, Neutral Inverse #080c24 */
-
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.052);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.052);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.052);
-  --primary: oklch(0.237 0.084 264.052);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.953 0.006 264.052);
-  --secondary-foreground: oklch(0.129 0.042 264.052);
-  --muted: oklch(0.965 0.004 90);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.935 0.03 90);
-  --accent-foreground: oklch(0.129 0.042 264.052);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --background: oklch(0.165 0.012 275);
+  --foreground: oklch(0.93 0.008 275);
+  --card: oklch(0.205 0.014 275);
+  --card-foreground: oklch(0.93 0.008 275);
+  --popover: oklch(0.205 0.014 275);
+  --popover-foreground: oklch(0.93 0.008 275);
+  --primary: oklch(0.72 0.13 277);
+  --primary-foreground: oklch(0.13 0.02 275);
+  --secondary: oklch(0.245 0.016 275);
+  --secondary-foreground: oklch(0.93 0.008 275);
+  --muted: oklch(0.225 0.014 275);
+  --muted-foreground: oklch(0.7 0.018 275);
+  --accent: oklch(0.245 0.016 275);
+  --accent-foreground: oklch(0.93 0.008 275);
+  --destructive: oklch(0.62 0.21 25);
+  --destructive-foreground: oklch(0.97 0.01 25);
+  --border: oklch(0.32 0.02 275 / 55%);
+  --input: oklch(0.32 0.02 275 / 70%);
+  --ring: oklch(0.72 0.13 277 / 60%);
+  --chart-1: oklch(0.72 0.13 277);
+  --chart-2: oklch(0.75 0.15 75);
+  --chart-3: oklch(0.7 0.12 200);
+  --chart-4: oklch(0.65 0.18 310);
+  --chart-5: oklch(0.68 0.16 25);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.129 0.042 264.052);
-  --sidebar-primary: oklch(0.237 0.084 264.052);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.953 0.006 264.052);
-  --sidebar-accent-foreground: oklch(0.129 0.042 264.052);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.205 0.014 275);
+  --sidebar-foreground: oklch(0.93 0.008 275);
+  --sidebar-primary: oklch(0.72 0.13 277);
+  --sidebar-primary-foreground: oklch(0.13 0.02 275);
+  --sidebar-accent: oklch(0.245 0.016 275);
+  --sidebar-accent-foreground: oklch(0.93 0.008 275);
+  --sidebar-border: oklch(0.32 0.02 275 / 55%);
+  --sidebar-ring: oklch(0.72 0.13 277 / 60%);
 
-  /* Custom color tokens for direct use */
-  --accent-primary: #131f5b;
-  --accent-primary-hover: #1e308e;
-  --accent-secondary: #f5f4f1;
-  --accent-tertiary: #eff1f7;
-  --neutral-primary: #ffffff;
-  --neutral-secondary: #f5f4f1;
-  --neutral-inverse: #080c24;
-  --hero-bg: #0a0e1a;
+  /* Legacy custom tokens, remapped to dark equivalents so older pages stay coherent.
+     accent-primary doubles as a solid button surface — must hold white text. */
+  --accent-primary: oklch(0.47 0.17 277);
+  --accent-primary-hover: oklch(0.54 0.17 277);
+  --accent-secondary: oklch(0.205 0.014 275);
+  --accent-tertiary: oklch(0.245 0.016 275);
+  --neutral-primary: oklch(0.165 0.012 275);
+  --neutral-secondary: oklch(0.205 0.014 275);
+  --neutral-inverse: oklch(0.93 0.008 275);
+  --hero-bg: oklch(0.14 0.02 275);
   --hero-foreground: #ffffff;
-  --amber: #E8A020;
+  --amber: #e8a020;
+  --grid-line: oklch(0.32 0.02 275 / 12%);
 }
 
+/* Single-theme site: .dark mirrors :root so any theme-class toggling is a no-op. */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: oklch(0.165 0.012 275);
+  --foreground: oklch(0.93 0.008 275);
+  --card: oklch(0.205 0.014 275);
+  --card-foreground: oklch(0.93 0.008 275);
+  --popover: oklch(0.205 0.014 275);
+  --popover-foreground: oklch(0.93 0.008 275);
+  --primary: oklch(0.72 0.13 277);
+  --primary-foreground: oklch(0.13 0.02 275);
+  --secondary: oklch(0.245 0.016 275);
+  --secondary-foreground: oklch(0.93 0.008 275);
+  --muted: oklch(0.225 0.014 275);
+  --muted-foreground: oklch(0.7 0.018 275);
+  --accent: oklch(0.245 0.016 275);
+  --accent-foreground: oklch(0.93 0.008 275);
+  --destructive: oklch(0.62 0.21 25);
+  --destructive-foreground: oklch(0.97 0.01 25);
+  --border: oklch(0.32 0.02 275 / 55%);
+  --input: oklch(0.32 0.02 275 / 70%);
+  --ring: oklch(0.72 0.13 277 / 60%);
 }
 
 @theme inline {
-  --font-sans: "Manrope", "Manrope Fallback", system-ui, sans-serif;
-  /* Display face is Manrope at light weights — a neutral grotesque reads calmer
-     at large sizes than a characterful display face. Weight, not decoration,
-     does the work. */
-  --font-display: "Manrope", "Manrope Fallback", system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-display: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -134,7 +122,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  /* Custom color tokens */
+  /* Legacy custom color tokens */
   --color-accent-primary: var(--accent-primary);
   --color-accent-primary-hover: var(--accent-primary-hover);
   --color-accent-secondary: var(--accent-secondary);
@@ -158,39 +146,17 @@
     @apply bg-background text-foreground font-sans;
   }
 
-  /* Display font utility */
   .font-display {
     font-family: var(--font-display);
-  }
-
-  /* Hero gradient mesh */
-  .hero-mesh {
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-mesh::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 65% 55% at 80% 15%, oklch(0.38 0.14 264 / 0.55), transparent),
-      radial-gradient(ellipse 45% 65% at 5% 85%, oklch(0.30 0.10 278 / 0.45), transparent),
-      radial-gradient(ellipse 35% 45% at 50% 110%, oklch(0.22 0.08 252 / 0.35), transparent);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero-mesh > * {
-    position: relative;
-    z-index: 1;
   }
 
   /* Typography - H0 (5.61rem desktop → 2.87rem mobile) */
   .text-h0 {
     font-size: 2.87rem;
     font-family: var(--font-display);
-    font-weight: 300;
+    font-weight: 500;
     line-height: 1.04;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
   }
   @media (min-width: 480px) {
     .text-h0 {
@@ -212,9 +178,9 @@
   .text-h1 {
     font-size: 2.15rem;
     font-family: var(--font-display);
-    font-weight: 300;
-    line-height: 1.04;
-    letter-spacing: -0.022em;
+    font-weight: 500;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
   }
   @media (min-width: 480px) {
     .text-h1 {
@@ -236,9 +202,9 @@
   .text-h2 {
     font-size: 1.21rem;
     font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 1.04;
-    letter-spacing: -0.01em;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
   }
   @media (min-width: 480px) {
     .text-h2 {
@@ -259,8 +225,8 @@
   /* Typography - H3 (1.78rem desktop → 0.91rem mobile) */
   .text-h3 {
     font-size: 0.91rem;
-    font-weight: 400;
-    line-height: 1.04;
+    font-weight: 500;
+    line-height: 1.15;
     letter-spacing: -0.01em;
   }
   @media (min-width: 480px) {
@@ -282,7 +248,7 @@
   /* Typography - H4 (1.33rem desktop → 0.97rem mobile) */
   .text-h4 {
     font-size: 0.97rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.3;
     letter-spacing: -0.01em;
   }
@@ -305,12 +271,13 @@
   /* Typography - H5 */
   .text-h5 {
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.3;
   }
 
-  /* Typography - H6 */
+  /* Typography - H6 — small uppercase label, spoken in the system's mono voice */
   .text-h6 {
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 400;
     line-height: 1.3;
@@ -399,5 +366,256 @@
   .text-tag {
     font-size: 0.75rem;
     line-height: 1.3;
+  }
+}
+
+@layer utilities {
+  /* Subtle film-grain so large dark areas don't read as flat vinyl */
+  .noise-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.022;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* SVG nodes scale from their own center */
+  .svg-node {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* The system's voice: node labels, stats, technical metadata */
+  .text-node {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* Motion vocabulary — spec §33. Structure appears (node-in, dash-in),
+   then data travels (packet-travel) and nodes acknowledge it (pulse-ring). */
+@keyframes node-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    outline: 1px solid transparent;
+    outline-offset: 0;
+  }
+  50% {
+    outline: 1px solid color-mix(in oklab, var(--amber) 55%, transparent);
+    outline-offset: 3px;
+  }
+}
+
+@keyframes packet-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* Case-study timeline loader: the rail connector fills toward the next
+   stage's circle; its arrival lights that circle */
+@keyframes rail-fill {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Subsystem zoom: overview ↔ detail view swap */
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes svg-arrive {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* One-shot packet drop for FlowStage connectors (arrival-synced) */
+@keyframes packet-y-once {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 5px);
+    opacity: 1;
+  }
+}
+
+/* Packet riding an SVG edge via offset-path, one shot per edge */
+@keyframes packet-edge {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+}
+
+/* Straight-line packet runs for SystemMap connectors.
+   Cross-axis centering comes from the element's translate-* utility
+   (Tailwind v4 `translate` property); keyframes move ONLY the travel
+   axis via transform, so the two never stack. */
+@keyframes packet-y {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(1.15rem);
+    opacity: 1;
+  }
+  82%,
+  100% {
+    transform: translateY(1.15rem);
+    opacity: 0;
+  }
+}
+
+@keyframes packet-x {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateX(2.15rem);
+    opacity: 1;
+  }
+  82%,
+  100% {
+    transform: translateX(2.15rem);
+    opacity: 0;
+  }
+}
+
+@keyframes dash-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* n8n architecture diagram — band hover focus + phased packet/glow cycle */
+.n8n-diagram g.band {
+  transition: opacity 0.25s ease;
+}
+.n8n-diagram:has(g.band:hover) g.band:not(:hover) {
+  opacity: 0.35;
+}
+
+/* One discrete pulse per 4.8s cycle: move for the first quarter, rest hidden */
+@keyframes seg-packet {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  23% {
+    opacity: 1;
+  }
+  25% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes box-glow {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  22% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .motion-safe-only {
+    display: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

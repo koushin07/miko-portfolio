@@ -97,7 +97,7 @@ export default function BlogPage() {
       </section>
 
       {/* Featured Posts */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-card">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
           <FadeIn>
             <h2 className="text-h3 text-foreground mb-10">Featured Articles</h2>
@@ -107,7 +107,7 @@ export default function BlogPage() {
             {featuredPosts.map((post, i) => (
               <FadeIn key={post.id} delay={0.1 * (i + 1)} direction="up">
                 <Link href={post.href}>
-                  <article className="group cursor-pointer bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-md transition-all">
+                  <article className="group cursor-pointer bg-card border border-border rounded-2xl overflow-hidden hover:-translate-y-1 transition-all">
                     <div className="overflow-hidden aspect-[16/10]">
                       <img
                         src={post.image || "/placeholder.svg"}
@@ -117,7 +117,7 @@ export default function BlogPage() {
                     </div>
                     <div className="p-6">
                       <div className="flex items-center gap-4 mb-3">
-                        <span className="text-[#1e308e] text-sm-custom font-medium">{post.category}</span>
+                        <span className="text-primary text-sm-custom font-medium">{post.category}</span>
                         <span className="text-muted-foreground text-sm-custom flex items-center gap-1">
                         <Calendar size={14} />
                         {post.date}
@@ -152,7 +152,7 @@ export default function BlogPage() {
               regularPosts.map((post, i) => (
                 <FadeIn key={post.id} delay={0.1 * (i + 1)} direction="up">
                   <Link href={post.href}>
-                    <article className="group cursor-pointer bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-md transition-all h-full">
+                    <article className="group cursor-pointer bg-card border border-border rounded-2xl overflow-hidden hover:-translate-y-1 transition-all h-full">
                       <div className="aspect-[16/10] overflow-hidden">
                         <img
                           src={post.image || "/placeholder.svg"}
@@ -162,7 +162,7 @@ export default function BlogPage() {
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-3 mb-3">
-                          <span className="text-[#1e308e] text-sm-custom font-medium">{post.category}</span>
+                          <span className="text-primary text-sm-custom font-medium">{post.category}</span>
                           <span className="text-muted-foreground text-xs">{post.readTime}</span>
                         </div>
                         <h3 className="text-h5 font-semibold text-foreground mb-2 group-hover:text-accent-primary-hover transition-colors">

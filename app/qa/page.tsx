@@ -42,7 +42,7 @@ const qaProjects = [
     id: 2,
     title: "Roadworthy Inspection Platform QA",
     category: "Product QA & Integrations",
-    duration: "Jan 2024 - May 2024",
+    duration: "Sep 2025 - Nov 2025",
     company: "ASAP Roadworthys",
     description:
       "Partnered with the dev team to pair QA with feature delivery across the roadworthy inspection platform. Ensured the ReactTS + ExpressTS build stayed true to the Figma source of truth, validated booking data flows, payments, and ServiceM8 automation paths end to end, and confirmed Brevo campaigns triggered alongside job creation.",
@@ -92,7 +92,7 @@ export default function QAPage() {
                 <div className="flex flex-wrap items-center gap-4">
                   <a
                     href="/contact"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#1e308e] text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-accent-primary text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
                   >
                     Book QA discovery
                     <ArrowRight size={18} />
@@ -125,7 +125,7 @@ export default function QAPage() {
         </div>
       </section>
 
-      <section id="process" className="py-16 md:py-20 bg-white">
+      <section id="process" className="py-16 md:py-20 bg-card">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
           <FadeIn>
             <h2 className="text-h2 text-foreground mb-4">QA engagements</h2>
@@ -137,7 +137,7 @@ export default function QAPage() {
           <div className="space-y-8">
             {qaProjects.map((project, i) => (
               <FadeIn key={project.id} delay={0.1 * i} direction="up">
-                <article className="bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                <article className="bg-card border border-border rounded-2xl p-8 md:p-10 hover:-translate-y-1 transition-all duration-300">
                   <div className="flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-10">
                     <div className="lg:w-56 shrink-0 space-y-2">
                       <span className="inline-block px-3 py-1 bg-accent-secondary text-foreground/70 rounded-full text-xs">
@@ -154,7 +154,7 @@ export default function QAPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {project.achievements.map((achievement, j) => (
                           <div key={j} className="flex items-start gap-2 text-sm text-foreground/80">
-                            <CheckCircle2 className="w-4 h-4 text-[#1e308e] shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                             {achievement}
                           </div>
                         ))}

@@ -70,14 +70,6 @@ const systemExperience = [
   },
 ]
 
-const skills = [
-  { name: "Ubuntu/Linux Server", level: 85 },
-  { name: "Server Configuration", level: 80 },
-  { name: "Network Administration", level: 75 },
-  { name: "System Troubleshooting", level: 85 },
-  { name: "Security Configuration", level: 70 },
-]
-
 export default function SystemPage() {
   return (
     <main className="min-h-screen bg-hero-bg">
@@ -106,7 +98,7 @@ export default function SystemPage() {
                 <div className="flex flex-wrap items-center gap-4">
                   <a
                     href="/contact"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#1e308e] text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-accent-primary text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
                   >
                     Plan an infra run
                     <ArrowRight size={18} />
@@ -143,7 +135,7 @@ export default function SystemPage() {
         <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
           <FadeIn>
             <div className="mb-12">
-              <span className="inline-block px-3 py-1 bg-white rounded-full text-foreground/70 text-xs shadow-sm">
+              <span className="inline-block px-3 py-1 bg-card rounded-full text-foreground/70 text-xs">
                 Aug 2023 - Dec 2025
               </span>
               <h2 className="text-h2 text-foreground mt-3 mb-2">DXC Technology</h2>
@@ -153,7 +145,7 @@ export default function SystemPage() {
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1 mb-16">
             <FadeIn>
-              <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full">
+              <article className="bg-card border border-border rounded-2xl p-6 md:p-8 hover:-translate-y-1 transition-all duration-300 h-full">
                 <div className="w-10 h-10 rounded-xl bg-accent-secondary flex items-center justify-center mb-6 text-foreground/70">
                   {systemExperience[0].icon}
                 </div>
@@ -165,7 +157,7 @@ export default function SystemPage() {
                 <ul className="space-y-2">
                   {systemExperience[0].tasks.map((task, j) => (
                     <li key={j} className="flex items-start gap-2 text-foreground/80 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-[#1e308e] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                       {task}
                     </li>
                   ))}
@@ -176,7 +168,7 @@ export default function SystemPage() {
 
           <FadeIn>
             <div className="mb-12">
-              <span className="inline-block px-3 py-1 bg-white rounded-full text-foreground/70 text-xs shadow-sm">
+              <span className="inline-block px-3 py-1 bg-card rounded-full text-foreground/70 text-xs">
                 Feb 2023 - May 2023
               </span>
               <h2 className="text-h2 text-foreground mt-3 mb-2">Apollo Tech</h2>
@@ -187,7 +179,7 @@ export default function SystemPage() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {systemExperience.slice(1).map((item, i) => (
               <FadeIn key={item.id} delay={0.1 * i} direction="up">
-                <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full">
+                <article className="bg-card border border-border rounded-2xl p-6 md:p-8 hover:-translate-y-1 transition-all duration-300 h-full">
                   <div className="w-10 h-10 rounded-xl bg-accent-secondary flex items-center justify-center mb-6 text-foreground/70">
                     {item.icon}
                   </div>
@@ -199,39 +191,12 @@ export default function SystemPage() {
                   <ul className="space-y-2">
                     {item.tasks.map((task, j) => (
                       <li key={j} className="flex items-start gap-2 text-foreground/80 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-[#1e308e] shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                         {task}
                       </li>
                     ))}
                   </ul>
                 </article>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <FadeIn>
-            <h2 className="text-h2 text-foreground mb-12 text-center">Technical proficiency</h2>
-          </FadeIn>
-
-          <div className="max-w-2xl mx-auto space-y-6">
-            {skills.map((skill, i) => (
-              <FadeIn key={skill.name} delay={0.1 * i} direction="up">
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-foreground text-base">{skill.name}</span>
-                    <span className="text-muted-foreground text-sm">{skill.level}%</span>
-                  </div>
-                  <div className="h-2 bg-accent-secondary rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-[#1e308e] rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
               </FadeIn>
             ))}
           </div>

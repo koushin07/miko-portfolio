@@ -9,14 +9,27 @@ const esc = (s: unknown) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;')
 
+const PROJECT_TYPES = [
+  'SaaS',
+  'AI Application',
+  'Automation',
+  'API Integration',
+  'Existing Application',
+  'Bug Fix / Improvement',
+  'QA / Testing',
+  'Other',
+]
+
+const field = (label: string, value: unknown) =>
+  value ? `<p><strong>${label}:</strong> ${esc(value).replace(/\n/g, '<br>')}</p>` : ''
+
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message } = await request.json()
+    const { name, email, projectType, building, help, budget, currentSite } = await request.json()
 
-    // Validate input
-    if (!name || !email || !message) {
+    if (!name || !email || !building) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Please fill in your name, email, and what you are building.' },
         { status: 400 }
       )
     }
@@ -25,6 +38,17 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid email address' },
         { status: 400 }
       )
+    }
+    if (projectType && !PROJECT_TYPES.includes(projectType)) {
+      return NextResponse.json(
+        { error: 'Invalid project type' },
+        { status: 400 }
+      )
+    }
+    for (const [key, value] of Object.entries({ name, building, help, budget, currentSite })) {
+      if (value && (typeof value !== 'string' || value.length > 4000)) {
+        return NextResponse.json({ error: `Invalid ${key}` }, { status: 400 })
+      }
     }
 
     const apiKey = process.env.RESEND_API_KEY
@@ -38,18 +62,20 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(apiKey)
 
-    // Send email using Resend
     const result = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'canaresmiko3@gmail.com',
       replyTo: email,
-      subject: `New Contact Form Submission from ${String(name).slice(0, 100)}`,
+      subject: `New project inquiry from ${String(name).slice(0, 100)}${projectType ? ` — ${projectType}` : ''}`,
       html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${esc(name)}</p>
-        <p><strong>Email:</strong> ${esc(email)}</p>
-        <p><strong>Message:</strong></p>
-        <p>${esc(message).replace(/\n/g, '<br>')}</p>
+        <h2>New Project Inquiry</h2>
+        ${field('Name', name)}
+        ${field('Email', email)}
+        ${field('Project type', projectType)}
+        ${field('What they are building', building)}
+        ${field('What they need help with', help)}
+        ${field('Budget / timeline', budget)}
+        ${field('Current system / website', currentSite)}
       `,
     })
 

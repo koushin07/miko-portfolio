@@ -25,5 +25,5 @@
 ---
 
 🌐 [Portfolio](https://ikoy.vercel.app) ·
-💼 [LinkedIn](https://www.linkedin.com/in/mikocanares) ·
+💼 [LinkedIn](https://www.linkedin.com/in/miko-canares) ·
 📧 [Email](mailto:canaresmiko3@gmail.com)

@@ -1,239 +1,91 @@
-# LinkedIn Profile — Copy & Paste Updates
+# LinkedIn Profile — Rebuild on the Primary Account
 
-Reviewed 2026-08-03 against `linkedin.com/in/mikocanares`
-(108 connections · 111 followers · 11 profile views and 11 search appearances in 7 days)
-
----
-
-## ✅ Already done — verified live 2026-08-03
-
-- **NDA client removed** — now shows `Private SaaS Platform — LegalTech (under NDA)`
-- **Atlas Geotech added** as a Contract role
-- **Name** updated to Miko Cañares
-- **DXC** corrected to Aug 2023 · **ACE** corrected to Jan 2026
-- **Custom URL claimed:** `linkedin.com/in/mikocanares` — ASCII-safe and rename-proof
-
-## 🔴 Still needs fixing — found during verification
-
-**1. Atlas start date says Feb 2025 — should be Feb 2026.**
-It currently reads "1 yr 7 mos" and overlaps DXC (which ran to Dec 2025), recreating the
-simultaneous-roles problem. Experience → Atlas Geotech → ✏️ → change the start year.
-
-**2. LegalTech is still marked Full-time — should be Contract.**
-As written it overlaps Atlas as a second full-time role.
-
-**3. Job titles don't match the CV.** LinkedIn says "Full Stack Engineer" and "Lead Full
-Stack Engineer"; the CV says "Full-Stack **Developer**" and "Lead Full-Stack **Developer**".
-
-**4. Your headline lost its middle clause.** It now reads *"Full-Stack Developer |
-Available for freelance & contract"* — the part that was doing the selling
-(*"I build and fix web apps for businesses"*) is gone. Consider restoring it, or
-replacing it with something about the compliance/systems work.
+Rebuilt 2026-08-04 · `linkedin.com/in/miko-canares`
 
 ---
 
-## Reference — the original instructions
+## Context: this is a different account from the earlier work
 
-Sections below are kept for the copy blocks. Items marked ✅ above are already applied.
+There were two LinkedIn accounts:
 
----
-
-## ✅ 1. Remove the NDA client's name — DONE
-
-**Where:** Experience → the *Lead Full Stack Engineer* entry naming the NDA client → ✏️
-
-Your client is currently named in two visible places: the company badge under your name,
-and this Experience entry. Your portfolio promises visitors "no company name" for this
-work, so the two contradict each other.
-
-Change these fields:
-
-| Field | New value |
+| | Status |
 |---|---|
-| **Title** | `Lead Full-Stack Developer` |
-| **Company** | `Private SaaS Platform — LegalTech (under NDA)` |
-| **Employment type** | `Contract` *(currently says Full-time)* |
-| **Dates** | Jan 2026 – Apr 2026 *(unchanged)* |
-| **Location** | Remote *(unchanged)* |
+| `linkedin.com/in/mikocanares` | Secondary, created while the primary was locked out. **Now deactivated.** All earlier profile work in this project landed here and is gone with it. |
+| `linkedin.com/in/miko-canares` | **Primary.** Recovered and now the one in use. Was nearly empty — a single 2023 internship entry. |
 
-**Description — replace with:**
+So the primary had to be rebuilt from the CV rather than edited.
 
-```
-Delivered six internal production systems for a self-help legal-document platform,
-covering document generation, copy protection, lead generation, and appointment
-scheduling.
-
-• Built the document pipeline that turns a customer's completed questionnaire into a
-  finished legal document delivered to their inbox, plus an admin tool letting staff
-  create new document types without a developer.
-• Added copy protection that marks every document with details identifying the customer
-  who bought it, so resold copies can be traced back to source.
-• Built a system that turns daily public court records into a ranked list of sales
-  leads, automatically identifying and prioritising people likely to need the service.
-• Split the scheduling workload into an API and a background worker so reminders and
-  calendar sync survive restarts.
-
-Stack: React, Node.js, Express, TypeScript, Supabase, n8n, BullMQ, Docker.
-```
-
-⚠️ When you change the company name, LinkedIn may lose the linked company page. That's
-fine and expected — it becomes a plain text entry, which is what you want here.
+**Vanity URL is now `miko-canares`** — ASCII with a hyphen, which is paste-safe and
+survives renames. A ñ version (`mikoca%C3%B1ares`) was briefly considered and rejected:
+percent-encoding is unreadable on a printed CV and unreliable in ATS parsers. The display
+name keeps the ñ, which is the part employers actually see.
 
 ---
 
-## ✅ 2. Add Atlas Geotech — DONE (but check the start year, see above)
+## ✅ Done and verified live
 
-**Where:** Experience → **+** (add position)
+**Nine roles added**, each with employment type, Remote location type, dates, and a
+written description:
 
-Right now your most recent role ends **April 2026**. It's August. Combined with your
-#OPENTOWORK photo frame, your profile reads as *four months unemployed* — while you're
-actually employed.
-
-| Field | Value |
-|---|---|
-| **Title** | `Full-Stack Developer` |
-| **Company** | `Atlas Geotech LLC` |
-| **Employment type** | `Contract` — you're an independent contractor, not on their payroll |
-| **Start** | February 2026 |
-| **End** | ☑️ **I am currently working in this role** |
-| **Location** | Remote |
-
-**Description:**
-
-```
-Building the platform that produces California's legally required natural hazard
-disclosure reports — a property is checked against dozens of state and federal hazard
-datasets and the finished legal document is generated automatically, replacing a manual
-research and formatting process.
-
-• Appointed front-end lead on the hazard analysis application, coordinating two
-  developers and owning delivery tracking for the team.
-• Designed and built the report generation service covering the company's full range of
-  disclosure products, from residential and commercial reports through to tax and
-  tenancy disclosures.
-• Diagnosed and fixed a recurring production outage that was crashing the reporting
-  service under load, restoring stability during peak ordering periods.
-• Built the customer portal end to end — property search, report ordering, checkout, and
-  delivery — used by escrow officers and real estate agents.
-• Automated the pipeline that keeps hazard data current, so dataset updates publish
-  without taking the service offline, and added a fallback so a federal data outage
-  cannot stop reports being issued.
-• Set up the cloud infrastructure and deployment process on AWS using Docker and
-  Terraform.
-
-Stack: Python, FastAPI, PostGIS, GeoServer, Celery, Next.js, TypeScript, Terraform,
-AWS ECS.
-```
-
-**Then turn off #OpenToWork** if you're not actively looking — or keep it, but it reads
-very differently once a current role is showing.
-
----
-
-## ☐ 3. Fix the details that contradict your CV
-
-Eight mismatches. The employment types are the important ones.
-
-| Where | Currently | Change to | Why |
+| Role | Company | Dates | Type |
 |---|---|---|---|
-| ~~Your name~~ | ~~Miko Canares~~ | ✅ now Miko Cañares | done |
-| Location | ~~Metro Davao~~ now Cagayan de Oro | — | ✅ updated; CV says Misamis Oriental, which contains CdO |
-| ~~DXC dates~~ | ~~Sep 2023~~ | ✅ now Aug 2023 | done |
-| ~~ACE dates~~ | ~~Dec 2025~~ | ✅ now Jan 2026 | done |
-| ASAP Roadworthys → type | Full-time | **Contract** | ⚠️ see below |
-| BoostLab → type | Full-time | **Contract** | ⚠️ see below |
-| Education → dates | Aug 2019 | **Aug 2018** | CV says 2018 |
+| Full-Stack Developer | Atlas Geotech LLC | Feb 2026 – Present | Contract |
+| Lead Full-Stack Developer | Private SaaS Platform (Client under NDA) | Jan 2026 – Apr 2026 | Contract |
+| Full-Stack Developer | American Clinical Experience | Oct 2025 – Jan 2026 | Contract |
+| Analyst II, ERP Product Application | DXC Technology | Aug 2023 – Dec 2025 | **Full-time** |
+| Backend Developer | ASAP Roadworthys | Sep 2025 – Nov 2025 | Contract |
+| Frontend Developer | Boostlab | Jun 2025 – Aug 2025 | Contract |
+| Instructor & Developer | The Tech Academy | Jan 2025 – Jun 2025 | Contract |
+| Full-Stack Developer | Emport | Jan 2025 – Apr 2025 | Contract |
+| Network Engineer | ApolloTech Software Corporation | Feb 2023 – May 2023 | Internship *(pre-existing)* |
 
-⚠️ **The full-time overlap is a credibility problem.** DXC runs Sep 2023 – Dec 2025 as
-full-time. ASAP (Sep–Nov 2025) and BoostLab (Jun–Aug 2025) both sit *inside* that window
-and are also marked full-time. As written, you appear to have held three simultaneous
-full-time jobs. Marking them Contract — which is what they were — makes the overlap read
-as normal freelance work alongside a day job.
+**Only DXC is Full-time.** Everything else is Contract, which is accurate and makes the
+overlapping dates read as normal freelance work rather than concurrent employment.
 
-**Only DXC should say Full-time.** Everything else — Atlas included — is `Contract`.
-You're an independent contractor invoicing US companies from the Philippines, which is
-the standard arrangement and not a weak signal. Recruiters in tech read it correctly.
-What *does* hurt is claiming employee status a reference check would contradict — the
-same exposure we removed from your job title.
+**The NDA client is never named** — the entry reads "Private SaaS Platform (Client under
+NDA)" and the description describes the systems without identifying the client.
 
----
-
-## ☐ 4. Rewrite your About — it names the wrong stack
-
-**Where:** About → ✏️
-
-Your current version says *"My core strengths are Laravel, ASP.NET Core, React/Next.js,
-Angular"*. No Python, no FastAPI, no PostgreSQL, no AWS — that's your 2024 stack, not
-what you do now.
-
-Only the first ~2 lines show before "…see more", so the opening has to earn the click.
+**Headline** (was the auto-generated "Full-Stack Developer at Emport"):
 
 ```
-I build production systems for regulated and data-heavy industries — software where
-being wrong is expensive.
-
-Right now that means the platform behind California's legally required natural hazard
-disclosure reports: a property gets checked against dozens of government hazard datasets
-and the finished legal document is generated automatically. Before that, six internal
-systems for a legal-document SaaS, covering document generation, copy protection, and
-turning public court records into ranked sales leads.
-
-I work across Python/FastAPI, TypeScript/Next.js, PostgreSQL and PostGIS, deploying to
-AWS with Docker and Terraform. Two years of enterprise ERP quality assurance sit
-underneath the development work, so testing and reliability are habits rather than
-afterthoughts.
-
-Comfortable owning a project from first requirement through to live support — schema
-design, integrations, deployment, and the production issues nobody planned for.
-
-Portfolio and case studies: https://ikoy.vercel.app
+Full-Stack Developer | Python, FastAPI, TypeScript, AWS | I build production systems for regulated, data-heavy work | Open to remote contract & full-time
 ```
 
-*(1,180 characters — LinkedIn allows 2,600.)*
+**Location:** Iligan → **Cagayan De Oro City, Northern Mindanao, Philippines**
+
+**Profile photo** replaced with the portfolio headshot (`public/profile-pic.png`, resized
+to 800×800 JPEG for upload reliability). The previous image dated to June 2023 — confirmed
+by the media URL timestamp changing from `1686731549901` to `1786776969011`, so this is
+the new file rather than a cached render. The #OpenToWork frame carried over automatically.
 
 ---
 
-## ☐ 5. Fix your Top Skills
+## ☐ Still to do
 
-**Where:** Skills → ✏️ → reorder / pin
-
-You currently show: Web Development · ASP.NET Web API · Node.js · **Teamwork** ·
-Quality Assurance.
-
-Two problems: it's your old stack, and **"Teamwork"** is burning one of only five slots
-recruiters actually see. Pin these instead:
-
-1. `Python`
-2. `TypeScript`
-3. `FastAPI`
-4. `Next.js`
-5. `PostgreSQL`
-
-**You also have 100 skills — LinkedIn's maximum.** That dilutes rather than helps; search
-and recruiters weight your top three. Consider trimming to 25–30 real ones. Delete the
-soft skills (Teamwork, Communication) and anything you wouldn't want to be interviewed on.
+- **About section** — not yet written. This is the highest-value remaining item.
+- **Skills** — none added yet; needs Python, FastAPI, PostgreSQL, PostGIS, AWS, Docker,
+  Terraform, TypeScript, Next.js, React.
+- **Contact info** — add the portfolio URL (`ikoy.vercel.app`).
+- **Wellfound and Hubstaff** still have the *old* `mikocanares` URL in their LinkedIn
+  fields. Both need repointing to `miko-canares`.
+- **ApolloTech title mismatch** — LinkedIn says "Network Engineer", the CV says
+  "System & Infrastructure Engineer – Intern". Pick one.
+- **#OpenToWork photo frame** is on while the profile now shows a current role. Worth
+  deciding whether to keep it.
 
 ---
 
-## ☐ 6. Smaller wins
+## Repo changes made alongside
 
-**Add a banner image.** You're on the default grey gradient. Even a plain dark banner
-with your positioning line beats it — it's the first thing anyone sees.
+Every reference to the old vanity URL was updated to `miko-canares`:
 
-**Post something.** 0 post impressions in the past week, and your last original post was
-10 months ago (the SAP certification). Everything since is reposts of other people's
-content. One post about the hazard disclosure work — the production outage you fixed, or
-the federal-data-outage fallback — would do more for reach than any profile field here.
+| File | |
+|---|---|
+| `app/contact/page.tsx` | 2 replacements |
+| `components/footer.tsx` | 1 |
+| `docs/cv/miko-canares-cv.html` | 1 → PDF regenerated |
+| `docs/cv/miko-canares-cv-hubstaff.html` | 1 → PDF regenerated |
+| `docs/github-profile-README.md` | 1 |
 
-**Connections: 108.** Low enough that your content has almost no distribution. Worth
-connecting with people you've actually worked with at DXC, Atlas, and the client teams.
-
----
-
-## Not changing
-
-**Your headline.** `Full-Stack Developer | I build and fix web apps for businesses |
-Available for freelance & contract` — this is genuinely good and better than most. The
-only thing you might consider is that "build and fix web apps" undersells the compliance
-and geospatial work, but it's clear and it names your availability, which many people
-forget to do.
+Both PDFs re-verified after regeneration: 2 pages, correct URL, no NDA client, and the
+Hubstaff variant still carries no email or phone. `npm run build` passes.

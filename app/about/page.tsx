@@ -1,224 +1,282 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
-import { FadeIn } from "@/components/ui/motion"
-import { ArrowRight, Briefcase, CheckCircle2, GraduationCap, MapPin } from "lucide-react"
 import Link from "next/link"
+import { Github, Linkedin } from "lucide-react"
+import { buildMetadata } from "@/lib/seo"
+import { SectionHeader } from "@/components/section-header"
+import { Reveal } from "@/components/motion/reveal"
+import { SystemMap } from "@/components/system/system-map"
+import { Lifecycle } from "@/components/about/lifecycle"
+import { Philosophy } from "@/components/about/philosophy"
+import { ExperienceTimeline } from "@/components/about/experience-timeline"
 
-const experience = [
+export const metadata = buildMetadata({
+  title: "About — The Engineer Behind the Systems",
+  description:
+    "Full-stack systems, AI workflows, business automation, and the engineering discipline to make them reliable — the person and approach behind the portfolio.",
+  path: "/about",
+  keywords: ["Full-stack developer", "QA mindset", "automation engineer", "About Miko Cañares"],
+})
+
+const disciplines = [
   {
-    role: "Full-Stack Developer",
-    company: "Atlas Geotech LLC",
-    period: "Feb 2026 - Present",
-    kind: "Contract",
-    outcome:
-      "Determination and reporting pipeline behind California statutory hazard disclosure — the full range of disclosure products, a queued rendering pipeline, and the customer portal.",
+    num: "01",
+    label: "FULL-STACK DEVELOPMENT",
+    items: ["Frontend", "Backend", "APIs", "Databases"],
   },
   {
-    role: "Analyst II, ERP Product Application",
-    company: "DXC Technology",
-    period: "Aug 2023 - Dec 2025",
-    kind: "Employment",
-    outcome: "Enterprise QA across server/OS, database links, and user access with automated scripts for stable releases.",
+    num: "02",
+    label: "AI / AUTOMATION",
+    items: ["RAG", "AI integrations", "Structured outputs", "n8n", "Workflow orchestration"],
   },
   {
-    role: "Full-Stack Developer",
-    company: "ACE",
-    period: "Oct 2025 - Jan 2026",
-    kind: "Contract",
-    outcome: "Built a placement platform with Mapbox search, Clerk auth, PandaDoc document packs, and Pipedrive sync.",
+    num: "03",
+    label: "QA / RELIABILITY",
+    items: ["Testing", "Validation", "Regression", "Production reliability"],
   },
-  {
-    role: "Backend Developer",
-    company: "ASAP Roadworthys",
-    period: "Sep 2025 - Nov 2025",
-    kind: "Contract",
-    outcome: "Delivered booking, payments, and ServiceM8 job automation while pairing QA to keep flows reliable.",
-  },
-  {
-    role: "Frontend Developer",
-    company: "Boostlab",
-    period: "Jun 2025 - Aug 2025",
-    kind: "Contract",
-    outcome: "Conversion-focused storefront with Shopify checkout, Checkout.com payments, and Meta Pixel tracking.",
-  },
-  {
-    role: "Instructor & Developer",
-    company: "The Tech Academy",
-    period: "Jan 2025 - Jun 2025",
-    kind: "Contract",
-    outcome: "Maintained the academy's ASP.NET MVC learning platform, reviewed student work, and mentored learners.",
-  },
+]
+
+const boundaries = [
+  "The frontend works, but the API breaks.",
+  "The API works, but the automation fails.",
+  "The automation works, but the data is wrong.",
+]
+
+const skillGroups = [
+  { name: "Frontend", items: "React · Next.js · Angular · Vue" },
+  { name: "Backend", items: "Laravel · ASP.NET Core · FastAPI · Express" },
+  { name: "Data", items: "PostgreSQL · MySQL · PostGIS · SQL Server" },
+  { name: "AI", items: "OpenAI · Gemini · RAG · pgvector" },
+  { name: "Automation", items: "n8n · Zapier · Make · Webhooks" },
+  { name: "QA", items: "API testing · Regression · Database validation" },
 ]
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-hero-bg">
+    <main className="min-h-screen">
       <Navigation />
 
-      <section className="pt-[120px] pb-16 md:pb-24">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
-            <div className="space-y-6">
-              <FadeIn>
-                <p className="text-white/60 text-eyebrow uppercase tracking-wider">About</p>
-              </FadeIn>
-              <FadeIn delay={0.1}>
-                <h1 className="text-h0 text-white">Miko Cañares</h1>
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <p className="text-white/70 text-xl-custom max-w-2xl">
-                  I'm a full stack developer with a background in enterprise QA and system validation. I specialize in
-                  building production-ready applications and automation-driven systems.
-                </p>
-              </FadeIn>
-              <FadeIn delay={0.25}>
-                <div className="flex flex-wrap gap-4 text-white/70 text-sm-custom">
-                  <span className="flex items-center gap-2">
-                    <MapPin size={18} />
-                    Misamis Oriental, Philippines
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <Briefcase size={18} />
-                    Open to remote, contract, or full-time
-                  </span>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.3}>
-                <div className="flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#1e308e] text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
-                  >
-                    Contact me
-                    <ArrowRight size={18} />
-                  </Link>
-                  <a
-                    href="/Miko-Canares-CV.pdf"
-                    className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-all text-base-custom"
-                  >
-                    Download CV
-                    <ArrowRight size={18} className="translate-y-[1px]" />
-                  </a>
-                </div>
-              </FadeIn>
-            </div>
-
-            <FadeIn delay={0.3} direction="right">
-              <div className="bg-[#131f5b]/60 border border-white/10 rounded-2xl overflow-hidden shadow-xl p-6 space-y-4">
-                <p className="text-white/70 text-sm-custom uppercase tracking-[0.14em]">Short bio</p>
-                <p className="text-white text-base-custom leading-relaxed">
-                  I connect product delivery with QA discipline. From API design to automation and integrations, I focus
-                  on reliability, clear handoffs, and measurable outcomes.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <Tag label="Full-stack JavaScript" />
-                  <Tag label="Automation & integrations" />
-                  <Tag label="Enterprise QA mindset" />
-                  <Tag label="Production readiness" />
-                </div>
+      {/* Hero — spec §04/§05 */}
+      <section className="noise-bg relative overflow-hidden">
+        <div className="grid-bg pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
+        <div className="relative mx-auto max-w-[1240px] px-6 pt-32 pb-20 lg:px-8 lg:pt-40 lg:pb-28">
+          <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="space-y-7">
+              <p className="text-node text-muted-foreground">ABOUT / THE ENGINEER BEHIND THE SYSTEMS</p>
+              <h1 className="text-h1 text-balance text-foreground lg:text-[3.6rem] lg:leading-[1.06]">
+                I build software that has to work beyond the demo.
+              </h1>
+              <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+                Full-stack systems, AI workflows, business automation — and the engineering discipline to make them
+                reliable.
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85"
+                >
+                  Start a Project →
+                </Link>
+                <a
+                  href="/Miko-Canares-CV.pdf"
+                  className="rounded-lg border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                >
+                  Download CV
+                </a>
+                <a
+                  href="https://github.com/koushin07"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="GitHub profile (opens in a new tab)"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Github size={20} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/miko-canares"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn profile (opens in a new tab)"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Linkedin size={20} />
+                </a>
               </div>
-            </FadeIn>
+              <p className="text-node flex flex-wrap gap-x-5 gap-y-2 text-muted-foreground/70">
+                <span>MISAMIS ORIENTAL, PHILIPPINES</span>
+                <span>OPEN TO REMOTE · CONTRACT · FULL-TIME</span>
+              </p>
+            </div>
+            <div className="hidden justify-center lg:flex">
+              <Lifecycle />
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-10">
-          <FadeIn>
-            <div className="space-y-3">
-              <p className="text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">How I work</p>
-              <h2 className="text-h2 text-foreground">A process built around business outcomes</h2>
-            </div>
-          </FadeIn>
+      {/* Three disciplines — spec §06 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <SectionHeader label="THE COMBINATION" title="Three disciplines, one developer." />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <FadeIn direction="up">
-              <Card
-                title="Approach"
-                items={[
-                  "Understand business requirements first.",
-                  "Design API-first and automation-ready systems.",
-                  "Build incrementally with testing and validation.",
-                  "Deploy, monitor, and iterate with feedback loops.",
-                ]}
-              />
-            </FadeIn>
-            <FadeIn delay={0.1} direction="up">
-              <Card
-                title="Why clients & teams trust me"
-                items={[
-                  "Ownership from design to deployment.",
-                  "Strong integration experience.",
-                  "Reliability and production mindset.",
-                ]}
-              />
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-20 bg-accent-secondary">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-10">
-          <FadeIn>
-            <div className="flex items-center gap-3">
-              <Briefcase className="text-muted-foreground" />
-              <h2 className="text-h3 text-foreground">Experience snapshot</h2>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {experience.map((exp, i) => (
-              <FadeIn key={exp.role} delay={0.08 * i} direction="up">
-                <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm h-full flex flex-col gap-3">
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <p className="text-sm text-muted-foreground">{exp.period}</p>
-                      <span className="px-2 py-0.5 rounded-md bg-accent-secondary text-muted-foreground text-[11px] font-medium uppercase tracking-[0.1em]">
-                        {exp.kind}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground">{exp.role}</h3>
-                    <p className="text-[#1e308e] text-sm font-medium">{exp.company}</p>
-                  </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{exp.outcome}</p>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {disciplines.map((d, i) => (
+              <Reveal key={d.num} delay={i * 90}>
+                <div className="panel h-full p-7 transition-colors duration-300 hover:border-primary/40">
+                  <p className="text-node text-amber">{d.num} /</p>
+                  <p className="text-node mt-2 text-foreground">{d.label}</p>
+                  <ul className="mt-5 space-y-2 border-t border-border/60 pt-5">
+                    {d.items.map((item) => (
+                      <li key={item} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                        <span aria-hidden="true" className="size-1 rounded-full bg-primary/60" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </FadeIn>
+              </Reveal>
             ))}
           </div>
 
-          <FadeIn>
-            <div className="flex items-center gap-3">
-              <GraduationCap className="text-muted-foreground" />
-              <div>
-                <p className="text-sm text-muted-foreground">Education</p>
-                <p className="text-foreground text-base">Bachelor of Science in Information Technology — Mindanao State University - Naawan, 2023</p>
-              </div>
+          <p className="text-node mt-12 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-muted-foreground">
+            <span className="text-foreground">BUILD</span>
+            <span className="text-amber">+</span>
+            <span className="text-foreground">AUTOMATE</span>
+            <span className="text-amber">+</span>
+            <span className="text-foreground">VALIDATE</span>
+            <span className="text-amber">→</span>
+            <span className="text-amber">SHIP WITH CONFIDENCE</span>
+          </p>
+        </div>
+      </section>
+
+      {/* Why the combination matters — spec §07 */}
+      <section className="noise-bg relative overflow-hidden border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <div className="grid items-center gap-14 lg:grid-cols-2">
+            <div className="space-y-6">
+              <SectionHeader label="WHY IT MATTERS" title="Most projects fail at the boundaries." />
+              <ul className="space-y-3">
+                {boundaries.map((line) => (
+                  <li key={line} className="flex items-start gap-3 text-base leading-relaxed text-muted-foreground">
+                    <span aria-hidden="true" className="mt-2.5 h-px w-4 shrink-0 bg-amber/60" />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-lg font-medium text-foreground">I work across those boundaries.</p>
             </div>
-          </FadeIn>
+            <SystemMap
+              direction="vertical"
+              className="justify-self-center"
+              chipClassName="px-5 py-2.5"
+              nodes={[
+                { id: "build", label: "BUILD" },
+                { id: "integrate", label: "INTEGRATE" },
+                { id: "validate", label: "VALIDATE" },
+                { id: "ship", label: "SHIP" },
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Engineering philosophy — spec §08/§09 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <Philosophy />
+        </div>
+      </section>
+
+      {/* Career story — spec §13 */}
+      <section className="noise-bg relative overflow-hidden border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <SectionHeader label="THE PATH" title="From testing systems to building them." />
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            Enterprise QA at DXC Technology meant living with how software fails — across applications, databases,
+            operating systems, and access. That validation mindset didn't stay in QA: it became part of how I design,
+            build, and integrate systems. Testing isn't a phase at the end; it's how the whole thing gets built.
+          </p>
+          <div className="mt-12">
+            <SystemMap
+              nodes={[
+                { id: "testing", label: "TESTING" },
+                { id: "failure", label: "UNDERSTANDING FAILURE" },
+                { id: "building", label: "BUILDING" },
+                { id: "integrating", label: "INTEGRATING" },
+                { id: "validating", label: "VALIDATING" },
+                { id: "production", label: "PRODUCTION" },
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Experience timeline — spec §10-§12 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <ExperienceTimeline />
+        </div>
+      </section>
+
+      {/* Skills by capability + education — spec §14/§16 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <SectionHeader
+            label="SYSTEMS"
+            title="The stack, by capability."
+            lede="The Projects page demonstrates the technologies — this is the capability behind them."
+          />
+          <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            {skillGroups.map((group) => (
+              <div key={group.name} className="space-y-1.5">
+                <p className="text-node text-primary">{group.name.toUpperCase()}</p>
+                <p className="font-mono text-sm text-muted-foreground">{group.items}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14 border-t border-border/60 pt-8">
+            <p className="text-node text-muted-foreground/60">EDUCATION</p>
+            <p className="mt-2 text-sm text-foreground">Bachelor of Science in Information Technology</p>
+            <p className="text-sm text-muted-foreground">Mindanao State University — Naawan · 2023</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Human layer — spec §17 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-20 lg:px-8 lg:py-24">
+          <p className="text-node text-muted-foreground">BEYOND THE STACK</p>
+          <p className="mt-5 max-w-2xl text-xl leading-relaxed text-foreground/90">
+            I care about building software that solves real problems — not just software that looks good in a demo.
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Based in the Philippines, working remotely with teams globally.
+          </p>
+        </div>
+      </section>
+
+      {/* Final CTA — spec §21 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 text-center lg:px-8 lg:py-32">
+          <h2 className="text-h2 text-balance text-foreground">Build something that has to work.</h2>
+          <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
+            If you have a product, internal system, AI workflow, or business process that needs to be built,
+            integrated, or improved:
+          </p>
+          <div className="mt-8">
+            <Link
+              href="/contact"
+              className="inline-block rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85"
+            >
+              Start a Project →
+            </Link>
+          </div>
         </div>
       </section>
 
       <Footer />
     </main>
   )
-}
-
-function Card({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-      <ul className="space-y-3">
-        {items.map((item) => (
-          <li key={item} className="flex items-start gap-2 text-sm text-foreground/80 leading-relaxed">
-            <CheckCircle2 className="w-4 h-4 text-[#1e308e] shrink-0 mt-0.5" />
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function Tag({ label }: { label: string }) {
-  return <span className="px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs border border-white/15">{label}</span>
 }

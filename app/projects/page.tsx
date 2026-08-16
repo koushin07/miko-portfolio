@@ -1,560 +1,131 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
-import { FadeIn } from "@/components/ui/motion"
-import { ArrowRight, CheckCircle2, Lock } from "lucide-react"
-import { buildMetadata } from "@/lib/seo"
 import Link from "next/link"
+import { CheckCircle2 } from "lucide-react"
+import { buildMetadata, getCollectionJsonLd, getBreadcrumbJsonLd } from "@/lib/seo"
+import { ProjectsExplorer } from "@/components/projects/explorer"
+import { WorkPatterns } from "@/components/projects/work-patterns"
+import { ndaSystems } from "@/lib/work-data"
+import { explorerProjects } from "@/lib/projects-data"
 
 export const metadata = buildMetadata({
-  title: "Products & Systems",
-  description: "Full-stack products and automation-heavy systems delivered with context, integrations, and reliability.",
+  title: "Projects — Engineering Archive",
+  description:
+    "The deep project explorer: pick a system and inspect its problem, architecture, stack, and outcome — AI/RAG, geospatial, automation, e-commerce, and internal platforms.",
   path: "/projects",
-  keywords: ["Projects", "Products", "Full stack", "Automation", "Integrations"],
+  keywords: ["Projects", "Engineering portfolio", "Project explorer", "AI developer", "Full-stack developer", "Automation"],
 })
 
-type Project = {
-  id: string
-  title: string
-  summary: string
-  stack: string
-  integrations: string
-  context: string
-  role: string
-  techStack: {
-    frontend: string
-    backend: string
-    infra: string
-    apis: string
-  }
-  keyDecisions: string[]
-  outcome: string
-  cta?: { label: string; href: string }
-}
-
-// Only these get the full inline breakdown. The rest stay as scannable cards —
-// three complete stories read better than ten partial ones.
-const FEATURED_IDS = ["atlas-sdi", "atlas-portal", "readmindme"]
-
-const projects: Project[] = [
-  {
-    id: "atlas-sdi",
-    title: "Atlas SDI Report Engine",
-    summary:
-      "Determination and rendering engine behind California statutory hazard disclosure covering the full range of disclosure products, built over a PostGIS and GeoServer spatial data infrastructure.",
-    stack: "Python/FastAPI, PostGIS, GeoServer",
-    integrations: "Celery, Prefect, WeasyPrint, FEMA NFHL, Terraform/AWS ECS",
-    context:
-      "Every residential property sale in California legally requires a Natural Hazard Disclosure. Producing one means checking a parcel against dozens of state and federal hazard datasets — flood, fire severity, seismic, landslide, liquefaction, dam inundation, airport noise — and emitting a document in a statutorily prescribed format. A slow report is an inconvenience; a wrong one is legal liability.",
-    role: "Primary developer on the determination and reporting pipeline",
-    techStack: {
-      frontend: "Server-rendered PDF templates; report map and details pages consumed by the customer portal",
-      backend: "FastAPI async Python over PostGIS/GeoAlchemy2, SQLAlchemy 2.0, Celery queue for async report orders",
-      infra: "Terraform-defined AWS — ECS Fargate, RDS, ALB, Secrets Manager, ECR — plus Prefect flows promoting datasets from on-prem NAS to AWS",
-      apis: "GeoServer WMS/WFS, FEMA NFHL with local-copy failover, FAA ADHP, CAL FIRE FHSZ, USGS 3DEP, libpostal via gRPC",
-    },
-    keyDecisions: [
-      "Bounded an unbounded warmup fan-out with a per-worker semaphore, then removed the redundant work underneath: shared httpx client, LRU basemap cache with async-lock dedup, and rendering on a ProcessPoolExecutor. Fixed worker crashes that had PIDs accumulating to 80.",
-      "Zero-downtime dataset promotion via atomic table swap that carries dependent sequences and applies additive schema changes only behind an explicit flag — never silently.",
-      "Failover to a locally held NFHL copy when FEMA is unreachable, so an upstream government outage degrades freshness rather than halting report generation.",
-      "Seventeen design specs and ten implementation plans written before the code, with report templates pinned by markup-contract tests — including an explicit HTML escaping contract for the cover page.",
-    ],
-    outcome:
-      "The full range of statutory disclosure products in production. Report generation moved from synchronous request-time rendering to a queued pipeline with warmup caching.",
-    cta: { label: "Read the case study", href: "/case-study" },
-  },
-  {
-    id: "atlas-portal",
-    title: "Atlas NHD Customer Portal",
-    summary:
-      "Order-to-delivery portal for hazard disclosure reports: address search with APN disambiguation, entitlement gating, checkout, and PDF delivery.",
-    stack: "Next.js, TypeScript, Tailwind",
-    integrations: "Zustand, JWT auth, portal-admin API, Atlas SDI report queue",
-    context:
-      "Escrow officers and agents ordering a hazard disclosure need to find one specific parcel — often from a partial address, sometimes with several APNs matching — then pick the right report type, and receive a PDF they can attach to a transaction. Getting the wrong parcel means the wrong disclosure on a legally binding sale.",
-    role: "Sole developer — architecture, build, and QA",
-    techStack: {
-      frontend: "Next.js App Router with route groups, an AuthGuard app shell, Zustand stores, and a Tailwind component system built to Figma frames",
-      backend: "Typed API client over the portal-admin JSON API and the Atlas SDI report endpoints",
-      infra: "Multi-stage Docker with Next.js standalone output, non-root user, and a health endpoint; env-driven proxying to the SDI",
-      apis: "JWT auth with refresh, per-user report access limits, auto-generated escrow numbering, email delivery",
-    },
-    keyDecisions: [
-      "Address search resolves through a single backend endpoint with typeahead and structured fallback, after removing a third-party address vendor — the backend handles fuzzy matching natively.",
-      "Entitlement gating enforced at the order boundary rather than the UI, so per-user report limits cannot be bypassed by navigating directly.",
-      "Report type labels come from a backend catalog rather than a hardcoded frontend map, so adding a report type does not require a frontend release.",
-      "Routing restructured into route groups with a shared AuthGuard shell, separating the public marketing site from the authenticated portal.",
-    ],
-    outcome:
-      "Full order-to-delivery flow in production, and a marketing site rebuilt to Figma with the portal ported onto it.",
-    cta: { label: "Read the case study", href: "/case-study" },
-  },
-  {
-    id: "readmindme",
-    title: "ReadMindMe Bible Study Platform",
-    summary:
-      "Personal full-stack RAG platform: scripture-aware AI Q&A, social community, prayer journaling, devotionals, and a full admin console.",
-    stack: "FastAPI, PostgreSQL/pgvector, Redis",
-    integrations: "OpenAI GPT-4o, Google OAuth, TOTP, APScheduler",
-    context:
-      "Personal project to push production-grade RAG end-to-end. A Bible study app where users ask theological questions and receive scripture-grounded answers from a 14-stage pipeline that retrieves verses via pgvector similarity across 36,819 embeddings, enriches with Greek/Hebrew morphology, cross-references, and historical context, then personalizes responses using per-user memory and active prayer requests.",
-    role: "Solo build — architecture, AI pipeline, backend, data modeling, DevOps, security",
-    techStack: {
-      frontend: "Mobile/web client and admin dashboard as separate repos within the monorepo",
-      backend: "FastAPI async Python, SQLAlchemy 2.0, Alembic (33 migrations), Pydantic v2",
-      infra: "Docker Compose orchestrating 12 services with seed runners, profiles, and reset paths",
-      apis: "OpenAI GPT-4o / GPT-4o-mini / embeddings / moderation, Google OAuth, JWT + refresh-token rotation, pgvector, Redis, APScheduler, SlowAPI",
-    },
-    keyDecisions: [
-      "Two pgvector spaces — Bible verses for RAG retrieval and per-user memories for personalization — with hybrid fallbacks (vector → keyword → Nave's Topical → community-voted topic-to-verse) so retrieval never fails silently.",
-      "Tiered model selection (GPT-4o for answers, GPT-4o-mini for background memory extraction and rolling session summaries) plus parallel context retrieval across 10+ enrichment datasets in isolated DB sessions for throughput.",
-      "Two-schema Postgres design separating static bible (24 read-only tables, 603K cross-references) from versioned app data, with refresh-token family revocation, admin TOTP via Fernet-encrypted secrets, content moderation, audit log, feature flags, and an AI kill switch.",
-    ],
-    outcome:
-      "Production-shaped backend (~3,400 LOC AI service, 20 routers, 25 services, 33 migrations, ~40 tables) demonstrating applied RAG, domain modeling depth, and operational maturity.",
-  },
-  {
-    id: "ace",
-    title: "ACE Clinical Placement Platform",
-    summary:
-      "CRM-synced booking platform with location search, automated onboarding flows, and document packs triggered on placement milestones.",
-    stack: "Next.js, Laravel, TypeScript",
-    integrations: "Mapbox, Clerk, PandaDoc, Pipedrive",
-    context:
-      "Placement coordinators managed bookings, student profiles, and document packs across Pipedrive, email threads, and spreadsheets. Any status update required manual reconciliation across all three.",
-    role: "Architecture, full-stack build, integrations, deployment, QA",
-    techStack: {
-      frontend: "Next.js + TypeScript + Tailwind component system",
-      backend: "Laravel API with scheduling, permissions, and CRM sync",
-      infra: "Vercel for web app and managed Laravel hosting",
-      apis: "Mapbox for search, Clerk for auth, PandaDoc for document packs, Pipedrive for CRM alignment",
-    },
-    keyDecisions: [
-      "API-first booking flow so scheduling, profiles, and documents stay consistent across web and CRM.",
-      "Document generation via PandaDoc templates triggered from milestone events.",
-      "Centralized error handling around third-party calls with retries and audit logs.",
-    ],
-    outcome:
-      "Onboarding is templated, bookings stay in sync with CRM records, and coordinators see placement status without manual reconciliation.",
-  },
-  {
-    id: "roadworthy",
-    title: "Roadworthy Inspection Platform",
-    summary:
-      "Booking-to-inspection pipeline integrating payments, job creation, and lifecycle comms in one reliable flow.",
-    stack: "React, Node.js, TypeScript",
-    integrations: "Stripe, ServiceM8, Brevo, Figma QA",
-    context:
-      "Roadworthy inspections required payments, job creation, and customer messaging to stay in sync across three separate systems. A failure in any one broke the entire flow.",
-    role: "Frontend and backend pairing with QA on every release",
-    techStack: {
-      frontend: "React + TypeScript aligned to Figma for pixel fidelity",
-      backend: "Express/Node services handling bookings, payments, and job creation",
-      infra: "Containerized services with staged environments for regression runs",
-      apis: "Stripe for payments, ServiceM8 for job templates, Brevo for lifecycle comms",
-    },
-    keyDecisions: [
-      "Idempotent API calls for payment and job creation to prevent duplicates on retry.",
-      "Validation paths for payment success/failure to keep bookings consistent.",
-      "Automated QA passes against Figma components to protect UX quality.",
-    ],
-    outcome:
-      "Bookings reliably trigger payments, job templates, and lifecycle emails — cutting manual cleanup and eliminating sync failures.",
-  },
-  {
-    id: "eris",
-    title: "Emergency Resource Information System",
-    summary:
-      "Real-time resource management for responders with dispatch dashboards, movement audit trails, and RBAC.",
-    stack: "Laravel, Inertia, Vue",
-    integrations: "Inventory, dispatch workflows, reporting",
-    context:
-      "Regional responders had no central view of what equipment was available, where it was headed, or who moved it — critical visibility gaps during high-pressure incidents.",
-    role: "Product architecture, development, and QA for critical workflows",
-    techStack: {
-      frontend: "Vue + Inertia for fast dashboards and filtering",
-      backend: "Laravel services for inventory readiness, reservations, and audit trails",
-      infra: "Hardened hosting with backups and role-based access",
-      apis: "Internal dispatch and reporting endpoints designed for future integrations",
-    },
-    keyDecisions: [
-      "Movement history baked into the data model for accountability across municipalities.",
-      "Dispatch-ready views that prioritize availability windows and nearest resources.",
-      "Reporting endpoints to enable post-incident reviews and oversight.",
-    ],
-    outcome:
-      "Teams locate and dispatch resources faster with clear accountability — reducing coordination failures during incidents.",
-    cta: { label: "Read the case study", href: "/case-study/eris" },
-  },
-  {
-    id: "emport",
-    title: "Emport Employee Management",
-    summary:
-      "Unified HR platform linking attendance, payroll, and leave workflows with role-based access and audit exports.",
-    stack: "Laravel, React, MySQL",
-    integrations: "Payroll exports, role management, notifications",
-    context:
-      "Schools were managing attendance, payroll, and leave approvals across scattered spreadsheets shared between HR and finance — reconciliation was manual and error-prone.",
-    role: "Product architecture, full-stack build, QA, deployment",
-    techStack: {
-      frontend: "React with reusable dashboards and forms",
-      backend: "Laravel services for attendance, payroll, leave workflows",
-      infra: "Containerized app with staged environments for approvals",
-      apis: "Internal payroll and notification hooks",
-    },
-    keyDecisions: [
-      "Modeled attendance, leave, and payroll as linked workflows to keep calculations consistent.",
-      "Role-based permissions to separate HR, finance, and admin actions.",
-      "Audit-friendly exports so finance could reconcile without rework.",
-    ],
-    outcome:
-      "Attendance, leave, and payroll stay aligned with approvals and exports — removing manual reconciliation between HR and finance.",
-  },
-  {
-    id: "boostlab",
-    title: "Boostlab Digital Storefront",
-    summary:
-      "Conversion-focused storefront with Shopify backend, Checkout.com payments, and Meta Pixel on key funnel steps.",
-    stack: "React, Shopify, Checkout.com",
-    integrations: "Shopify, Checkout.com, Meta Pixel",
-    context:
-      "The team needed a conversion-focused storefront where payments, order syncing, and analytics matched the designed experience exactly — no gaps between design and production.",
-    role: "Frontend build, integrations, QA, deployment",
-    techStack: {
-      frontend: "React + Tailwind pages tuned to the Figma design system",
-      backend: "Shopify backend as product/catalog source of truth",
-      infra: "Static hosting with CDN for fast global delivery",
-      apis: "Shopify for orders, Checkout.com for payments, Meta Pixel for tracking",
-    },
-    keyDecisions: [
-      "Aligned UI components to Figma tokens to preserve fidelity across breakpoints.",
-      "Payment and order flows instrumented with error states to prevent silent failures.",
-      "Analytics tagged on key funnel steps for clear attribution.",
-    ],
-    outcome:
-      "Customers get a smooth checkout, orders sync cleanly to Shopify, and attribution is accurate — reducing cart drop-offs and support load.",
-  },
-  {
-    id: "logiware",
-    title: "LogiWare Inventory Platform",
-    summary:
-      "Centralized inventory and shipment management with movement history, fulfillment dashboards, and staged rollouts.",
-    stack: "ASP.NET, Angular, SQL Server",
-    integrations: "Shipment tracking, product flow monitoring",
-    context:
-      "Logistics teams were reconciling stock levels and shipment status across multiple trackers — no single source of truth meant slow fulfillment decisions.",
-    role: "Frontend and backend delivery with QA and deployment",
-    techStack: {
-      frontend: "Angular + Tailwind dashboards for status visibility",
-      backend: "ASP.NET services for inventory, shipment, and activity history",
-      infra: "Hardened hosting with backups and staged releases",
-      apis: "Internal shipment and inventory endpoints with future carrier hooks",
-    },
-    keyDecisions: [
-      "Centralized inventory state with movement history to avoid conflicting records.",
-      "Dashboard views tuned for fulfillment and ops teams with actionable filters.",
-      "Deployment pipeline with staged rollouts to protect uptime.",
-    ],
-    outcome:
-      "Teams see inventory and shipment status in one place — reducing manual reconciliation and enabling faster fulfillment decisions.",
-  },
+const jsonLd = [
+  getCollectionJsonLd({
+    name: "Projects — Engineering Archive",
+    description: "The deep project explorer: AI/RAG, geospatial, automation, e-commerce, and internal platforms.",
+    path: "/projects",
+    items: explorerProjects.map((p) => ({ name: p.name, path: p.href?.url ?? "/projects" })),
+  }),
+  getBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Projects", path: "/projects" },
+  ]),
 ]
-
-function ProjectCard({ project }: { project: Project }) {
-  const hasBreakdown = FEATURED_IDS.includes(project.id)
-
-  return (
-    <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full flex flex-col">
-      <div className="flex items-start justify-between gap-4 mb-3">
-        <h3 className="text-xl font-semibold text-foreground">{project.title}</h3>
-        {hasBreakdown ? (
-          <Link
-            href={`#${project.id}`}
-            className="text-sm text-foreground flex items-center gap-1 group shrink-0 whitespace-nowrap"
-          >
-            Read breakdown
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        ) : null}
-      </div>
-      <p className="text-muted-foreground text-sm mb-4">{project.summary}</p>
-      <div className="text-sm text-foreground/80 space-y-1">
-        <p>
-          <span className="font-semibold">Stack:</span> {project.stack}
-        </p>
-        <p>
-          <span className="font-semibold">Integrations:</span> {project.integrations}
-        </p>
-      </div>
-      {/* Cards without an inline breakdown carry the outcome so they stand alone. */}
-      {!hasBreakdown ? (
-        <div className="flex items-start gap-2 mt-4 pt-4 border-t border-gray-200">
-          <CheckCircle2 className="w-4 h-4 text-[#1e308e] shrink-0 mt-0.5" />
-          <p className="text-sm text-foreground/80 leading-relaxed">{project.outcome}</p>
-        </div>
-      ) : null}
-      {project.cta ? (
-        <Link
-          href={project.cta.href}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-foreground group mt-auto pt-4"
-        >
-          {project.cta.label}
-          <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-        </Link>
-      ) : null}
-    </article>
-  )
-}
-
-function ProjectDetail({ project }: { project: Project }) {
-  return (
-    <div id={project.id} className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm text-muted-foreground uppercase tracking-[0.12em]">Context</p>
-          <h3 className="text-2xl font-semibold text-foreground mt-1">{project.title}</h3>
-        </div>
-        <Link href="/contact" className="hidden md:inline-flex items-center gap-2 text-sm text-foreground group">
-          Discuss this build
-          <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
-      <p className="text-muted-foreground text-base leading-relaxed">{project.context}</p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="rounded-xl bg-accent-secondary p-4">
-          <p className="text-sm text-muted-foreground mb-1">Your Role</p>
-          <p className="text-foreground text-sm leading-relaxed">{project.role}</p>
-        </div>
-        <div className="rounded-xl bg-accent-secondary p-4">
-          <p className="text-sm text-muted-foreground mb-1">Outcome</p>
-          <p className="text-foreground text-sm leading-relaxed">{project.outcome}</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-        <DetailPill title="Frontend" value={project.techStack.frontend} />
-        <DetailPill title="Backend" value={project.techStack.backend} />
-        <DetailPill title="Infra" value={project.techStack.infra} />
-        <DetailPill title="APIs & Integrations" value={project.techStack.apis} />
-      </div>
-
-      <div className="space-y-2">
-        <p className="text-sm text-muted-foreground uppercase tracking-[0.12em]">Key Decisions</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {project.keyDecisions.map((decision) => (
-            <div key={decision} className="flex items-start gap-2 text-sm text-foreground/80">
-              <CheckCircle2 className="w-4 h-4 text-[#1e308e] shrink-0 mt-0.5" />
-              {decision}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function DetailPill({ title, value }: { title: string; value: string }) {
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 h-full">
-      <p className="text-xs text-muted-foreground uppercase tracking-[0.12em] mb-2">{title}</p>
-      <p className="text-sm text-foreground/90 leading-relaxed">{value}</p>
-    </div>
-  )
-}
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-hero-bg">
+    <main className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navigation />
 
-      <section className="pt-[120px] pb-16 md:pb-24">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-          <div className="space-y-6">
-            <FadeIn>
-              <p className="text-white/60 text-eyebrow uppercase tracking-wider">Products & Systems</p>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <h1 className="text-h0 text-white">Full-stack builds with automation at the core.</h1>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <p className="text-white/70 text-xl-custom max-w-3xl">
-                Every project combines API-first development with integrations and automation so teams ship faster and
-                operate with confidence.
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.25}>
-              <div className="flex flex-wrap items-center gap-4">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#1e308e] text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
-                >
-                  Start a project
-                  <ArrowRight size={18} />
-                </Link>
-                <Link
-                  href="/automation"
-                  className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-all text-base-custom"
-                >
-                  See automation approach
-                  <ArrowRight size={18} className="translate-y-[1px]" />
-                </Link>
-              </div>
-            </FadeIn>
-          </div>
+      {/* Compact intro — Projects spec §05 */}
+      <section className="noise-bg relative overflow-hidden">
+        <div className="grid-bg pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_20%,black,transparent)]" />
+        <div className="relative mx-auto max-w-[1240px] px-6 pt-32 pb-14 lg:px-8 lg:pt-36 lg:pb-16">
+          <p className="text-node text-muted-foreground">PROJECTS / ENGINEERING WORK</p>
+          <h1 className="text-h2 mt-5 max-w-3xl text-balance text-foreground lg:text-[2.9rem] lg:leading-[1.1]">
+            Systems I've designed, built, integrated, tested, and shipped.
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            Explore the products, platforms, AI systems, automation workflows, and internal tools behind the work —
+            pick a system and inspect how it works.
+          </p>
         </div>
       </section>
 
-      <section className="py-14 md:py-20 bg-accent-secondary">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-8">
-          <FadeIn>
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-h2 text-foreground">Products & systems at a glance</h2>
-              <span className="text-muted-foreground text-sm">{projects.length + 1} builds</span>
-            </div>
-          </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projects.map((project, i) => (
-              <FadeIn key={project.id} delay={0.08 * i} direction="up">
-                <ProjectCard project={project} />
-              </FadeIn>
-            ))}
-            <FadeIn delay={0.08 * projects.length} direction="up">
-              <article className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 h-full flex flex-col">
-                <div className="flex items-center justify-between gap-4 mb-3">
-                  <div className="flex items-center gap-2">
-                    <Lock size={13} style={{ color: "var(--amber)" }} />
-                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--amber)" }}>NDA</span>
+      {/* The explorer — Projects spec §07-§18 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-14 lg:px-8 lg:py-20">
+          <ProjectsExplorer />
+        </div>
+      </section>
+
+      {/* NDA six systems — Projects spec §26 */}
+      <section id="private-legaltech" className="noise-bg relative scroll-mt-16 overflow-hidden border-t border-border/60">
+        <div className="relative mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <div className="max-w-2xl space-y-4">
+            <p className="text-node text-amber">PRIVATE / NDA</p>
+            <h2 className="text-h2 text-foreground">LegalTech Platform — six internal systems.</h2>
+            <p className="text-sm text-muted-foreground">Full-Stack Developer · 6 Internal Systems · Active Production</p>
+            <p className="text-base leading-relaxed text-muted-foreground">
+              Architecture and engineering patterns shown with sensitive details removed — no company name, links, or
+              screenshots.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {ndaSystems.map((system) => (
+              <div key={system.num} className="panel flex h-full flex-col gap-4 p-7">
+                <p className="text-node text-muted-foreground/60">{system.num}</p>
+                <h3 className="text-lg font-medium text-foreground">{system.title}</h3>
+                <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{system.body}</p>
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    {system.stack.map((tech) => (
+                      <span key={tech} className="rounded border bg-card px-2 py-0.5 font-mono text-xs text-muted-foreground">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-start gap-2 border-t border-border/60 pt-3">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-amber" />
+                    <p className="text-sm text-foreground/85">{system.outcome}</p>
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">Private SaaS Platform — LegalTech</h3>
-                <p className="text-muted-foreground text-sm mb-4 flex-1">
-                  6 internal production systems: document generation, anti-piracy fingerprinting, a court-record lead classification engine, multi-party dispute scheduling, a containerized scheduling service, and a Wear OS rule engine for mediator workflows.
-                </p>
-                <div className="text-sm text-foreground/80 space-y-1 mb-4">
-                  <p><span className="font-semibold">Stack:</span> React, Node.js/Express, TypeScript, Supabase</p>
-                  <p><span className="font-semibold">Integrations:</span> n8n, SurveyJS, BullMQ, Docker, Wear OS</p>
-                </div>
-                <Link href="#private-legaltech" className="inline-flex items-center gap-2 text-sm font-semibold text-foreground group mt-auto">
-                  See full breakdown
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </article>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-8">
-          <FadeIn>
-            <div className="space-y-3">
-              <p className="text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">Featured breakdowns</p>
-              <h2 className="text-h2 text-foreground">Context, decisions, and outcomes</h2>
-              <p className="text-muted-foreground text-base max-w-2xl">
-                Three builds in full — the problem each one solved, the decisions that shaped it, and what shipped.
-                The rest are summarized above; happy to walk through any of them.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="space-y-6">
-            {projects
-              .filter((project) => FEATURED_IDS.includes(project.id))
-              .map((project, i) => (
-                <FadeIn key={project.id} delay={0.06 * i} direction="up">
-                  <ProjectDetail project={project} />
-                </FadeIn>
-              ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="private-legaltech" className="py-16 md:py-24 bg-[#080c24]">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-10">
-          <FadeIn>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--amber)" }}>
-                  Under NDA
-                </span>
               </div>
-              <h2 className="text-h2 text-white">Private SaaS Platform — LegalTech</h2>
-              <p className="text-white/50 text-sm">Full-Stack Developer · 6 Internal Systems · Active Production</p>
-              <p className="text-white/60 text-base max-w-2xl">
-                No company name, links, or screenshots. Descriptions cover system architecture and outcomes only.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                num: "01",
-                title: "Dynamic Document Generation Pipeline",
-                body: "Legal forms are complex — static templates break the moment data changes. Built a form-driven pipeline where users complete a SurveyJS questionnaire embedded in the storefront, with answers auto-saving as they go. On submission the data triggers an n8n workflow that merges it into a Word template, converts to PDF, and delivers it by email. Paired with an internal admin app — built on the SurveyJS form builder — where staff manage forms, templates, and bundles without a developer, with all writes routed through a resource-style API rather than direct database access.",
-                stack: ["React", "Vite", "SurveyJS", "Supabase", "n8n"],
-                outcome: "Zero manual document handling, and non-developers can ship new form types.",
-              },
-              {
-                num: "02",
-                title: "Anti-Piracy Document Fingerprinting",
-                body: "Self-help legal documents are trivially resold once they leave your system. Built a two-part fingerprinting subsystem: a Node/Express/TypeScript microservice that stamps formatted footers into .docx files over a REST API (bold, italic, color, font, alignment), and a companion service that injects per-purchase identity — user ID, email, timestamp — into the generated PDF's metadata via pdf-lib. Both are called from the document pipeline, so every delivered file is uniquely traceable to the buyer.",
-                stack: ["Node.js", "Express", "TypeScript", "pdf-lib", "Docker"],
-                outcome: "Every delivered document carries an invisible, per-buyer fingerprint.",
-              },
-              {
-                num: "03",
-                title: "Court-Record Lead Classification Engine",
-                body: "Daily public court-record exports arrive as zipped, caret-delimited flat files with separate lookup tables for party types, case types, and judges. Built a Node/Express/TypeScript backend that parses the feed, filters to active family-law matters filed within 180 days, detects trigger events in the docket — service returned, motion to withdraw — and classifies each unrepresented party into one of four lead profiles with priority tiers: newly filed, recently served, dropped by counsel, or simply unrepresented. Leads are enriched with human-readable labels and batch-upserted behind a CRUD API.",
-                stack: ["Node.js", "Express", "TypeScript", "Supabase", "n8n"],
-                outcome: "A raw daily court feed becomes a prioritized, deduplicated lead queue with no manual triage.",
-              },
-              {
-                num: "04",
-                title: "Multi-Party Dispute Scheduling System",
-                body: "Dispute negotiations require all three parties — creator, receiver, and mediator — to agree on a meeting time. Built a scheduling system where a creator proposes a date, the receiver accepts or declines, and on agreement all three parties are notified automatically. Designed for legal dispute workflows where neutral coordination matters.",
-                stack: ["React", "Node.js", "Supabase", "Google Calendar"],
-                outcome: "Three-party consent model with automated notifications on agreement.",
-              },
-              {
-                num: "05",
-                title: "Containerized Scheduling Service",
-                body: "The scheduling workload outgrew a single process once reminders, confirmations, and calendar sync all needed to survive restarts. Split it into an Express API and a separate BullMQ worker over Redis, with Postgres for state and migrations applied automatically on container start. The whole stack — API, worker, database, cache, Traefik reverse proxy — ships as a documented compose deployment with a written production runbook.",
-                stack: ["Node.js", "Express", "BullMQ", "Redis", "Postgres", "Traefik"],
-                outcome: "Background jobs survive restarts; the full stack deploys from one documented runbook.",
-              },
-              {
-                num: "06",
-                title: "Mediator Rule Engine with Wear OS Integration",
-                body: "Mediators need to trigger timed actions during sessions — reminders, check-ins, delays — without interrupting the flow. Built a rule engine with three rule types: instant (fires immediately), delay (fires after a set timer), and cron (fires on a set schedule). Rules are configured in a frontend dashboard, mapped to named buttons, and surfaced on a Wear OS watch so the mediator can fire any rule with a single button press. Also includes a voice command system for natural-language scheduling.",
-                stack: ["React", "Node.js", "Wear OS", "Android"],
-                outcome: "Frontend rule configuration → one-tap execution from a watch during live sessions.",
-              },
-            ].map((system, i) => (
-              <FadeIn key={system.num} delay={0.08 * i} direction="up">
-                <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-6 md:p-8 space-y-4 h-full flex flex-col">
-                  <span className="text-xs font-bold tracking-widest text-white/30">{system.num}</span>
-                  <h3 className="text-lg font-semibold text-white">{system.title}</h3>
-                  <p className="text-white/55 text-sm leading-relaxed flex-1">{system.body}</p>
-                  <div className="space-y-3">
-                    <div className="flex flex-wrap gap-1.5">
-                      {system.stack.map((tech) => (
-                        <span key={tech} className="px-2 py-0.5 rounded text-xs text-white/60 border border-white/10 bg-white/5">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-start gap-2 pt-2 border-t border-white/10">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "var(--amber)" }} />
-                      <p className="text-white/70 text-sm">{system.outcome}</p>
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Patterns behind the work — Projects spec §29 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
+          <WorkPatterns />
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1240px] px-6 py-24 text-center lg:px-8 lg:py-32">
+          <h2 className="text-h2 text-balance text-foreground">Want a system like these?</h2>
+          <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
+            Tell me what you're trying to build, automate, fix, or improve — I'll map the system it needs.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85"
+            >
+              Start a Project →
+            </Link>
+            <Link
+              href="/work"
+              className="rounded-lg border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+            >
+              Back to Selected Systems
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   )

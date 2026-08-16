@@ -1,7 +1,7 @@
 import type React from "react"
 import { Suspense } from "react"
 import type { Metadata } from "next"
-import { Manrope, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
 import AnalyticsListener from "@/components/analytics-listener"
@@ -13,8 +13,8 @@ import {
 import { GA_MEASUREMENT_ID } from "@/lib/analytics"
 import "./globals.css"
 
-const _manrope = Manrope({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 const defaultOgImage = `${siteConfig.url}${siteConfig.ogImage}`
 
@@ -86,7 +86,7 @@ export default function RootLayout({
   const gaId = GA_MEASUREMENT_ID
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <head>
         <script
           type="application/ld+json"

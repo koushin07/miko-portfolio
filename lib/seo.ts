@@ -7,9 +7,9 @@ const DEFAULT_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ikoy.verce
 
 export const siteConfig = {
   name: "Miko Cañares",
-  title: "Miko Cañares — Full-Stack Engineer · Production Systems & Automation",
+  title: "Miko Cañares — Full-Stack Developer for AI, SaaS & Automation",
   description:
-    "Full-stack engineer building production systems for regulated and data-heavy industries — compliance reporting, geospatial platforms, customer portals, and workflow automation.",
+    "I build production-ready web applications, AI-powered systems, and business automations — connecting the frontend, backend, APIs, databases, and third-party tools into reliable systems.",
   url: DEFAULT_SITE_URL,
   locale: "en_US",
   email: "canaresmiko3@gmail.com",
@@ -19,11 +19,22 @@ export const siteConfig = {
     "Miko Cañares",
     "Miko Canares",
     "Full-stack developer",
+    "AI developer",
+    "AI application development",
+    "RAG development",
     "Automation engineer",
     "Internal tools developer",
     "SaaS developer",
+    "SaaS development",
+    "business automation",
+    "API integration",
     "Automation pipelines",
     "n8n developer",
+    "n8n automation",
+    "Python developer",
+    "Laravel developer",
+    "PostgreSQL",
+    "OpenAI",
     "JavaScript",
     "Next.js",
     "Node.js",
@@ -48,6 +59,8 @@ type MetadataOptions = {
   publishedTime?: string
   modifiedTime?: string
   tags?: string[]
+  /** Skip the "| Miko Cañares" template — the title is used exactly as given. */
+  absoluteTitle?: boolean
 }
 
 export function absoluteUrl(path = ""): string {
@@ -64,13 +77,14 @@ export function buildMetadata({
   publishedTime,
   modifiedTime,
   tags,
+  absoluteTitle = false,
 }: MetadataOptions): Metadata {
   const url = absoluteUrl(path)
   const imageUrl = absoluteUrl(image ?? siteConfig.ogImage)
   const mergedKeywords = Array.from(new Set([...siteConfig.keywords, ...keywords]))
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     keywords: mergedKeywords,
     alternates: {
@@ -196,7 +210,7 @@ export function getPersonJsonLd({ sameAs = [] }: PersonJsonLdOptions = {}) {
     name: siteConfig.name,
     email: `mailto:${siteConfig.email}`,
     url: siteConfig.url,
-    jobTitle: 'QA Engineer, Full-Stack Developer, Systems Specialist',
+    jobTitle: 'Full-Stack Developer',
     sameAs,
   }
 }
@@ -207,5 +221,99 @@ export function getWebsiteJsonLd() {
     '@type': 'WebSite',
     name: siteConfig.title,
     url: siteConfig.url,
+  }
+}
+
+type BreadcrumbItem = { name: string; path: string }
+
+export function getBreadcrumbJsonLd(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  }
+}
+
+export function getCaseStudyJsonLd({
+  title,
+  description,
+  path,
+}: {
+  title: string
+  description: string
+  path: string
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: title,
+    headline: title,
+    description,
+    url: absoluteUrl(path),
+    author: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    inLanguage: "en",
+  }
+}
+
+export function getServiceJsonLd({
+  name,
+  description,
+  path,
+}: {
+  name: string
+  description: string
+  path: string
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    url: absoluteUrl(path),
+    serviceType: name,
+    provider: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    areaServed: "Worldwide",
+  }
+}
+
+export function getCollectionJsonLd({
+  name,
+  description,
+  path,
+  items,
+}: {
+  name: string
+  description: string
+  path: string
+  items: { name: string; path: string }[]
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url: absoluteUrl(path),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: absoluteUrl(item.path),
+      })),
+    },
   }
 }

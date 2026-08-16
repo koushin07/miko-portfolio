@@ -1,81 +1,102 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
-import { FadeIn } from "@/components/ui/motion"
-import { ArrowRight, Github, Linkedin, Mail, Phone } from "lucide-react"
-import Link from "next/link"
+import { Github, Linkedin, Mail, MessageCircle } from "lucide-react"
+import { buildMetadata } from "@/lib/seo"
+import { ContactForm } from "@/components/contact-form"
+import { BookingSheet } from "@/components/booking-sheet"
 
-const contacts = [
-  { label: "Email", value: "canaresmiko3@gmail.com", href: "mailto:canaresmiko3@gmail.com", icon: Mail },
-  { label: "LinkedIn", value: "linkedin.com/in/mikocanares", href: "https://www.linkedin.com/in/mikocanares", icon: Linkedin },
-  { label: "GitHub", value: "github.com/koushin07", href: "https://github.com/koushin07", icon: Github },
-  { label: "WhatsApp", value: "+63 909 611 6995", href: "https://wa.me/639096116995", icon: Phone },
+export const metadata = buildMetadata({
+  title: "Start a Project",
+  description:
+    "Tell me what you're trying to build, automate, fix, or improve. I'll help you figure out the right technical approach — reply within 24 hours.",
+  path: "/contact",
+  keywords: ["Hire full-stack developer", "Start a project", "Contact", "AI developer", "n8n automation"],
+})
+
+const directLinks = [
+  {
+    label: "Email",
+    value: "canaresmiko3@gmail.com",
+    href: "mailto:canaresmiko3@gmail.com",
+    icon: Mail,
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/miko-canares",
+    href: "https://www.linkedin.com/in/miko-canares",
+    icon: Linkedin,
+  },
+  {
+    label: "GitHub",
+    value: "github.com/koushin07",
+    href: "https://github.com/koushin07",
+    icon: Github,
+  },
+  {
+    label: "WhatsApp",
+    value: "+63 909 611 6995",
+    href: "https://wa.me/639096116995",
+    icon: MessageCircle,
+  },
 ]
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-hero-bg">
+    <main className="min-h-screen">
       <Navigation />
 
-      <section className="pt-[120px] pb-16 md:pb-24">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-6">
-          <FadeIn>
-            <p className="text-white/60 text-eyebrow uppercase tracking-wider">Contact</p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="text-h0 text-white">Looking for someone who can build, integrate, and automate?</h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-white/70 text-xl-custom max-w-3xl">
-              Tell me what you need shipped or fixed. I'm available for remote, contract, or full-time roles.
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.25}>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#1e308e] text-white rounded-xl hover:bg-accent-primary-hover hover:scale-[1.02] transition-all duration-300 text-base-custom font-medium"
-              >
-                View my work
-                <ArrowRight size={18} />
-              </Link>
-              <Link
-                href="/automation"
-                className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-all text-base-custom"
-              >
-                See automation approach
-                <ArrowRight size={18} className="translate-y-[1px]" />
-              </Link>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+      <section className="relative overflow-hidden">
+        <div className="grid-bg pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_20%,black,transparent)]" />
+        <div className="relative mx-auto max-w-[1200px] px-6 pt-32 pb-20 lg:px-8 lg:pt-40 lg:pb-28">
+          <p className="text-node text-muted-foreground">START A PROJECT</p>
+          <h1 className="text-h1 mt-6 max-w-3xl text-balance text-foreground lg:text-[3.2rem] lg:leading-[1.08]">
+            Have something you want to build?
+          </h1>
+          <p className="text-lg-custom mt-6 max-w-2xl text-muted-foreground">
+            Tell me what you're trying to build, automate, fix, or improve. I'll help you figure out the right
+            technical approach.
+          </p>
 
-      <section className="bg-white py-16 md:py-20">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-8 space-y-8">
-          <FadeIn>
-            <div className="space-y-3">
-              <p className="text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">Reach out</p>
-              <h2 className="text-h2 text-foreground">Simple ways to get in touch</h2>
-            </div>
-          </FadeIn>
+          <div className="mt-14 grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+            <ContactForm />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {contacts.map((contact, i) => (
-              <FadeIn key={contact.label} delay={0.08 * i} direction="up">
-                <a
-                  href={contact.href}
-                  className="bg-accent-secondary border border-gray-200 rounded-2xl p-6 flex items-start gap-3 hover:-translate-y-1 hover:shadow-md transition-all duration-300"
-                >
-                  <div className="w-10 h-10 rounded-full bg-white text-[#1e308e] flex items-center justify-center">
-                    <contact.icon size={18} />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">{contact.label}</p>
-                    <p className="text-foreground text-base font-semibold">{contact.value}</p>
-                  </div>
-                </a>
-              </FadeIn>
-            ))}
+            <div className="space-y-8">
+              <div className="panel space-y-4 p-6">
+                <p className="text-node text-muted-foreground">PREFER TO TALK?</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  Book a call directly on my calendar — you'll get a Google Calendar invite with a Meet link.
+                </p>
+                <BookingSheet
+                  trigger={
+                    <button
+                      type="button"
+                      className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                    >
+                      Book a call →
+                    </button>
+                  }
+                />
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-node text-muted-foreground">DIRECT</p>
+                {directLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                    className="group flex items-center gap-3 rounded-lg border border-border/60 bg-card/50 px-4 py-3 transition-colors hover:border-primary/40"
+                  >
+                    <link.icon size={16} className="text-muted-foreground transition-colors group-hover:text-primary" />
+                    <span className="text-sm text-foreground">{link.label}</span>
+                    <span className="ml-auto truncate text-xs text-muted-foreground">{link.value}</span>
+                  </a>
+                ))}
+              </div>
+
+              <p className="text-node text-muted-foreground/70">REPLY WITHIN 24 HOURS</p>
+            </div>
           </div>
         </div>
       </section>

@@ -37,6 +37,71 @@ the Emport date mismatch at the bottom of this doc.
 
 ---
 
+## ⚠️ Resume rejected by Hubstaff review — fixed same day
+
+Hubstaff rejected the uploaded CV:
+
+> We held back from posting your resume as it includes sensitive information.
+> Before we post your resume, please remove or blur sensitive information such as:
+> Email Addresses, Phone Numbers, ID Numbers
+
+Note their own upload page claims *"Email addresses and phone numbers will be stripped
+out of the resume. We do this to prevent spam."* — that automatic stripping evidently
+does not run, so removal has to happen before upload.
+
+**Fix: a Hubstaff-only variant.** Your master CV keeps its contact details, since it needs
+them for direct applications. Only the Hubstaff copy has them stripped.
+
+| File | Purpose |
+|---|---|
+| `docs/cv/miko-canares-cv.html` | Master. **Unchanged** — still has email + phone. |
+| `docs/cv/miko-canares-cv-hubstaff.html` | Generated variant, those two lines removed. |
+| `docs/cv/Miko-Canares-CV-Hubstaff.pdf` | Rendered 2-page PDF — what was uploaded. |
+| `public/Miko-Canares-CV.pdf` | Public download. **Unchanged.** |
+
+Header on the Hubstaff variant now reads:
+
+```
+MIKO CAÑARES
+Full-Stack Engineer — Business Systems, Automation & Cloud
+ikoy.vercel.app | linkedin.com/in/mikocanares | github.com/koushin07
+```
+
+Links are kept — Hubstaff's own profile fields carry website and GitHub, so URLs are
+clearly acceptable to them; only email/phone/ID are not. Recruiters still reach you
+through the Hubstaff message centre and the profile's contact fields.
+
+Verified with `pdftotext` before upload: no `@`, no `+63`, no phone-shaped digits;
+Atlas / Python / FastAPI still present; NDA client absent; still 2 pages.
+
+**To regenerate after editing the master CV:**
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+h = Path('docs/cv/miko-canares-cv.html').read_text(encoding='utf-8')
+h = h.replace('      <span>canaresmiko3@gmail.com</span>\n', '')
+h = h.replace('      <span>+63 909 611 6995</span>\n', '')
+assert 'canaresmiko3' not in h and '+63' not in h
+Path('docs/cv/miko-canares-cv-hubstaff.html').write_text(h, encoding='utf-8')
+PY
+
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+  --no-pdf-header-footer --print-to-pdf="docs/cv/Miko-Canares-CV-Hubstaff.pdf" \
+  "file://$PWD/docs/cv/miko-canares-cv-hubstaff.html"
+
+pdftotext docs/cv/Miko-Canares-CV-Hubstaff.pdf - | grep -nE "@|\+63" && echo "STILL PRESENT" || echo clean
+```
+
+**Status:** re-uploaded, conversion in progress. Hubstaff reviews resumes manually, so
+approval is on their timeline — worth checking back in a day.
+
+**Worth checking:** Wellfound may apply a similar policy. Its currently-attached CV is the
+full master with email and phone. It has not been rejected, so leave it unless they flag it
+— but if they do, the same variant works.
+
+---
+
 ## Read this first: the traffic reality
 
 I pulled your profile analytics. Over the **full year Aug 2025 – Aug 2026** this profile
