@@ -132,10 +132,14 @@ const STATES: LifecycleState[] = [
   },
 ]
 
+type Inspection = "pass" | "issue" | null
+
 export function LifecycleCommand() {
   const [index, setIndex] = useState(2)
   const [playing, setPlaying] = useState(false)
+  const [inspection, setInspection] = useState<Inspection>(null)
   const state = STATES[index]
+  const atAudited = index === STATES.length - 1
 
   useEffect(() => {
     if (!playing) return
@@ -164,6 +168,7 @@ export function LifecycleCommand() {
               onClick={() => {
                 setPlaying(false)
                 setIndex(i)
+                setInspection(null)
               }}
               className={cn(
                 "text-node w-full rounded-md border px-4 py-2.5 text-left transition-all duration-300",
@@ -190,6 +195,39 @@ export function LifecycleCommand() {
           <Play size={12} />
           {playing ? "Running…" : "Play resource lifecycle"}
         </button>
+
+        {atAudited ? (
+          <div className="mt-4 space-y-2 border-t border-border/60 pt-4 [animation:node-in_0.3s_ease-out_both]">
+            <p className="text-node text-muted-foreground/60">INSPECTION OUTCOME</p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setInspection("pass")}
+                className={cn(
+                  "text-node flex-1 rounded-md border px-3 py-2 transition-colors duration-200",
+                  inspection === "pass" ? "border-primary/60 bg-primary/10 text-primary" : "border-border bg-card text-muted-foreground hover:text-foreground",
+                )}
+              >
+                PASS
+              </button>
+              <button
+                type="button"
+                onClick={() => setInspection("issue")}
+                className={cn(
+                  "text-node flex-1 rounded-md border px-3 py-2 transition-colors duration-200",
+                  inspection === "issue" ? "border-amber/60 bg-amber/10 text-amber" : "border-border bg-card text-muted-foreground hover:text-foreground",
+                )}
+              >
+                ISSUE
+              </button>
+            </div>
+            {inspection ? (
+              <p className="text-node rounded-md border border-border/60 bg-card px-3 py-2 text-center text-foreground/85 [animation:node-in_0.25s_ease-out_both]">
+                {inspection === "pass" ? "→ READY" : "→ MAINTENANCE / NOT READY"}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       {/* Resource card */}

@@ -5,6 +5,17 @@ import { buildMetadata, getCaseStudyJsonLd, getBreadcrumbJsonLd } from "@/lib/se
 import { SectionHeader } from "@/components/section-header"
 import { HubNetwork } from "@/components/system/hub-network"
 import { CaseStudyNav } from "@/components/work/case-study-nav"
+import { CaseStudyProgressNav } from "@/components/work/case-study-progress-nav"
+
+const SECTIONS = [
+  { id: "problem", label: "PROBLEM" },
+  { id: "workflow", label: "WORKFLOW" },
+  { id: "system", label: "SYSTEM" },
+  { id: "integrations", label: "INTEGRATIONS" },
+  { id: "engineering", label: "ENGINEERING" },
+  { id: "practice", label: "IN PRACTICE" },
+  { id: "outcome", label: "OUTCOME" },
+]
 import {
   PlacementBoard,
   FragmentsConverge,
@@ -75,6 +86,7 @@ export default function AceCaseStudy() {
     <main className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navigation />
+      <CaseStudyProgressNav index={3} total={4} name="ACE" sections={SECTIONS} />
 
       {/* Hero — the placement control room */}
       <section className="noise-bg relative overflow-hidden">
@@ -114,12 +126,12 @@ export default function AceCaseStudy() {
       </section>
 
       {/* Problem → convergence (signature) */}
-      <section className="border-t border-border/60">
+      <section id="problem" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="THE PROBLEM"
             title="Before ACE, the workflow was fragmented."
-            lede="Placement coordinators had to keep bookings, student profiles, document packs, CRM records, and communication status aligned across separate tools. Watch the system connect."
+            lede="The difficult part was not building individual screens. It was keeping the workflow connected. Placement coordinators had to keep bookings, student profiles, document packs, CRM records, and communication status aligned across separate tools. Watch the system connect."
           />
           <div className="mt-10">
             <FragmentsConverge />
@@ -128,7 +140,7 @@ export default function AceCaseStudy() {
       </section>
 
       {/* Placement timeline */}
-      <section className="noise-bg relative overflow-hidden border-t border-border/60">
+      <section id="workflow" className="noise-bg relative scroll-mt-32 overflow-hidden border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="THE WORKFLOW"
@@ -142,7 +154,7 @@ export default function AceCaseStudy() {
       </section>
 
       {/* Layered system */}
-      <section className="border-t border-border/60">
+      <section id="system" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="THE SYSTEM"
@@ -156,7 +168,7 @@ export default function AceCaseStudy() {
       </section>
 
       {/* Integration constellation */}
-      <section className="border-t border-border/60">
+      <section id="integrations" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="INTEGRATIONS"
@@ -180,7 +192,7 @@ export default function AceCaseStudy() {
       </section>
 
       {/* Decision stack */}
-      <section className="border-t border-border/60">
+      <section id="engineering" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader label="ENGINEERING DECISIONS" title="Why the system stays synchronized." />
           <div className="mt-12 max-w-4xl">
@@ -190,7 +202,7 @@ export default function AceCaseStudy() {
       </section>
 
       {/* Day in the life */}
-      <section className="noise-bg relative overflow-hidden border-t border-border/60">
+      <section id="practice" className="noise-bg relative scroll-mt-32 overflow-hidden border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="IN PRACTICE"
@@ -204,7 +216,7 @@ export default function AceCaseStudy() {
       </section>
 
       {/* What shipped */}
-      <section className="border-t border-border/60">
+      <section id="outcome" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader label="WHAT SHIPPED" title="From placement search to completion." />
           <ul className="mt-12 grid max-w-3xl gap-x-10 gap-y-3 sm:grid-cols-2">
@@ -252,7 +264,7 @@ export default function AceCaseStudy() {
       {/* CTA */}
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 text-center lg:px-8 lg:py-32">
-          <h2 className="text-h2 text-balance text-foreground">Still moving business data between tools?</h2>
+          <h2 className="text-h2 text-balance text-foreground">Trying to connect disconnected business systems?</h2>
           <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
             I build systems that connect the workflow instead of adding another tool for your team to manage.
           </p>

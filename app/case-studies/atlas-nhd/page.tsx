@@ -6,7 +6,18 @@ import { buildMetadata, getCaseStudyJsonLd, getBreadcrumbJsonLd } from "@/lib/se
 import { SectionHeader } from "@/components/section-header"
 import { GeoGrid } from "@/components/case-studies/geo-grid"
 import { AtlasStage } from "@/components/stages/atlas-stage"
+import { PropertyEquation, ParcelJourney } from "@/components/case-studies/atlas-visuals"
 import { CaseStudyNav } from "@/components/work/case-study-nav"
+import { CaseStudyProgressNav } from "@/components/work/case-study-progress-nav"
+
+const SECTIONS = [
+  { id: "problem", label: "PROBLEM" },
+  { id: "journey", label: "PARCEL JOURNEY" },
+  { id: "system", label: "SYSTEM" },
+  { id: "architecture", label: "ARCHITECTURE" },
+  { id: "engineering", label: "ENGINEERING" },
+  { id: "outcome", label: "OUTCOME" },
+]
 
 export const metadata = buildMetadata({
   title: "Atlas NHD Case Study — Geospatial Data Pipeline & SaaS Portal",
@@ -130,6 +141,7 @@ export default function CaseStudyPage() {
     <main className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navigation />
+      <CaseStudyProgressNav index={1} total={4} name="ATLAS NHD" sections={SECTIONS} />
 
       {/* Hero with geospatial identity */}
       <section className="relative overflow-hidden">
@@ -154,10 +166,10 @@ export default function CaseStudyPage() {
       </section>
 
       {/* 01 Problem */}
-      <section className="border-t border-border/60">
+      <section id="problem" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-2">
-            <SectionHeader label="01 — PROBLEM" title="Correctness is the product." />
+            <SectionHeader label="01 — PROBLEM" title="A property is not just an address." />
             <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
               <p>
                 Every residential property sale in California legally requires a Natural Hazard Disclosure. Producing
@@ -166,17 +178,34 @@ export default function CaseStudyPage() {
                 a statutorily prescribed format.
               </p>
               <p>
-                That constraint shapes every engineering decision. A slow report is an inconvenience; a wrong one is
-                legal liability for the disclosure provider. So the interesting problems here are not about scale —
-                they are about determinism, provenance, and never silently degrading.
+                The challenge was never displaying a map. It was turning fragmented geographic and regulatory
+                information into one reliable determination. A slow report is an inconvenience; a wrong one is legal
+                liability for the disclosure provider.
               </p>
             </div>
+          </div>
+          <div className="mt-14">
+            <PropertyEquation />
+          </div>
+        </div>
+      </section>
+
+      {/* Parcel journey */}
+      <section id="journey" className="scroll-mt-32 border-t border-border/60">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
+          <SectionHeader
+            label="PARCEL JOURNEY"
+            title="Give it an address. Get back a determination."
+            lede="Seven stages, every one deterministic. Step through the journey."
+          />
+          <div className="mt-12">
+            <ParcelJourney />
           </div>
         </div>
       </section>
 
       {/* 02 How it works — geo system map */}
-      <section className="border-t border-border/60">
+      <section id="system" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader
             label="02 — HOW IT WORKS"
@@ -190,7 +219,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* 03 Architecture */}
-      <section className="border-t border-border/60">
+      <section id="architecture" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader
             label="03 — ARCHITECTURE"
@@ -211,7 +240,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* 04 Engineering decisions */}
-      <section className="border-t border-border/60">
+      <section id="engineering" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader label="04 — ENGINEERING DECISIONS" title="Four problems worth writing down." />
           <div className="mt-10 grid gap-5 lg:grid-cols-2">
@@ -233,7 +262,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* 05 Results + role */}
-      <section className="border-t border-border/60">
+      <section id="outcome" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-2">
             <div className="space-y-5">
@@ -284,7 +313,7 @@ export default function CaseStudyPage() {
 
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-20 text-center lg:px-8 lg:py-28">
-          <h2 className="text-h2 text-balance text-foreground">Have a system like this to build?</h2>
+          <h2 className="text-h2 text-balance text-foreground">Building something where the data has to be correct?</h2>
           <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
             Regulated domains, messy third-party data, and pipelines that cannot silently fail — that is the work I do
             best.

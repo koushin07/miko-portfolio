@@ -4,7 +4,19 @@ import Link from "next/link"
 import { buildMetadata, getCaseStudyJsonLd, getBreadcrumbJsonLd } from "@/lib/seo"
 import { SectionHeader } from "@/components/section-header"
 import { RagStage } from "@/components/stages/rag-stage"
+import { RetrievalComparison } from "@/components/case-studies/readmindme-visuals"
 import { CaseStudyNav } from "@/components/work/case-study-nav"
+import { CaseStudyProgressNav } from "@/components/work/case-study-progress-nav"
+
+const SECTIONS = [
+  { id: "problem", label: "PROBLEM" },
+  { id: "comparison", label: "COMPARISON" },
+  { id: "how-it-works", label: "HOW IT WORKS" },
+  { id: "capabilities", label: "CAPABILITIES" },
+  { id: "under-the-hood", label: "UNDER THE HOOD" },
+  { id: "engineering", label: "ENGINEERING" },
+  { id: "outcome", label: "TECHNOLOGIES" },
+]
 
 export const metadata = buildMetadata({
   title: "ReadMindMe Case Study — AI RAG Platform with OpenAI & pgvector",
@@ -111,9 +123,10 @@ export default function ReadMindMeCaseStudy() {
     <main className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navigation />
+      <CaseStudyProgressNav index={2} total={4} name="READMINDME" sections={SECTIONS} />
 
       {/* 01 Problem → 02 What I built */}
-      <section className="relative overflow-hidden">
+      <section id="problem" className="relative scroll-mt-32 overflow-hidden">
         <div className="grid-bg pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
         <div className="relative mx-auto max-w-[1200px] px-6 pt-32 pb-16 lg:px-8 lg:pt-40 lg:pb-20">
           <p className="text-node text-muted-foreground">CASE STUDY — AI / RAG PLATFORM</p>
@@ -122,6 +135,10 @@ export default function ReadMindMeCaseStudy() {
             An AI system that answers from a knowledge base — a Bible-study platform whose assistant answers from
             scripture and study data, not from thin air.
           </h1>
+          <p className="mt-6 max-w-2xl text-xl font-medium text-foreground/90">
+            The difficult part wasn&apos;t generating an answer. It was finding the right information before
+            generating one.
+          </p>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             <div className="panel space-y-3 p-6">
               <p className="text-node text-amber">01 — PROBLEM</p>
@@ -143,8 +160,22 @@ export default function ReadMindMeCaseStudy() {
         </div>
       </section>
 
+      {/* Standard vs retrieval comparison */}
+      <section id="comparison" className="scroll-mt-32 border-t border-border/60">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
+          <SectionHeader
+            label="WHY RETRIEVAL"
+            title="Not simply a prompt to an LLM."
+            lede="A standard approach guesses from what the model already knows. ReadMindMe searches first."
+          />
+          <div className="mt-12 max-w-3xl">
+            <RetrievalComparison />
+          </div>
+        </div>
+      </section>
+
       {/* 03 How it works — RAG visualization */}
-      <section className="border-t border-border/60">
+      <section id="how-it-works" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader
             label="03 — HOW IT WORKS"
@@ -158,7 +189,7 @@ export default function ReadMindMeCaseStudy() {
       </section>
 
       {/* 04 Key capabilities */}
-      <section className="border-t border-border/60">
+      <section id="capabilities" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader label="04 — KEY CAPABILITIES" title="What the system demonstrates." />
           <div className="mt-10 flex max-w-3xl flex-wrap gap-2.5">
@@ -175,7 +206,7 @@ export default function ReadMindMeCaseStudy() {
       </section>
 
       {/* 05 Under the hood */}
-      <section className="border-t border-border/60">
+      <section id="under-the-hood" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader
             label="05 — UNDER THE HOOD"
@@ -194,7 +225,7 @@ export default function ReadMindMeCaseStudy() {
       </section>
 
       {/* 06 Engineering decisions */}
-      <section className="border-t border-border/60">
+      <section id="engineering" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader label="06 — ENGINEERING DECISIONS" title="Business value first, implementation underneath." />
           <div className="mt-10 space-y-5">
@@ -212,7 +243,7 @@ export default function ReadMindMeCaseStudy() {
       </section>
 
       {/* 07 Technologies + 08 CTA */}
-      <section className="border-t border-border/60">
+      <section id="outcome" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader label="07 — TECHNOLOGIES" title="The stack." />
           <div className="mt-10 flex max-w-3xl flex-wrap gap-2.5">
@@ -227,7 +258,7 @@ export default function ReadMindMeCaseStudy() {
 
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-20 text-center lg:px-8 lg:py-28">
-          <h2 className="text-h2 text-balance text-foreground">Want AI grounded in your data?</h2>
+          <h2 className="text-h2 text-balance text-foreground">Exploring how AI can work with your own data?</h2>
           <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
             RAG, embeddings, structured outputs — I can help you figure out what your product actually needs.
           </p>

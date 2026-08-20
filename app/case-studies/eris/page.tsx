@@ -4,6 +4,7 @@ import Link from "next/link"
 import { buildMetadata, getCaseStudyJsonLd, getBreadcrumbJsonLd } from "@/lib/seo"
 import { SectionHeader } from "@/components/section-header"
 import { CaseStudyNav } from "@/components/work/case-study-nav"
+import { CaseStudyProgressNav } from "@/components/work/case-study-progress-nav"
 import {
   ResourceBoard,
   LifecycleCommand,
@@ -12,6 +13,15 @@ import {
   OpsArchitecture,
   RoleSwitcher,
 } from "@/components/case-studies/eris-visuals"
+
+const SECTIONS = [
+  { id: "lifecycle", label: "LIFECYCLE" },
+  { id: "shift", label: "THE SHIFT" },
+  { id: "region", label: "REGIONAL VIEW" },
+  { id: "architecture", label: "ARCHITECTURE" },
+  { id: "access", label: "ACCESS" },
+  { id: "outcome", label: "OUTCOME" },
+]
 
 export const metadata = buildMetadata({
   title: "ERIS Case Study — Emergency Resource & Operations Management System",
@@ -90,6 +100,7 @@ export default function ErisCaseStudy() {
     <main className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navigation />
+      <CaseStudyProgressNav index={4} total={4} name="ERIS" sections={SECTIONS} />
 
       {/* Hero — command center intro */}
       <section className="noise-bg relative overflow-hidden">
@@ -102,8 +113,9 @@ export default function ErisCaseStudy() {
                 Know where every resource is. Know what happened to it.
               </h1>
               <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
-                ERIS gives regional responders a single operational view of equipment availability, reservations,
-                dispatch movements, returns, and audit history.
+                When resources are needed, uncertainty is the problem. ERIS gives regional responders a single
+                operational view of equipment availability, reservations, dispatch movements, returns, and audit
+                history.
               </p>
               <p className="text-node text-muted-foreground/70">
                 ERIS — EMERGENCY RESOURCE INFORMATION SYSTEM · REGION 10
@@ -117,7 +129,7 @@ export default function ErisCaseStudy() {
       </section>
 
       {/* Signature — resource lifecycle command */}
-      <section className="border-t border-border/60">
+      <section id="lifecycle" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="THE LIFECYCLE"
@@ -131,7 +143,7 @@ export default function ErisCaseStudy() {
       </section>
 
       {/* Before / after */}
-      <section className="noise-bg relative overflow-hidden border-t border-border/60">
+      <section id="shift" className="noise-bg relative scroll-mt-32 overflow-hidden border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader label="THE SHIFT" title="From scattered records to one accountable state." />
           <div className="mt-14">
@@ -141,7 +153,7 @@ export default function ErisCaseStudy() {
       </section>
 
       {/* Region view */}
-      <section className="border-t border-border/60">
+      <section id="region" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="REGIONAL VISIBILITY"
@@ -155,7 +167,7 @@ export default function ErisCaseStudy() {
       </section>
 
       {/* Architecture */}
-      <section className="border-t border-border/60">
+      <section id="architecture" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <div className="grid items-center gap-14 lg:grid-cols-2">
             <SectionHeader
@@ -169,7 +181,7 @@ export default function ErisCaseStudy() {
       </section>
 
       {/* RBAC */}
-      <section className="border-t border-border/60">
+      <section id="access" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader
             label="ACCESS"
@@ -183,7 +195,7 @@ export default function ErisCaseStudy() {
       </section>
 
       {/* Operational scorecard */}
-      <section className="border-t border-border/60">
+      <section id="outcome" className="scroll-mt-32 border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-32">
           <SectionHeader label="WHAT SHIPPED" title="The operational scorecard." />
           <dl className="mt-12 grid gap-px overflow-hidden rounded-lg border bg-border/60 sm:grid-cols-2 lg:grid-cols-5">
@@ -243,7 +255,7 @@ export default function ErisCaseStudy() {
       {/* CTA */}
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 text-center lg:px-8 lg:py-32">
-          <h2 className="text-h2 text-balance text-foreground">When operational data needs to stay accountable.</h2>
+          <h2 className="text-h2 text-balance text-foreground">Need better visibility over a complex operational workflow?</h2>
           <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
             I build internal systems that turn fragmented operational workflows into reliable, traceable software.
           </p>
