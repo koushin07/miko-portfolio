@@ -9,6 +9,8 @@ import { RagStage } from "@/components/stages/rag-stage"
 import { AtlasStage } from "@/components/stages/atlas-stage"
 import { SdiStage } from "@/components/stages/sdi-stage"
 import { AutomationExplorer } from "@/components/automation/automation-explorer"
+import { PlacementBoard } from "@/components/case-studies/ace-visuals"
+import { ResourceBoard } from "@/components/case-studies/eris-visuals"
 
 export const metadata = buildMetadata({
   title: "Software Development Projects & Case Studies | Miko Cañares",
@@ -53,7 +55,7 @@ export default function WorkPage() {
                 >
                   Explore Work ↓
                 </a>
-                <p className="text-node text-muted-foreground/70">10+ SYSTEMS · 4 FEATURED</p>
+                <p className="text-node text-muted-foreground/70">10+ SYSTEMS · 6 FEATURED</p>
               </div>
             </div>
             <div className="hidden justify-center lg:flex">
@@ -67,6 +69,22 @@ export default function WorkPage() {
       <div id="featured" className="scroll-mt-16">
         <FeaturedSystem
           index="01"
+          category="AUTOMATION PLATFORM"
+          tag="N8N / ORCHESTRATION"
+          status="PRIVATE / NDA"
+          name="AUTOMATION / LEGALTECH"
+          valueProp="The system that finds the customers — and the system that delivers to them."
+          problem="A legal-document business runs on court data, client intake, documents, e-signatures, and scheduling — each in a different tool. Every manual handoff between them was a delay or an error."
+          tech="N8N · SUPABASE · GEMINI · DOCKER"
+          outcome="Six internal systems and the automation layer connecting them — architecture shown with sensitive details removed. Hover the subsystems, then open the Document Factory."
+          href="/automation"
+          hrefLabel="Explore the automation platform →"
+          layout="full"
+          visual={<AutomationExplorer />}
+        />
+
+        <FeaturedSystem
+          index="02"
           category="AI PLATFORM"
           tag="AI / RAG"
           name="READMINDME"
@@ -88,7 +106,7 @@ export default function WorkPage() {
         />
 
         <FeaturedSystem
-          index="02"
+          index="03"
           category="GEOSPATIAL PLATFORM"
           tag="GEOSPATIAL / SAAS"
           status="PRODUCTION"
@@ -109,7 +127,7 @@ export default function WorkPage() {
         />
 
         <FeaturedSystem
-          index="03"
+          index="04"
           category="REPORT ENGINE"
           tag="GEOSPATIAL / DOCUMENTS"
           status="PRODUCTION"
@@ -124,19 +142,31 @@ export default function WorkPage() {
         />
 
         <FeaturedSystem
-          index="04"
-          category="AUTOMATION PLATFORM"
-          tag="N8N / ORCHESTRATION"
-          status="PRIVATE / NDA"
-          name="AUTOMATION / LEGALTECH"
-          valueProp="42 production workflows on one n8n backbone."
-          problem="A legal-document business runs on court data, client intake, documents, e-signatures, and scheduling — each in a different tool. Every manual handoff between them was a delay or an error."
-          tech="N8N · SUPABASE · GEMINI · DOCKER"
-          outcome="Six internal systems and the automation layer connecting them — architecture shown with sensitive details removed. Hover the subsystems, then open the Document Factory."
-          href="/automation"
-          hrefLabel="Explore the automation platform →"
-          layout="full"
-          visual={<AutomationExplorer />}
+          index="05"
+          category="CONNECTED WORKFLOWS"
+          tag="SAAS / INTEGRATIONS"
+          name="ACE"
+          valueProp="Connected business workflows."
+          problem="Clinical placements ran across disconnected tools — requests in one place, scheduling in another, CRM and document packs nowhere near either. The workflow lived in the gaps between systems."
+          tech="NEXT.JS · LARAVEL · MAPBOX · CLERK · PANDADOC · PIPEDRIVE"
+          outcome="A placement platform where booking, scheduling, CRM sync, and document packs move as one connected workflow."
+          href="/case-studies/ace"
+          layout="text-left"
+          visual={<PlacementBoard />}
+        />
+
+        <FeaturedSystem
+          index="06"
+          category="OPERATIONAL SYSTEM"
+          tag="OPERATIONS / RBAC"
+          name="ERIS"
+          valueProp="Operational resource management."
+          problem="Regional responders tracked equipment across municipalities in scattered records — nobody could say what was available, where it was, or what happened to it last."
+          tech="LARAVEL · VUE · INERTIA · MYSQL"
+          outcome="Availability, reservations, dispatch, returns, and audit history in one accountable operational view."
+          href="/case-studies/eris"
+          layout="text-right"
+          visual={<ResourceBoard />}
         />
       </div>
 

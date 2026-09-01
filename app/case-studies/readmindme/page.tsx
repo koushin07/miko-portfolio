@@ -258,7 +258,7 @@ export default function ReadMindMeCaseStudy() {
 
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-20 text-center lg:px-8 lg:py-28">
-          <h2 className="text-h2 text-balance text-foreground">Exploring how AI can work with your own data?</h2>
+          <h2 className="text-h2 text-balance text-foreground">Need AI to work with your own business data?</h2>
           <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
             RAG, embeddings, structured outputs — I can help you figure out what your product actually needs.
           </p>

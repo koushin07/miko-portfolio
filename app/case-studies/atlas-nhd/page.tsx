@@ -313,7 +313,7 @@ export default function CaseStudyPage() {
 
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-20 text-center lg:px-8 lg:py-28">
-          <h2 className="text-h2 text-balance text-foreground">Building something where the data has to be correct?</h2>
+          <h2 className="text-h2 text-balance text-foreground">Working with complex geographic or regulatory data?</h2>
           <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
             Regulated domains, messy third-party data, and pipelines that cannot silently fail — that is the work I do
             best.

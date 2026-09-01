@@ -34,7 +34,13 @@ Go to **github.com/koushin07** → **Edit profile** (left sidebar, under your av
 
 | Field | Paste this |
 |---|---|
-| **Bio** | `Full-stack engineer — production systems for regulated and data-heavy industries. Python/FastAPI · TypeScript/Next.js · AWS` |
+| **Bio** | `Full-Stack Developer for AI, SaaS & Automation. Next.js/React · Python/FastAPI · AWS` |
+
+> Updated 2026-08-20 — the previous "regulated and data-heavy industries" framing was
+> retired site-wide; the portfolio now leads with AI, SaaS & Automation (see the homepage
+> H1). This bio matches that positioning. GitHub bios cap at 160 characters — this one is
+> well under, so `Next.js/React · Python/FastAPI · AWS` can be trimmed further if a shorter
+> line is wanted.
 | **Location** | `Misamis Oriental, Philippines` |
 | **Website** | `https://ikoy.vercel.app` |
 | **Company** | `Atlas Geotech LLC` |

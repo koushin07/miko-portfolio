@@ -55,6 +55,13 @@ const services = [
     line: "Operations tools, dashboards, and internal platforms with accountability and role-based access built in.",
     meta: "LARAVEL · VUE · MYSQL · RBAC",
   },
+  {
+    name: "Complex & Existing Systems",
+    href: "/qa",
+    anchor: "See the QA & reliability background",
+    line: "Existing applications stabilized, tested, modernized, and extended — without breaking what already works.",
+    meta: "QA · TESTING · MODERNIZATION · INTEGRATION",
+  },
 ]
 
 const jsonLd = [

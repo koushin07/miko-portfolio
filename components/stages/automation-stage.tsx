@@ -8,15 +8,15 @@ export function AutomationStage() {
         <div className="max-w-3xl space-y-6">
           <p className="text-node flex items-center gap-2 text-muted-foreground">
             <span aria-hidden="true" className="size-1.5 rounded-sm bg-amber" />
-            04 — AUTOMATION BACKBONE
+            02 — AUTOMATION BACKBONE
           </p>
           <h2 className="text-h2 text-balance text-foreground lg:text-[2.9rem] lg:leading-[1.1]">
             I don't just build n8n workflows. I build automation systems.
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-            Connect your CRM, AI, documents, APIs, databases, communication tools, and internal systems into one
-            reliable automation layer. Below: a self-hosted platform built for a LegalTech firm (NDA) — hover the
-            subsystems, then open the Document Factory.
+            For a LegalTech firm (NDA), I built both the system that finds the customers and the system that sells and
+            delivers to them — 42 production workflows on one self-hosted n8n backbone. Hover the subsystems, then open
+            the Document Factory.
           </p>
         </div>
 

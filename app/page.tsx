@@ -42,8 +42,10 @@ export default function Home() {
       <Hero />
       <WhatIBuild />
 
+      <AutomationStage />
+
       <StageShell
-        index="02"
+        index="03"
         category="SYSTEMS IN PRODUCTION · AI / RAG"
         name="READMINDME"
         tagline="Knowledge-grounded AI platform."
@@ -56,7 +58,7 @@ export default function Home() {
       </StageShell>
 
       <StageShell
-        index="03"
+        index="04"
         category="SYSTEMS IN PRODUCTION · GEOSPATIAL"
         name="ATLAS NHD"
         tagline="Statutory hazard disclosure, automated end to end."
@@ -67,8 +69,6 @@ export default function Home() {
       >
         <AtlasStage />
       </StageShell>
-
-      <AutomationStage />
 
       <section className="noise-bg relative overflow-hidden border-t border-border/60">
         <div className="mx-auto max-w-[1240px] px-6 py-24 lg:px-8 lg:py-36">

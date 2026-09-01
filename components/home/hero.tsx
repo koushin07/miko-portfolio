@@ -10,26 +10,26 @@ export default function Hero() {
       <div className="relative mx-auto w-full max-w-[1240px] px-6 pt-28 pb-16 lg:px-8 lg:pt-32 lg:pb-20">
         <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-8">
-            <p className="text-node text-muted-foreground">MIKO CAÑARES — FULL-STACK DEVELOPER</p>
+            <p className="text-node text-muted-foreground">MIKO CAÑARES — FULL-STACK + AI + AUTOMATION ENGINEER</p>
             <h1 className="text-h1 text-balance text-foreground">
-              I build AI-powered software, SaaS products, and business automation.
+              I build production software systems that automate complex business workflows.
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Full-stack engineer specializing in Next.js, React, Python, Laravel, APIs, AI systems, and automation —
-              from frontend to backend and production.
+              Full-stack development, AI and RAG systems, workflow automation, and system integrations — built into
+              reliable production software, from frontend to backend.
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Link
-                href="/work"
+                href="/contact"
                 className="rounded-lg bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85"
               >
-                View My Work
+                Discuss your project →
               </Link>
               <Link
-                href="/contact"
+                href="/work"
                 className="rounded-lg border border-border px-7 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
               >
-                Start a Project →
+                See the systems I've built →
               </Link>
             </div>
             <ul className="flex flex-wrap gap-x-5 gap-y-2 pt-2">

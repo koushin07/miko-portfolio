@@ -96,3 +96,37 @@ has none). The stack is fully named in that role's description text, so this is 
 Wellfound lists **Emport as Jan 2025 – Apr 2025**, matching your CV. That's two sources
 against LinkedIn's Jun 2025 — so **Apr is almost certainly correct and LinkedIn is the
 one to fix.** That closes a question left open since the LinkedIn pass.
+
+---
+
+## ⚠️ Live re-verification (2026-08-22)
+
+Checked `wellfound.com/profile/edit`. NDA client field ("Under NDA"), Atlas entry, ACE
+end date (Jan 2026), Emport dates, company-size preferences, and Contractor checkbox all
+still match this doc's "Applied and verified live" table.
+
+**Three drifts found, none edited — flagging for review:**
+
+1. **LinkedIn URL field still reads the old slug** — `https://www.linkedin.com/in/mikocanares`,
+   not the corrected `miko-canares` this doc claims was set.
+2. **Bio still carries the retired positioning** — "Full-stack developer building
+   production systems for **regulated, data-heavy work**." That phrase was retired
+   site-wide (see the portfolio's current H1/description); it's live here, and also
+   found live on LinkedIn's headline and JobStreet's personal summary during this same
+   pass.
+3. **Desired salary shows $27,500**, not the $45,000 this doc says was applied.
+
+Worth deciding whether these three reverted after the original fix, or the original save
+silently didn't take — either way they need to be redone.
+
+---
+
+## ✅ Pushed live (2026-08-22)
+
+All three drifts from the 2026-08-22 re-verification note fixed and confirmed live:
+
+| Field | Now |
+|---|---|
+| **LinkedIn URL** | `https://www.linkedin.com/in/miko-canares` |
+| **Bio** | "Full-stack developer for AI, SaaS & Automation - Python/FastAPI, TypeScript/Next.js, PostgreSQL/PostGIS, AWS. QA background." |
+| **Desired salary** | $45,000 |

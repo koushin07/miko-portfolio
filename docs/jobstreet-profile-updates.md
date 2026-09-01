@@ -84,3 +84,32 @@ LinkedIn, OnlineJobs.ph, Hubstaff, Wellfound, Indeed, and JobStreet.
 **The one remaining exposure is the public repo's git history** — CV revisions in
 `koushin07/miko-portfolio` still name the client. Fixing it means rewriting history and
 force-pushing, which needs your explicit go-ahead.
+
+---
+
+## ⚠️ Live re-verification (2026-08-22)
+
+Checked `ph.jobstreet.com/profile/me`. Name (Cañares with the ñ), location, career
+history (Atlas Present-only, ACE end date Jan 2026, Emport Jan–Apr 2025), NDA-anonymized
+role, and skills all still match this doc's fixes. Still-open items are still open, as
+expected: **ASAP RoadWorthy company field is still mangled** ("ASAP RoadWorthy
+BuiltwithReactTS&ExpressTS"), the **Tech Academy date conflict is unresolved** (JobStreet
+still shows Mar–Sep 2025 vs the CV's Jan–Jun 2025), and **no languages are listed**.
+
+**New finding:** the Personal Summary opens with "Full-stack developer with three years'
+experience building production systems for **regulated, data-heavy work**" — the same
+retired positioning phrase found live on LinkedIn's headline and Wellfound's bio during
+this same pass. Not edited.
+
+Also noticed (not previously flagged): the Education section has a duplicate "BSc
+Information" entry pulled from the resume, sitting alongside the existing "Bachelor of
+Science in Information Technology" entry, with an "Add to Profile / Don't include"
+prompt still unresolved.
+
+---
+
+## ✅ Pushed live (2026-08-22)
+
+Personal summary's opening line updated to match the portfolio's positioning — "regulated,
+data-heavy work" replaced with "AI, SaaS & Automation" — rest of the summary unchanged.
+Verified live.

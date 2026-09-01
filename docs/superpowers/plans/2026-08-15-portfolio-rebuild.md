@@ -350,3 +350,59 @@ Audit (2026-08-20): ACE and ERIS were substantially rebuilt in a prior session p
 - [x] **CS-4: ACE + ERIS small additions** — ACE: add "The difficult part was not building individual screens. It was keeping the workflow connected." as the lede on the existing FragmentsConverge section header. ERIS: extend `LifecycleCommand`'s state machine with a PASS → READY / ISSUE → MAINTENANCE branch after AUDITED (toggle button, not full rebuild); add "When resources are needed, uncertainty is the problem." to the hero.
 - [x] **CS-5: CTA headline alignment** — update all four case-study CTA `<h2>` to the spec §16 exact wording: Atlas "Building something where the data has to be correct?"; ReadMindMe "Exploring how AI can work with your own data?"; ACE "Trying to connect disconnected business systems?"; ERIS "Need better visibility over a complex operational workflow?" Keep existing supporting copy where it still reads naturally.
 - [x] **CS-6: Verification** — build; Playwright pass on all four case studies at desktop 1440px + mobile 390px (progress nav scroll-spy, parcel journey clicks, retrieval comparison, PASS/ISSUE toggle); reduced-motion check; console-error sweep.
+
+---
+
+# Portfolio Selling System Addendum (docs/PORTFOLIO_SELLING_SYSTEM_MASTER_PLAN.md)
+
+Repositioning spec: move from "developer portfolio" framing to a client-converting sales asset built around one core positioning statement — "I build production software systems that automate complex business workflows." Implementation is phased (spec §33); this addendum covers Phase 1 (Positioning) only.
+
+**NDA constraint confirmed with user (2026-09-01):** the spec's flagship automation case study (§8–§12) names the NDA client's actual product ("EasyDivorcePapers") for internal planning reference only. Public-facing copy must keep using "Private SaaS Platform (Client under NDA)" / "a legal-document SaaS platform" — same rule as [[legaltech-nda-boundary]], not lifted.
+
+- [x] **PS-1: Hero repositioning** — `components/home/hero.tsx`: eyebrow → "MIKO CAÑARES — FULL-STACK + AI + AUTOMATION ENGINEER"; H1 → spec's exact core positioning statement; supporting copy rewritten to name the five capabilities (full-stack, AI/RAG, automation, integrations, production systems) instead of a tech list; primary/secondary CTA swapped to spec §4 wording ("Discuss your project →" / "See the systems I've built →"), primary now leads to /contact.
+- [x] **PS-2: Homepage flagship hierarchy** — `app/page.tsx`: reordered system stages so `AutomationStage` (the automation flagship, spec §7 #1) renders immediately after Services, ahead of ReadMindMe (#2) and Atlas NHD (#3); `StageShell` index props renumbered 02/03/04 to match; `components/stages/automation-stage.tsx` internal label updated from "04 —" to "02 — AUTOMATION BACKBONE".
+- [x] **PS-3: Bottom CTA rewrite** — `components/home/cta.tsx`: h2/supporting copy/button updated to spec §20's workflow-automation framing ("Have a workflow that's eating your team's time?" / "Discuss your project →").
+- [x] **PS-4: Case-study CTA realignment** — spec §21 gives different exact wording than the prior Case Study Experience addendum (CS-5) for two of the four: ReadMindMe CTA → "Need AI to work with your own business data?"; Atlas CTA → "Working with complex geographic or regulatory data?" ACE and ERIS CTAs already matched the new spec exactly, left unchanged.
+- [x] **PS-5: Verification** — `tsc --noEmit` (only pre-existing unrelated errors in `components/ui/chart.tsx`); `npm run build` clean; desktop 1440px Playwright check of hero copy/CTAs and flagship reorder; console-error sweep (0 errors).
+
+## Not yet done — remaining phases from the spec, for a future pass
+
+- **Phase 2 (Homepage conversion, partial)** — capability sections/proof/CTA structure already close to spec; not re-audited line-by-line against §3/§19 this pass.
+- **Phase 3 (Automation flagship rebuild)** — the spec's full acquisition→delivery narrative (§8–§13: data-ingestion pipeline visualization, "acquisition + delivery" story, EasyDivorcePapers document-factory architecture) is a substantial new case-study build, not started. Needs a check that enough real, verifiable detail exists before writing it (same gate used for the ACE case study) — and every public description must stay anonymized per the NDA constraint above.
+- **Phase 4/5 (ReadMindMe/Atlas deeper alignment)**, **Phase 6 (ACE/ERIS refinement)** — existing pages already cover most of §14–§17; not re-audited against this specific spec's exact visual/story language.
+- **Phase 7 (Proof)** — blocked on real testimonials/recommendations existing; spec explicitly forbids inventing them (§22).
+- **Phase 8 (Authority)** — external content/backlink strategy, not a portfolio-code task.
+
+## Re-audit vs spec (2026-09-01) — corrections to the PS addendum above
+
+Full section-by-section check of the live code against the spec found the PS-4 claim was incomplete. Fixed in this pass:
+
+- [x] **PS-6: Automation CTA (§21 miss)** — `/automation` CTA h2 was "Have a process worth automating?"; spec §21 requires "Have a manual workflow you'd like to automate?" Fixed.
+- [x] **PS-7: Work page hierarchy (§18 miss)** — /work featured order was ReadMindMe → Atlas NHD → Atlas SDI → Automation; spec §18 puts the automation flagship first. Reordered to Automation (01) → ReadMindMe (02) → Atlas NHD (03) → Atlas SDI (04); build + live order + console verified.
+
+Verified correct on re-audit (no action needed): §4 hero exact match; §7 homepage order; §14–§17 central statements and visuals all present verbatim; §20 homepage CTA; §23 metrics (OpsBar properly qualified "AT REVIEW TIME", nothing invented); §21 for the four case studies; §26–§29 design/perf/SEO practices.
+
+Known open items, deliberately not changed (need a decision or belong to later phases):
+
+- **§19 service naming tension** — spec prefers problem-language names ("AI Knowledge Systems", "Custom SaaS"); current names ("AI & RAG Development", "Full-Stack SaaS Development") were chosen keyword-first in the SEO pass. The two specs conflict; descriptions already lead with client problems, so only the names differ. Decide which master plan wins before renaming.
+- **§19 missing fifth service** — "Complex / Existing Systems" (stabilize/modernize/extend existing apps) has no service page; nearest coverage is the "Improve" engagement line on the homepage.
+- **§8–§13 acquisition flagship** — Phase 3, not built. The customer-acquisition half exists on /automation only as a small "lead generation from bulk data uploads" card; the spec's central message ("I built both the system that finds the customers and the system that sells and delivers to them") should NOT be added to homepage copy until the page that proves it exists.
+- **§18 ACE/ERIS on /work** — spec's recommended Work list includes ACE and ERIS as featured entries; currently they're reachable via case-study nav and /projects only.
+- **§5 hero diagram** — ours starts CLIENT IDEA → ARCHITECTURE with a tech-tier middle (FRONTEND/API/DATABASE); spec's starts BUSINESS → WORKFLOW with a capability-tier middle (AI/AUTOMATION/INTEGRATIONS). Judgment call, kept as-is.
+
+---
+
+# Acquisition Flagship Addendum — full spec build-out (spec §5, §8–§13, §17–§19)
+
+User directive (2026-09-01): "build all in the spec design." NDA stays anonymized (confirmed earlier — no product name anywhere public). Verified source material: `lib/work-data.ts` NDA systems 01–03 (doc pipeline, fingerprinting, court-record lead classification), existing Document Factory stages (already match §12's TEMPLATE→DOCX→PDF→FINGERPRINT→STORAGE→DELIVERY), OpsBar metrics (§23-compliant). Deliberate deviations, stated: service page names keep their SEO-keyword titles (conflict with §19's problem-language names — SEO master plan wins for titles; descriptions already problem-first); WordPress/WooCommerce omitted from the §12 tech strip (listed in spec as "may include" but appear nowhere else on the site — only cross-verified tech shown); Phase 7 proof skipped (no real testimonials exist; spec forbids inventing them); Phase 8 is external work.
+
+- [x] **AF-1: AcquisitionPipeline (§9)** — `components/automation/acquisition-pipeline.tsx`: 9-stage row pipeline (PUBLIC DATA → INGESTION → PROCESSING → BUSINESS RULES → CLASSIFICATION → ENRICHMENT → DEDUPLICATION → DATABASE/CRM → OUTREACH), chip + always-visible explanation per row (no hover-only info), sequenced activation w/ loop + packet, reduced-motion = fully lit.
+- [x] **AF-2: AcquisitionDecisions (§10 + §25)** — `components/automation/acquisition-decisions.tsx`: six decision cards in the spec §25 structure (PROBLEM / CONSTRAINT / DECISION / RESULT), all grounded in published NDA-system content: caret-delimited parsing, classification + priority scoring, dedup via batch upsert, AI-assisted structured extraction, cost-aware API usage + rate limiting, n8n orchestration w/ gates + status polling + archive-as-completion-signal.
+- [x] **AF-3: AcquisitionBridge (§11)** — `components/automation/acquisition-bridge.tsx`: ACQUISITION → LEAD → CUSTOMER → PURCHASE → INTAKE → DOCUMENT FACTORY → DELIVERY chip flow, sequenced, "The automation continues after acquisition."
+- [x] **AF-4: AutomationBeforeAfter (§13)** — `components/automation/automation-before-after.tsx`: scattered manual fragments vs one-backbone FlowStage, mirroring the proven ERIS BeforeAfter pattern.
+- [x] **AF-5: /automation page rebuild (§8, §12, §13)** — hero reframed to the central message ("I built both the system that finds the customers and the system that sells and delivers to them."), new order: hero → shift (before/after) → acquisition engine (§9) → decisions (§10) → bridge (§11) → delivery engine (§12 framing + existing AutomationExplorer/Document Factory + OpsBar) → patterns → 42 workflows → integrations → CTA. "More automation builds" section removed (both cards superseded by the proper acquisition/delivery sections). Metadata updated to include customer acquisition.
+- [x] **AF-6: Hero diagram realignment (§5)** — `components/home/hero-system.tsx`: nodes/edges rebuilt to the spec's concept — BUSINESS PROBLEM → WORKFLOW → (AI | AUTOMATION | INTEGRATIONS) → FULL-STACK SYSTEM → PRODUCTION; loop + caption kept.
+- [x] **AF-7: Homepage + Work flagship copy (§8)** — homepage AutomationStage lede gains the central message (now that /automation proves it); /work automation entry valueProp updated to match.
+- [x] **AF-8: ACE + ERIS featured on /work (§17–§18)** — two new FeaturedSystem entries (05 ACE "Connected business workflows" w/ PlacementBoard; 06 ERIS "Operational resource management" w/ ResourceBoard); hero stat "4 FEATURED" → "6 FEATURED".
+- [x] **AF-9: Fifth service concept (§19)** — /services hub gains "Complex & Existing Systems" (stabilize/test/modernize/extend) linking to /qa as proof.
+- [x] **AF-10: Verification** — tsc + build; Playwright: desktop 1440 + mobile 390 (no horizontal overflow), reduced motion, console sweep, live check of new /automation sections and /work order.

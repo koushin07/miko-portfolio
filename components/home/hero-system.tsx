@@ -13,7 +13,7 @@ import { useSequence } from "@/hooks/use-sequence"
 */
 
 const W = 380
-const H = 600
+const H = 500
 
 interface HeroNode {
   id: string
@@ -25,17 +25,16 @@ interface HeroNode {
   tip: string
 }
 
+/* Selling-system spec §5: BUSINESS PROBLEM → WORKFLOW →
+   (AI | AUTOMATION | INTEGRATIONS) → FULL-STACK SYSTEM → PRODUCTION. */
 const NODES: HeroNode[] = [
-  { id: "idea", label: "CLIENT IDEA", x: 190, y: 40, w: 104, activateStep: 0, tip: "Every system starts as a business problem." },
-  { id: "arch", label: "ARCHITECTURE", x: 190, y: 120, w: 120, activateStep: 1, tip: "Data, services, and boundaries designed before code." },
-  { id: "frontend", label: "FRONTEND", x: 75, y: 205, w: 90, activateStep: 2, tip: "Next.js and React interfaces people actually use." },
-  { id: "api", label: "API", x: 190, y: 205, w: 58, activateStep: 2, tip: "FastAPI, Laravel, and Node services behind them." },
-  { id: "database", label: "DATABASE", x: 305, y: 205, w: 90, activateStep: 2, tip: "Persistent application data, state, and knowledge." },
-  { id: "ai", label: "AI", x: 190, y: 290, w: 50, activateStep: 3, tip: "RAG, embeddings, and structured outputs." },
-  { id: "integrations", label: "INTEGRATIONS", x: 190, y: 370, w: 120, activateStep: 4, tip: "CRMs, payments, documents, email, calendars." },
-  { id: "testing", label: "TESTING", x: 115, y: 450, w: 80, activateStep: 5, tip: "Behavior validated before release." },
-  { id: "security", label: "SECURITY", x: 265, y: 450, w: 86, activateStep: 5, tip: "Auth, access control, safe failure." },
-  { id: "production", label: "PRODUCTION", x: 190, y: 530, w: 108, activateStep: 6, tip: "Deployed, monitored, maintained." },
+  { id: "business", label: "BUSINESS PROBLEM", x: 190, y: 40, w: 140, activateStep: 0, tip: "Every system starts as a messy business process." },
+  { id: "workflow", label: "WORKFLOW", x: 190, y: 125, w: 92, activateStep: 1, tip: "The process mapped end to end before any code." },
+  { id: "ai", label: "AI", x: 64, y: 215, w: 50, activateStep: 2, tip: "RAG, embeddings, structured outputs — where intelligence helps." },
+  { id: "automation", label: "AUTOMATION", x: 190, y: 215, w: 98, activateStep: 2, tip: "n8n pipelines, background jobs, documents, notifications." },
+  { id: "integrations", label: "INTEGRATIONS", x: 312, y: 215, w: 106, activateStep: 2, tip: "CRMs, payments, documents, calendars — connected." },
+  { id: "fullstack", label: "FULL-STACK SYSTEM", x: 190, y: 310, w: 148, activateStep: 3, tip: "Next.js and React on FastAPI, Laravel, and PostgreSQL — one system." },
+  { id: "production", label: "PRODUCTION", x: 190, y: 400, w: 104, activateStep: 4, tip: "Deployed, tested, monitored, maintained." },
 ]
 
 interface HeroEdge {
@@ -46,25 +45,28 @@ interface HeroEdge {
 }
 
 const EDGES: HeroEdge[] = [
-  { id: "e0", d: "M190 54 V106", fireStep: 1, ends: ["idea", "arch"] },
-  { id: "e1", d: "M190 134 C190 168 75 162 75 191", fireStep: 2, ends: ["arch", "frontend"] },
-  { id: "e2", d: "M190 134 V191", fireStep: 2, ends: ["arch", "api"] },
-  { id: "e3", d: "M190 134 C190 168 305 162 305 191", fireStep: 2, ends: ["arch", "database"] },
-  { id: "e4", d: "M75 219 C75 258 190 252 190 276", fireStep: 3, ends: ["frontend", "ai"] },
-  { id: "e5", d: "M190 219 V276", fireStep: 3, ends: ["api", "ai"] },
-  { id: "e6", d: "M305 219 C305 258 190 252 190 276", fireStep: 3, ends: ["database", "ai"] },
-  { id: "e7", d: "M190 304 V356", fireStep: 4, ends: ["ai", "integrations"] },
-  { id: "e8", d: "M190 384 C190 415 115 412 115 436", fireStep: 5, ends: ["integrations", "testing"] },
-  { id: "e9", d: "M190 384 C190 415 265 412 265 436", fireStep: 5, ends: ["integrations", "security"] },
-  { id: "e10", d: "M115 464 C115 498 190 494 190 516", fireStep: 6, ends: ["testing", "production"] },
-  { id: "e11", d: "M265 464 C265 498 190 494 190 516", fireStep: 6, ends: ["security", "production"] },
+  { id: "e0", d: "M190 54 V111", fireStep: 1, ends: ["business", "workflow"] },
+  { id: "e1", d: "M190 139 C190 172 64 168 64 201", fireStep: 2, ends: ["workflow", "ai"] },
+  { id: "e2", d: "M190 139 V201", fireStep: 2, ends: ["workflow", "automation"] },
+  { id: "e3", d: "M190 139 C190 172 312 168 312 201", fireStep: 2, ends: ["workflow", "integrations"] },
+  { id: "e4", d: "M64 229 C64 268 190 262 190 296", fireStep: 3, ends: ["ai", "fullstack"] },
+  { id: "e5", d: "M190 229 V296", fireStep: 3, ends: ["automation", "fullstack"] },
+  { id: "e6", d: "M312 229 C312 268 190 262 190 296", fireStep: 3, ends: ["integrations", "fullstack"] },
+  { id: "e7", d: "M190 324 V386", fireStep: 4, ends: ["fullstack", "production"] },
 ]
 
-const STEPS = 8 // 0..6 activation phases, 7 = closing caption
+const STEPS = 6 // 0..4 activation phases, 5 = closing caption
 
 export function HeroSystem({ className }: { className?: string }) {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.35 })
-  const { step, runId, reduced } = useSequence({ steps: STEPS, active: inView, stepMs: 780, startDelayMs: 400 })
+  const { step, runId, reduced } = useSequence({
+    steps: STEPS,
+    active: inView,
+    stepMs: 780,
+    startDelayMs: 400,
+    loop: true,
+    holdMs: 2600,
+  })
   const [hovered, setHovered] = useState<string | null>(null)
 
   const hoverEdges = hovered ? EDGES.filter((e) => e.ends.includes(hovered)).map((e) => e.id) : []
@@ -72,7 +74,7 @@ export function HeroSystem({ className }: { className?: string }) {
 
   return (
     <div ref={ref} className={cn("relative w-full max-w-[460px]", className)}>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="A client idea executing through architecture, frontend, API, database, AI, integrations, testing, and security into production" className="h-auto w-full">
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="A business problem flowing through workflow analysis into AI, automation, and integrations, combined into a full-stack system, shipped to production" className="h-auto w-full">
         {EDGES.map((edge) => {
           const traversed = step >= edge.fireStep
           const emphasized = hoverEdges.includes(edge.id)
@@ -151,10 +153,10 @@ export function HeroSystem({ className }: { className?: string }) {
 
         <text
           x={190}
-          y={585}
+          y={460}
           textAnchor="middle"
           fill="var(--muted-foreground)"
-          className={cn("transition-opacity duration-700", step >= 7 ? "opacity-100" : "opacity-0")}
+          className={cn("transition-opacity duration-700", step >= 5 ? "opacity-100" : "opacity-0")}
           style={{ font: "500 11.5px var(--font-geist-mono), monospace", letterSpacing: "0.1em" }}
         >
           BUILT <tspan fill="var(--amber)">→</tspan> TESTED <tspan fill="var(--amber)">→</tspan> SHIPPED

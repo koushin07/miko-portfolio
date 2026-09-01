@@ -95,3 +95,15 @@ The NDA client name has now been removed from **every** surface checked:
 `koushin07/miko-portfolio` git history still name the client, and the repo is public.
 Scrubbing means rewriting history (`git filter-repo` or BFG) and force-pushing — a
 destructive operation on a published branch, so it needs your explicit go-ahead.
+
+---
+
+## ⚠️ Live re-verification (2026-08-22)
+
+Checked `profile.indeed.com` live. Phone (`909 611 6995`), the NDA-anonymized company
+field, the Atlas entry, and the Python/FastAPI/PostGIS/AWS skills all match this doc's
+"Applied and verified live" table.
+
+**One drift found:** the resume header's **Location field now shows "Manila"**, not the
+documented "Cagayan de Oro City, Misamis Oriental 9000." Not edited — flagging for you to
+confirm before it gets corrected again.

@@ -89,3 +89,50 @@ Every reference to the old vanity URL was updated to `miko-canares`:
 
 Both PDFs re-verified after regeneration: 2 pages, correct URL, no NDA client, and the
 Hubstaff variant still carries no email or phone. `npm run build` passes.
+
+---
+
+## ⚠️ Headline now contradicts the current site positioning (found 2026-08-20)
+
+The live headline still reads:
+
+```
+Full-Stack Developer | Python, FastAPI, TypeScript, AWS | I build production systems for regulated, data-heavy work | Open to remote contract & full-time
+```
+
+The portfolio rebuild explicitly retired the "regulated industries" framing site-wide —
+the spec says not to lead with it because it's too restrictive for the broader client
+market. The site's positioning is now **"Full-Stack Developer for AI, SaaS & Automation"**
+(homepage H1: *"I build AI-powered software, SaaS products, and business automation."*).
+This headline is the one place that old phrase is still live and public.
+
+**Not yet pushed to LinkedIn** — drafted here for review first.
+
+### Recommended replacement (tight, ~118 characters)
+
+```
+Full-Stack Developer | AI, SaaS & Automation | Next.js · Python · FastAPI · AWS | Open to remote contract & full-time
+```
+
+### Alternative (fuller, ~183 characters — LinkedIn's cap is 220)
+
+```
+Full-Stack Developer | AI, SaaS & Automation | Next.js, Python, FastAPI, AWS | I connect frontend, backend, APIs & AI into production systems | Open to remote contract & full-time
+```
+
+Both keep the four-segment structure the original had (role / positioning / stack /
+availability) and swap only the positioning clause. Say the word and this gets pushed
+live the same way the rest of the profile was — via a browser-automation edit, verified
+after.
+
+---
+
+## ✅ Pushed live (2026-08-22)
+
+Headline updated and verified live:
+
+```
+Full-Stack Developer | AI, SaaS & Automation | Next.js · Python · FastAPI · AWS | Open to remote contract & full-time
+```
+
+Matches the site's actual positioning (`lib/seo.ts`: "Full-Stack Developer for AI, SaaS & Automation").

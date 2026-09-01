@@ -87,7 +87,11 @@ export function HubNetwork({ centerLabel, centerSublabel, spokes, footnote, clas
           {positioned.map((spoke) => {
             const emphasized = hovered === spoke.id || (hovered === null && step === spoke.index)
             const dimmed = hovered !== null && hovered !== spoke.id
-            const w = Math.max(spoke.label.length * 8.2 + 26, 88)
+            const w = Math.max(
+              spoke.label.length * 8.2 + 26,
+              spoke.sublabel ? spoke.sublabel.length * 5.6 + 26 : 0,
+              88,
+            )
             const h = spoke.sublabel ? 44 : 30
             return (
               <g

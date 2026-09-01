@@ -3,21 +3,26 @@ import Footer from "@/components/footer"
 import Link from "next/link"
 import { buildMetadata } from "@/lib/seo"
 import { SectionHeader } from "@/components/section-header"
-import { SystemMap } from "@/components/system/system-map"
 import { AutomationExplorer } from "@/components/automation/automation-explorer"
 import { OpsBar } from "@/components/automation/ops-bar"
 import { Patterns } from "@/components/automation/patterns"
 import { WorkflowCategories } from "@/components/automation/workflow-categories"
 import { HubNetwork } from "@/components/system/hub-network"
+import { AcquisitionPipeline } from "@/components/automation/acquisition-pipeline"
+import { AcquisitionDecisions } from "@/components/automation/acquisition-decisions"
+import { AcquisitionBridge } from "@/components/automation/acquisition-bridge"
+import { AutomationBeforeAfter } from "@/components/automation/automation-before-after"
 
 export const metadata = buildMetadata({
-  title: "Automation Platform — n8n Orchestration & Integrations",
+  title: "Customer Acquisition & Business Automation Platform — n8n Orchestration",
   description:
-    "A self-hosted n8n automation platform with 42 production workflows: document generation, court-data ingestion, e-signature, CRM, scheduling, and AI-assisted extraction — built with idempotency, retries, and observability.",
+    "A production customer-acquisition and business-automation system: daily public court data becomes qualified leads, and a purchase becomes a finished, fingerprinted document — 42 n8n workflows on one self-hosted backbone.",
   path: "/automation",
   keywords: [
     "n8n automation",
     "business automation",
+    "customer acquisition system",
+    "lead generation automation",
     "automation engineer",
     "API integration",
     "workflow orchestration",
@@ -30,38 +35,86 @@ export default function AutomationPage() {
     <main className="min-h-screen">
       <Navigation />
 
-      {/* Problem → backbone hero */}
+      {/* Hero — spec §8: the central message */}
       <section className="relative overflow-hidden">
         <div className="grid-bg pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
         <div className="relative mx-auto max-w-[1200px] px-6 pt-32 pb-16 lg:px-8 lg:pt-40 lg:pb-20">
-          <p className="text-node text-muted-foreground">AUTOMATION PLATFORM</p>
-          <h1 className="text-h1 mt-6 max-w-4xl text-balance text-foreground lg:text-[3.2rem] lg:leading-[1.08]">
-            I don't just build n8n workflows. I build automation systems.
+          <p className="text-node text-muted-foreground">CUSTOMER ACQUISITION + AUTOMATION PLATFORM</p>
+          <h1 className="text-h1 mt-6 max-w-4xl text-balance text-foreground lg:text-[3rem] lg:leading-[1.1]">
+            I built both the system that finds the customers and the system that sells and delivers to them.
           </h1>
           <p className="text-lg-custom mt-6 max-w-2xl text-muted-foreground">
-            Growing businesses run on disconnected tools — CRM here, documents there, email everywhere. Every manual
-            handoff is a delay or an error. I connect your CRM, AI, documents, APIs, databases, and communication
-            tools into one reliable automation layer.
+            A production customer-acquisition and business-automation system, built for a LegalTech firm (NDA). Daily
+            public court data becomes qualified leads. A customer&apos;s purchase becomes a finished, fingerprinted
+            document. 42 production workflows run it all on one self-hosted n8n backbone.
           </p>
           <p className="text-node mt-8 text-muted-foreground/80">
-            BELOW: A SELF-HOSTED PLATFORM BUILT FOR A LEGALTECH FIRM (NDA) — 42 PRODUCTION WORKFLOWS ON ONE n8n
-            BACKBONE
+            ARCHITECTURE SHOWN WITH SENSITIVE DETAILS REMOVED
           </p>
         </div>
       </section>
 
-      {/* Architecture */}
+      {/* The shift — spec §13 before/after */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
+          <SectionHeader label="THE SHIFT" title="From manual handoffs to one automated backbone." />
+          <div className="mt-14">
+            <AutomationBeforeAfter />
+          </div>
+        </div>
+      </section>
+
+      {/* Acquisition engine — spec §9 */}
+      <section className="noise-bg relative overflow-hidden border-t border-border/60">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
+          <SectionHeader
+            label="THE ACQUISITION ENGINE"
+            title="Public data in. Qualified leads out."
+            lede="Every day, public court-record exports become a prioritized, deduplicated lead queue — parsed, classified, enriched, and synced to the CRM with no manual triage. Watch the data flow through."
+          />
+          <div className="mt-14">
+            <AcquisitionPipeline />
+          </div>
+        </div>
+      </section>
+
+      {/* Engineering decisions — spec §10 / §25 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
+          <AcquisitionDecisions />
+        </div>
+      </section>
+
+      {/* Acquisition → delivery — spec §11 */}
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-[1200px] px-6 py-16 text-center lg:px-8 lg:py-24">
+          <SectionHeader
+            label="ACQUISITION → DELIVERY"
+            title="The automation continues after acquisition."
+            lede="Finding the customer is half the system. When a lead becomes a customer and buys, the same platform takes over: intake, document generation, and delivery — untouched by hand."
+            className="mx-auto text-center [&>p:first-child]:justify-center"
+          />
+          <div className="mt-14">
+            <AcquisitionBridge />
+          </div>
+        </div>
+      </section>
+
+      {/* Delivery engine — spec §12 */}
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
           <SectionHeader
-            label="ARCHITECTURE"
-            title="One engine between every trigger and every output."
-            lede="Webhooks, schedules, and forms come in; validated, transformed, AI-enriched data flows out to the CRM, storage, and the people who need it. Hover the subsystems — then open the Document Factory."
+            label="THE DELIVERY ENGINE"
+            title="A purchase becomes a finished, fingerprinted PDF without manual document processing."
+            lede="A completed intake questionnaire triggers the Document Factory: template merged, converted to PDF, stamped with per-buyer fingerprint metadata, stored, and delivered by email. Hover the subsystems — then open the Document Factory to watch a document run through."
           />
           <div className="mt-14">
             <AutomationExplorer />
           </div>
-          <div className="mt-12">
+          <p className="text-node mt-10 text-muted-foreground/70">
+            SURVEYJS · SUPABASE · N8N · DOCXTEMPLATER · GOTENBERG · PDF-LIB · BREVO
+          </p>
+          <div className="mt-8">
             <OpsBar />
           </div>
         </div>
@@ -115,65 +168,19 @@ export default function AutomationPage() {
         </div>
       </section>
 
-      {/* Other documented automation builds */}
-      <section className="border-t border-border/60">
-        <div className="mx-auto max-w-[1200px] px-6 py-16 lg:px-8 lg:py-24">
-          <SectionHeader label="MORE AUTOMATION BUILDS" title="Smaller systems, same engineering." />
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            <div className="panel space-y-5 p-6">
-              <p className="text-node text-primary">01 — DOCUMENT GENERATION PIPELINE</p>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                SurveyJS form submission triggers an n8n workflow that pulls dynamic form data from Supabase, merges it
-                with file metadata, generates a document, and delivers it to the user's email.
-              </p>
-              <SystemMap
-                direction="vertical"
-                animate={false}
-                nodes={[
-                  { id: "form", label: "SURVEYJS FORM" },
-                  { id: "supabase", label: "SUPABASE" },
-                  { id: "n8n", label: "N8N" },
-                  { id: "doc", label: "DOC GENERATOR" },
-                  { id: "email", label: "EMAIL DELIVERY" },
-                ]}
-              />
-            </div>
-            <div className="panel space-y-5 p-6">
-              <p className="text-node text-primary">02 — LEAD GENERATION FROM BULK DATA UPLOADS</p>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                n8n watches a Google Drive folder for new zip file uploads. On detection, it triggers a custom
-                Node/Express backend that extracts and transforms the raw data into structured leads, then archives the
-                file as a completion signal.
-              </p>
-              <SystemMap
-                direction="vertical"
-                animate={false}
-                nodes={[
-                  { id: "zip", label: "ZIP UPLOAD" },
-                  { id: "drive", label: "GOOGLE DRIVE" },
-                  { id: "n8n", label: "N8N" },
-                  { id: "express", label: "NODE / EXPRESS" },
-                  { id: "leads", label: "LEADS + ARCHIVE" },
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
+      {/* CTA — spec §21 */}
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-20 text-center lg:px-8 lg:py-28">
-          <h2 className="text-h2 text-balance text-foreground">Have a process worth automating?</h2>
+          <h2 className="text-h2 text-balance text-foreground">Have a manual workflow you&apos;d like to automate?</h2>
           <p className="text-base-custom mx-auto mt-4 max-w-xl text-muted-foreground">
-            Tell me what your team does by hand today. I'll map the workflow and the integrations it needs.
+            Tell me what your team does by hand today. I&apos;ll map the workflow and the integrations it needs.
           </p>
           <div className="mt-8">
             <Link
               href="/contact"
               className="inline-block rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85"
             >
-              Start a Project →
+              Discuss your project →
             </Link>
           </div>
         </div>
