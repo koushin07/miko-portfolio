@@ -43,7 +43,7 @@ const entries: TimelineEntry[] = [
     period: "Jan 2026 – Oct 2026",
     kind: "Contract",
     featured: true,
-    line: "Sole engineer on a self-hosted legal-document automation platform — a generate, stamp, convert, sign and notify pipeline on n8n, a self-hosted e-signature service replacing a paid SaaS, small Node/TypeScript services, and the container infrastructure behind 10+ apps.",
+    line: "Designed, built and ran a self-hosted legal-document automation platform, and led development of the client's main document product — a generate, stamp, convert, sign and notify pipeline on n8n. Also a self-hosted e-signature service replacing a paid SaaS, small Node/TypeScript services, and the container infrastructure behind 10+ apps.",
     related: [
       { label: "AUTOMATION PLATFORM", href: "/automation" },
       { label: "THE SIX SYSTEMS", href: "/projects#private-legaltech" },

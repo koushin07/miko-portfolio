@@ -126,3 +126,10 @@ Verified live.
 - **Private SaaS Platform (Client under NDA)** — end **Apr 2026 → Oct 2026**, description
   rewritten (NDA-safe).
 - ☐ The attached resume file is still the old CV — replace it with `public/Miko-Canares-CV.pdf`.
+
+**Wording fix (2026-11-13, later the same day):** "Sole engineer" removed from the NDA role
+(Miko's contracted title is Lead Full-Stack Developer). Now reads "Designed, built and ran a
+self-hosted legal-document automation platform…" plus a bullet "Led development of the
+client's main document product…" (product name withheld under NDA). Summaries that said
+"was sole engineer" now say "was lead (full-stack) developer". Verified live, no "sole
+engineer" left on the page.

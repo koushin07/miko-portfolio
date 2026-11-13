@@ -149,3 +149,10 @@ Matches the site's actual positioning (`lib/seo.ts`: "Full-Stack Developer for A
   e-signature replacing a SaaS, Node/TS microservices, container infra for 10+ apps, DR
   backup. No client name, product name, domain or hosting provider.
 - Verified on the live experience page after save. LinkedIn has no About section yet.
+
+**Wording fix (2026-11-13, later the same day):** "Sole engineer" removed from the NDA role
+(Miko's contracted title is Lead Full-Stack Developer). Now reads "Designed, built and ran a
+self-hosted legal-document automation platform…" plus a bullet "Led development of the
+client's main document product…" (product name withheld under NDA). Summaries that said
+"was sole engineer" now say "was lead (full-stack) developer". Verified live, no "sole
+engineer" left on the page.

@@ -4,7 +4,7 @@
 
 - 🤖 Built **[ReadMindMe](https://ikoy.vercel.app/case-studies/readmindme)**, a RAG platform — pgvector search across 36,819 embeddings, GPT-4o structured outputs, a 14-stage retrieval pipeline.
 - 🏗️ **Full-Stack Developer at Atlas Geotech (Feb–Nov 2026)** — one of the core engineers on the platform behind California's legally required natural hazard disclosure reports: the PDF report engine, an async report queue, parcel-level hazard checks in PostGIS, the customer portal, and the first Terraform stack on AWS.
-- ⚙️ **Sole engineer on a self-hosted legal-document automation platform (Jan–Oct 2026, under NDA)** — a 42-workflow n8n backbone for document generation, court-data ingestion, e-signature and scheduling, plus the container infrastructure behind 10+ apps.
+- ⚙️ **Lead Full-Stack Developer on a self-hosted legal-document automation platform (Jan–Oct 2026, under NDA)** — a 42-workflow n8n backbone for document generation, court-data ingestion, e-signature and scheduling, plus the container infrastructure behind 10+ apps.
 - 🧪 Two years of **enterprise ERP quality assurance** before development work, so testing and reliability are habits rather than afterthoughts.
 - 🧰 Mostly **Next.js/React**, **Python/FastAPI**, **Laravel**, **PostgreSQL** and **AWS**.
 - 📍 Misamis Oriental, Philippines — open to remote contract and full-time work.

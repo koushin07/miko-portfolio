@@ -215,3 +215,10 @@ whatever you've settled on. This field is also in Account Settings.
   Docker, CICD. Ratings and experience levels unchanged.
 - ☐ Still yours to change (account settings): **"Hired Full Time on Jan 5, 2026"** status,
   and the Iligan address.
+
+**Wording fix (2026-11-13, later the same day):** "Sole engineer" removed from the NDA role
+(Miko's contracted title is Lead Full-Stack Developer). Now reads "Designed, built and ran a
+self-hosted legal-document automation platform…" plus a bullet "Led development of the
+client's main document product…" (product name withheld under NDA). Summaries that said
+"was sole engineer" now say "was lead (full-stack) developer". Verified live, no "sole
+engineer" left on the page.

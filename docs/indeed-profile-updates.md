@@ -121,3 +121,10 @@ confirm before it gets corrected again.
   description (plus an empty "Backend Developer" stub). Not created by us; left untouched.
 - ☐ The uploaded `miko-canares.pdf` is still the old CV — use "Replace file" with
   `public/Miko-Canares-CV.pdf`.
+
+**Wording fix (2026-11-13, later the same day):** "Sole engineer" removed from the NDA role
+(Miko's contracted title is Lead Full-Stack Developer). Now reads "Designed, built and ran a
+self-hosted legal-document automation platform…" plus a bullet "Led development of the
+client's main document product…" (product name withheld under NDA). Summaries that said
+"was sole engineer" now say "was lead (full-stack) developer". Verified live, no "sole
+engineer" left on the page.
