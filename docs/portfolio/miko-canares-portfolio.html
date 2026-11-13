@@ -1,0 +1,1339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Miko Cañares — Portfolio</title>
+<style>
+  /* Geist is vendored as STATIC ttf in ./fonts. Do not swap this for the Google
+     Fonts stylesheet: Geist there is a variable font, and Chrome's PDF writer
+     outlines variable-font glyphs as Type3 drawings — the text stops being
+     selectable or searchable and the file balloons (6.2MB vs 1.5MB, measured).
+     Static faces embed as Type0/ttf with real text. SIL OFL, see fonts/OFL.txt. */
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Regular.ttf")  format("truetype"); font-weight: 400; font-style: normal; }
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Medium.ttf")   format("truetype"); font-weight: 500; font-style: normal; }
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; }
+  @font-face { font-family: "Geist"; src: url("fonts/Geist-Bold.ttf")     format("truetype"); font-weight: 700; font-style: normal; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Medium.ttf")  format("truetype"); font-weight: 500; font-style: normal; }
+
+  /* ------------------------------------------------------------------
+     Print portfolio — light treatment of the site's dark design system.
+     Grammar carried over from ikoy.vercel.app: structure is indigo/neutral,
+     moving data is amber. Mono node labels, packet chains, numbered slots.
+
+     ALL print sizes are pt or mm. Never px — Chrome's px is 0.75pt and a
+     px/pt mix silently renders the whole document at 75% of spec.
+     Rendered via Chrome headless --print-to-pdf (same path as the CV):
+
+       "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+         --headless=new --disable-gpu --no-pdf-header-footer \
+         --allow-file-access-from-files --virtual-time-budget=20000 \
+         --print-to-pdf="$PWD/docs/portfolio/Miko-Canares-Portfolio.pdf" \
+         "file://$PWD/docs/portfolio/miko-canares-portfolio.html"
+
+     --allow-file-access-from-files is required or the screenshots come out blank.
+     ------------------------------------------------------------------ */
+
+  @page { size: A4; margin: 13mm 14mm 14mm; }
+
+  :root {
+    --ink:      #14161a;
+    --body:     #2f343d;
+    --muted:    #5a616e;
+    --faint:    #8b919d;
+    --line:     #dfe2e8;
+    --line-soft:#eceef2;
+    --panel:    #f6f7f9;
+    --amber:    #e8a020;
+    --amber-dk: #a86d0a;
+    --indigo:   #4749b7;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 8.8pt;
+    line-height: 1.5;
+    color: var(--body);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet {
+    position: relative;
+    height: 268mm;
+    break-after: page;
+    overflow: hidden;
+  }
+  .sheet:last-child { break-after: auto; }
+
+  /* --- shared type ------------------------------------------------- */
+  .mono {
+    font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 6.6pt;
+    font-weight: 500;
+    letter-spacing: 1.1pt;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .mono.amber { color: var(--amber-dk); }
+  .mono.ink   { color: var(--muted); }
+
+  h2.section {
+    font-size: 15pt;
+    font-weight: 600;
+    letter-spacing: -0.35pt;
+    color: var(--ink);
+    margin: 3pt 0 0;
+    line-height: 1.15;
+  }
+  .lede { font-size: 9.4pt; color: var(--muted); margin: 5pt 0 0; max-width: 128mm; }
+
+  .rule       { border: 0; border-top: 0.5pt solid var(--line); margin: 9pt 0; }
+  .rule-amber { border: 0; border-top: 1.6pt solid var(--amber); width: 22mm; margin: 0 0 7pt; }
+
+  /* section head: mono kicker + title, with an amber tick on the left */
+  .head { position: relative; padding-left: 7mm; margin-bottom: 9pt; }
+  .head::before {
+    content: ""; position: absolute; left: 0; top: 1.5pt;
+    width: 2.2pt; height: 12pt; background: var(--amber); border-radius: 1pt;
+  }
+
+  /* --- running footer ---------------------------------------------- */
+  .foot {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 5pt; border-top: 0.5pt solid var(--line-soft);
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.2pt; letter-spacing: 0.9pt; text-transform: uppercase; color: var(--faint);
+  }
+
+  /* --- cover -------------------------------------------------------- */
+  .cover-top { padding-top: 20mm; }
+  .cover-name {
+    font-size: 44pt; font-weight: 600; letter-spacing: -1.6pt;
+    line-height: 1.0; color: var(--ink); margin: 6pt 0 0;
+  }
+  .cover-role {
+    font-size: 12.5pt; font-weight: 400; color: var(--indigo);
+    margin: 7pt 0 0; letter-spacing: -0.2pt;
+  }
+  .cover-lede { font-size: 10pt; line-height: 1.6; color: var(--muted); max-width: 118mm; margin: 9pt 0 0; }
+
+  .cover-chain { display: flex; align-items: center; gap: 3.2mm; margin: 11mm 0 0; flex-wrap: wrap; }
+  .cover-chain .node {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.8pt; letter-spacing: 1pt; text-transform: uppercase;
+    color: var(--muted); border: 0.5pt solid var(--line);
+    border-radius: 2pt; padding: 3pt 5.5pt; background: #fff;
+  }
+  .cover-chain .pkt { width: 4pt; height: 4pt; border-radius: 50%; background: var(--amber); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 7pt 8mm; margin-top: 11mm;
+  }
+  .contact-grid div { border-top: 0.5pt solid var(--line); padding-top: 4pt; }
+  .contact-grid .k {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6pt; letter-spacing: 0.9pt; text-transform: uppercase; color: var(--faint);
+    display: block; margin-bottom: 1.5pt;
+  }
+  .contact-grid .v { font-size: 8.6pt; color: var(--ink); }
+
+  .toc { margin-top: 13mm; }
+  .toc-row {
+    display: flex; align-items: baseline; gap: 4mm;
+    padding: 4.2pt 0; border-bottom: 0.5pt solid var(--line-soft);
+  }
+  .toc-num {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.6pt; color: var(--amber-dk); width: 9mm; letter-spacing: 0.6pt;
+  }
+  .toc-name { font-size: 8.8pt; color: var(--ink); flex: 1; }
+  .toc-meta { font-size: 7.6pt; color: var(--faint); }
+
+  /* --- generic cards ----------------------------------------------- */
+  .card {
+    border: 0.5pt solid var(--line); border-radius: 3pt;
+    padding: 7pt 8pt; background: #fff; break-inside: avoid;
+  }
+  .card.panel { background: var(--panel); border-color: var(--line-soft); }
+  .card-title { font-size: 9.6pt; font-weight: 600; color: var(--ink); margin: 0 0 3pt; letter-spacing: -0.15pt; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4.5mm; }
+
+  /* --- project / breakdown ------------------------------------------ */
+  .proj-index {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 7pt; letter-spacing: 1.2pt; color: var(--amber-dk);
+  }
+  .proj-title {
+    font-size: 17pt; font-weight: 600; letter-spacing: -0.5pt;
+    color: var(--ink); line-height: 1.12; margin: 3pt 0 0;
+  }
+  .proj-tagline { font-size: 8.4pt; color: var(--muted); margin: 4pt 0 0; }
+
+  .meta-row { display: flex; gap: 5mm; margin: 7pt 0 0; flex-wrap: wrap; }
+  .meta-row .item { }
+  .meta-row .k {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6pt; letter-spacing: 0.9pt; text-transform: uppercase; color: var(--faint);
+    display: block;
+  }
+  .meta-row .v { font-size: 8pt; color: var(--ink); }
+
+  .badge {
+    display: inline-block;
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.2pt; font-weight: 500; letter-spacing: 0.9pt; text-transform: uppercase;
+    padding: 2pt 4.5pt; border-radius: 2pt; vertical-align: 1.5pt;
+    border: 0.5pt solid var(--line); color: var(--muted); background: #fff;
+  }
+  .badge.amber { border-color: #f0cd8e; background: #fdf6e8; color: var(--amber-dk); }
+  .badge.nda   { border-color: #d8d9ee; background: #f2f2fb; color: var(--indigo); }
+
+  .flow { display: flex; align-items: center; gap: 2.6mm; margin: 6pt 0 0; flex-wrap: wrap; }
+  .flow .node {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.2pt; letter-spacing: 0.9pt; text-transform: uppercase; color: var(--muted);
+    background: var(--panel); border-radius: 2pt; padding: 2.5pt 4.5pt;
+  }
+  .flow .pkt { width: 3.2pt; height: 3.2pt; border-radius: 50%; background: var(--amber); }
+
+  h4.block {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.2pt; font-weight: 500; letter-spacing: 1.1pt; text-transform: uppercase;
+    color: var(--faint); margin: 0 0 3.5pt; padding-bottom: 2.5pt;
+    border-bottom: 0.5pt solid var(--line-soft);
+  }
+
+  p { margin: 0 0 5pt; }
+  p:last-child { margin-bottom: 0; }
+
+  ul.decisions { list-style: none; margin: 0; padding: 0; }
+  ul.decisions li {
+    position: relative; padding-left: 5.5mm; margin-bottom: 4.5pt;
+  }
+  ul.decisions li:last-child { margin-bottom: 0; }
+  ul.decisions li::before {
+    content: ""; position: absolute; left: 0; top: 3.6pt;
+    width: 3.2pt; height: 3.2pt; border-radius: 50%; background: var(--amber);
+  }
+  ul.decisions b { color: var(--ink); font-weight: 600; }
+
+  ul.plain { list-style: none; margin: 0; padding: 0; }
+  ul.plain li { position: relative; padding-left: 4mm; margin-bottom: 2.5pt; }
+  ul.plain li::before {
+    content: ""; position: absolute; left: 0; top: 4pt;
+    width: 5pt; height: 0.8pt; background: var(--line); 
+  }
+
+  .stack-tbl { width: 100%; border-collapse: collapse; }
+  .stack-tbl td { vertical-align: top; padding: 3.5pt 0; border-bottom: 0.5pt solid var(--line-soft); }
+  .stack-tbl tr:last-child td { border-bottom: 0; }
+  .stack-tbl td.k {
+    width: 24mm;
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6pt; letter-spacing: 0.9pt; text-transform: uppercase; color: var(--faint);
+    padding-top: 4.5pt;
+  }
+
+  .outcome {
+    border-left: 1.6pt solid var(--amber); background: #fdfaf3;
+    padding: 6pt 8pt; border-radius: 0 2pt 2pt 0; break-inside: avoid;
+  }
+  .outcome .k {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6pt; letter-spacing: 0.9pt; text-transform: uppercase; color: var(--amber-dk);
+    display: block; margin-bottom: 2.5pt;
+  }
+  .outcome p { color: var(--ink); }
+
+  /* --- screenshots --------------------------------------------------
+     img/ holds 1100px-wide JPEG derivatives of public/projects/* — about
+     330 dpi at the 84mm display width, and ~600KB total instead of ~6MB.
+     Regenerate with:  sips -s format jpeg -s formatOptions 82 -Z 1100 SRC --out DEST
+     -------------------------------------------------------------------- */
+  .shot {
+    border: 0.5pt solid var(--line); border-radius: 3pt; overflow: hidden;
+    background: var(--panel); line-height: 0;
+  }
+  .shot img { width: 100%; display: block; }
+
+  /* --- metric grid --------------------------------------------------- */
+  .metrics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; border-top: 0.5pt solid var(--line); }
+  .metrics div {
+    padding: 5pt 3pt 5pt 0; border-bottom: 0.5pt solid var(--line-soft);
+  }
+  .metrics .n { font-size: 12pt; font-weight: 600; color: var(--ink); letter-spacing: -0.4pt; display: block; line-height: 1.1; }
+  .metrics .l {
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.2pt; letter-spacing: 0.5pt; text-transform: uppercase; color: var(--faint);
+    display: block; margin-top: 1.5pt;
+  }
+
+  /* --- timeline ------------------------------------------------------ */
+  .tl { position: relative; padding-left: 6mm; }
+  .tl::before { content: ""; position: absolute; left: 1.4pt; top: 4pt; bottom: 4pt; width: 0.5pt; background: var(--line); }
+  .tl-row { position: relative; margin-bottom: 7pt; break-inside: avoid; }
+  .tl-row:last-child { margin-bottom: 0; }
+  .tl-row::before {
+    content: ""; position: absolute; left: -6mm; top: 3.5pt;
+    width: 4pt; height: 4pt; border-radius: 50%; background: #fff;
+    border: 1pt solid var(--line); margin-left: -0.6pt;
+  }
+  .tl-row.current::before { background: var(--amber); border-color: var(--amber); }
+  .tl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 5mm; }
+  .tl-role { font-size: 9pt; font-weight: 600; color: var(--ink); }
+  .tl-org  { font-weight: 400; color: var(--muted); }
+  .tl-date { font-size: 7.4pt; color: var(--faint); white-space: nowrap;
+             font-family: "Geist Mono", ui-monospace, Menlo, monospace; letter-spacing: 0.4pt; }
+  .tl-line { font-size: 8.2pt; color: var(--muted); margin-top: 1.5pt; }
+
+  .skills-tbl { width: 100%; border-collapse: collapse; }
+  .skills-tbl td { padding: 3.8pt 0; border-bottom: 0.5pt solid var(--line-soft); vertical-align: top; }
+  .skills-tbl tr:last-child td { border-bottom: 0; }
+  .skills-tbl td.k {
+    width: 34mm;
+    font-family: "Geist Mono", ui-monospace, Menlo, monospace;
+    font-size: 6.2pt; letter-spacing: 0.9pt; text-transform: uppercase; color: var(--faint);
+    padding-top: 4.5pt;
+  }
+  .skills-tbl td.v { font-size: 8.4pt; color: var(--ink); }
+
+  a { color: var(--indigo); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- ================= 01 / COVER ================= -->
+<section class="sheet">
+  <div class="cover-top">
+    <p class="mono amber">PORTFOLIO &nbsp;/&nbsp; SELECTED SYSTEMS &nbsp;/&nbsp; 2023 &ndash; 2026</p>
+    <h1 class="cover-name">MIKO CA&Ntilde;ARES</h1>
+    <p class="cover-role">Full-Stack Engineer &mdash; AI, SaaS &amp; Automation</p>
+    <hr class="rule-amber" style="margin-top:9pt">
+    <p class="cover-lede">
+      I build software that has to work beyond the demo. Statutory compliance reporting,
+      geospatial data pipelines, retrieval-augmented AI, customer portals and business
+      automation &mdash; owned from first requirement through to production support.
+      Two years of enterprise QA sit underneath the development work, so testing and
+      reliability are habits rather than afterthoughts.
+    </p>
+
+    <div class="cover-chain">
+      <span class="node">Requirement</span><span class="pkt"></span>
+      <span class="node">Design spec</span><span class="pkt"></span>
+      <span class="node">Build</span><span class="pkt"></span>
+      <span class="node">QA</span><span class="pkt"></span>
+      <span class="node">Deploy</span><span class="pkt"></span>
+      <span class="node">Production support</span>
+    </div>
+
+    <div class="contact-grid">
+      <div><span class="k">Email</span><span class="v">canaresmiko3@gmail.com</span></div>
+      <div><span class="k">Phone</span><span class="v">+63 909 611 6995</span></div>
+      <div><span class="k">Location</span><span class="v">Misamis Oriental, Philippines</span></div>
+      <div><span class="k">Portfolio</span><span class="v">ikoy.vercel.app</span></div>
+      <div><span class="k">LinkedIn</span><span class="v">linkedin.com/in/miko-canares</span></div>
+      <div><span class="k">GitHub</span><span class="v">github.com/koushin07</span></div>
+    </div>
+
+    <div class="toc">
+      <p class="mono ink" style="margin-bottom:5pt">CONTENTS</p>
+      <div class="toc-row"><span class="toc-num">02</span><span class="toc-name">Profile &mdash; disciplines, stack, how I work</span><span class="toc-meta">Capability</span></div>
+      <div class="toc-row"><span class="toc-num">03</span><span class="toc-name">Atlas SDI Report Engine</span><span class="toc-meta">Geospatial &middot; statutory reporting</span></div>
+      <div class="toc-row"><span class="toc-num">04</span><span class="toc-name">Atlas NHD Customer Portal</span><span class="toc-meta">SaaS &middot; order to delivery</span></div>
+      <div class="toc-row"><span class="toc-num">05</span><span class="toc-name">ReadMindMe &mdash; RAG Study Platform</span><span class="toc-meta">AI &middot; retrieval pipeline</span></div>
+      <div class="toc-row"><span class="toc-num">06</span><span class="toc-name">Private LegalTech SaaS &mdash; six production systems</span><span class="toc-meta">Automation &middot; under NDA</span></div>
+      <div class="toc-row"><span class="toc-num">08</span><span class="toc-name">Selected client projects</span><span class="toc-meta">Six platforms</span></div>
+      <div class="toc-row"><span class="toc-num">11</span><span class="toc-name">Experience, education &amp; certification</span><span class="toc-meta">Track record</span></div>
+      <div class="toc-row"><span class="toc-num">12</span><span class="toc-name">Working together</span><span class="toc-meta">Contact</span></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>Cover</span></div>
+</section>
+
+<!-- ================= 02 / PROFILE ================= -->
+<section class="sheet">
+  <div class="head">
+    <p class="mono amber">PROFILE</p>
+    <h2 class="section">Three disciplines, one developer.</h2>
+    <p class="lede">
+      Most project failures happen at the boundary between disciplines &mdash; the frontend works
+      but the API breaks, the API works but the automation fails, the automation works but the
+      data is wrong. I work across all three so the boundaries hold.
+    </p>
+  </div>
+
+  <div class="grid3" style="margin-top:6mm">
+    <div class="card">
+      <p class="mono amber" style="margin:0 0 3pt">01</p>
+      <p class="card-title">Full-Stack Development</p>
+      <ul class="plain">
+        <li>Frontend &mdash; React, Next.js, Vue, Angular</li>
+        <li>Backend &mdash; FastAPI, Laravel, Express, ASP.NET Core</li>
+        <li>APIs and integration layers</li>
+        <li>Relational and spatial databases</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="mono amber" style="margin:0 0 3pt">02</p>
+      <p class="card-title">AI &amp; Automation</p>
+      <ul class="plain">
+        <li>Retrieval-augmented generation (RAG)</li>
+        <li>Embeddings and vector search &mdash; pgvector</li>
+        <li>Structured outputs, moderation, memory</li>
+        <li>n8n, Celery, BullMQ workflow orchestration</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="mono amber" style="margin:0 0 3pt">03</p>
+      <p class="card-title">QA &amp; Reliability</p>
+      <ul class="plain">
+        <li>Two years enterprise ERP quality assurance</li>
+        <li>Automated regression and API testing</li>
+        <li>Database and access-provisioning validation</li>
+        <li>Production incident diagnosis</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule" style="margin:7mm 0 6mm">
+
+  <div class="grid2">
+    <div>
+      <h4 class="block">Technical stack</h4>
+      <table class="skills-tbl">
+        <tr><td class="k">Languages</td><td class="v">TypeScript, JavaScript, Python, PHP, C#, SQL</td></tr>
+        <tr><td class="k">Frontend</td><td class="v">React, Next.js, Vue, Inertia, Angular, Tailwind CSS</td></tr>
+        <tr><td class="k">Backend</td><td class="v">FastAPI, Node.js, Express, Laravel, ASP.NET Core</td></tr>
+        <tr><td class="k">Databases</td><td class="v">PostgreSQL, PostGIS, pgvector, MySQL, SQL Server, Supabase, Redis</td></tr>
+        <tr><td class="k">Cloud &amp; infra</td><td class="v">AWS (ECS, RDS, S3, CloudFront), Docker, Terraform, CI/CD, Linux</td></tr>
+        <tr><td class="k">AI &amp; ML</td><td class="v">OpenAI API, embeddings, vector search, RAG, structured outputs</td></tr>
+        <tr><td class="k">Testing &amp; QA</td><td class="v">Pytest, Vitest, PHPUnit, Postman, regression, API, ERP validation</td></tr>
+        <tr><td class="k">Automation</td><td class="v">n8n, Celery, BullMQ, Prefect, Stripe, Shopify, ServiceM8, Pipedrive, PandaDoc</td></tr>
+        <tr><td class="k">Geospatial</td><td class="v">PostGIS, GeoServer, GeoNode, GeoAlchemy2, WMS/WFS</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <h4 class="block">How I work</h4>
+      <ul class="decisions">
+        <li><b>Specs before code.</b> On the Atlas hazard platform, seventeen design specs and ten
+          implementation plans were written and reviewed before implementation &mdash; because a
+          statutory report that is wrong is a compliance failure, not a bug ticket.</li>
+        <li><b>Contracts pinned by tests.</b> Report templates are locked by tests that assert on
+          the rendered markup, so a formatting regression fails a test rather than reaching a customer.</li>
+        <li><b>Degrade, don't stop.</b> When an upstream government dataset is unreachable, the
+          system falls back to a local copy &mdash; freshness degrades, the pipeline keeps running.</li>
+        <li><b>Own it end to end.</b> Requirements, architecture, build, QA, deployment and live
+          support &mdash; several of the systems in this portfolio were sole-developer builds.</li>
+      </ul>
+
+      <h4 class="block" style="margin-top:6mm">Engagement</h4>
+      <table class="skills-tbl">
+        <tr><td class="k">Available for</td><td class="v">Remote &mdash; contract or full-time</td></tr>
+        <tr><td class="k">Time zone</td><td class="v">PHT (UTC+8), overlapping US and AU hours</td></tr>
+        <tr><td class="k">Domains</td><td class="v">Compliance reporting, geospatial, LegalTech, logistics, clinical, e-commerce</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>02 &middot; Profile</span></div>
+</section>
+
+<!-- ================= 03 / ATLAS SDI ================= -->
+<section class="sheet">
+  <p class="proj-index">FLAGSHIP 01 &nbsp;/&nbsp; GEOSPATIAL &middot; STATUTORY REPORTING</p>
+  <h2 class="proj-title">Atlas SDI Report Engine</h2>
+  <p class="proj-tagline">
+    Atlas Geotech LLC &nbsp;<span class="badge">Contract &middot; Feb 2026 &ndash; Nov 2026</span>
+    &nbsp;<span class="badge amber">Primary developer &middot; determination &amp; reporting pipeline</span>
+  </p>
+  <hr class="rule-amber" style="margin-top:8pt">
+
+  <div class="grid2" style="margin-top:2mm">
+    <div>
+      <h4 class="block">The problem</h4>
+      <p>
+        Every residential property sale in California legally requires a Natural Hazard Disclosure.
+        Producing one means checking a parcel against dozens of state and federal hazard datasets
+        &mdash; flood, fire severity, seismic, landslide, liquefaction, dam inundation, airport noise
+        &mdash; and emitting a document in a statutorily prescribed format.
+      </p>
+      <p><b style="color:var(--ink)">A slow report is an inconvenience. A wrong one is legal liability.</b></p>
+
+      <h4 class="block" style="margin-top:6mm">Architecture</h4>
+      <table class="stack-tbl">
+        <tr><td class="k">Atlas SDI</td><td>PostGIS, GeoServer and GeoNode holding state and federal hazard layers. Prefect flows keep datasets current; a registry tracks currency and alerts on drift.</td></tr>
+        <tr><td class="k">Geocoding svc</td><td>FastAPI service that resolves an address to a parcel and APN, runs the hazard determinations, and renders the result. Covers the full range of disclosure products, with a queue for asynchronous orders.</td></tr>
+        <tr><td class="k">Portal admin</td><td>Order lifecycle, JWT issuance for the customer API, per-user report access limits, and email delivery. Polls the SDI for report status.</td></tr>
+        <tr><td class="k">Portal / site</td><td>Next.js portal for address search, report selection, checkout and PDF delivery, plus the public marketing site on S3 + CloudFront with OIDC-authenticated deploys.</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <h4 class="block">Stack</h4>
+      <table class="stack-tbl">
+        <tr><td class="k">Backend</td><td>FastAPI async Python over PostGIS / GeoAlchemy2, SQLAlchemy 2.0, Celery queue for async report orders</td></tr>
+        <tr><td class="k">Rendering</td><td>Server-rendered PDF templates; report map and details pages consumed by the customer portal</td></tr>
+        <tr><td class="k">Infrastructure</td><td>Terraform-defined AWS &mdash; ECS Fargate, RDS, ALB, Secrets Manager, ECR &mdash; plus Prefect flows promoting datasets from on-prem NAS to AWS</td></tr>
+        <tr><td class="k">Data sources</td><td>GeoServer WMS/WFS, FEMA NFHL with local-copy failover, FAA ADHP, CAL FIRE FHSZ, USGS 3DEP, libpostal via gRPC</td></tr>
+      </table>
+
+      <h4 class="block" style="margin-top:6mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li><b>Concurrency control under CPU-bound load.</b> A single address lookup fanned out into
+          nine fire-and-forget warmup tasks, each submitting to a rendering process pool &mdash; PIDs
+          accumulating to 80 and workers dying in a loop. Bounded the fan-out with a per-worker
+          semaphore, then removed the redundant work underneath: a shared httpx client, an LRU
+          basemap cache with async-lock dedup, and rendering on a ProcessPoolExecutor with
+          lifespan shutdown hooks.</li>
+        <li><b>Zero-downtime dataset promotion.</b> An atomic table swap that carries the sequences
+          the live table still depends on, and applies additive schema changes only behind an
+          explicit flag &mdash; never silently.</li>
+        <li><b>Graceful degradation on third-party outage.</b> Failover to a locally held FEMA NFHL
+          copy, so an upstream government outage degrades freshness rather than halting report
+          generation and blocking a property sale.</li>
+        <li><b>Spec-driven delivery.</b> Seventeen design specs and ten implementation plans written
+          before the code, with report templates pinned by markup-contract tests &mdash; including an
+          explicit HTML escaping contract for the cover page.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flow" style="margin-top:6mm">
+    <span class="node">Address</span><span class="pkt"></span>
+    <span class="node">Parcel / APN</span><span class="pkt"></span>
+    <span class="node">Hazard determination</span><span class="pkt"></span>
+    <span class="node">Render</span><span class="pkt"></span>
+    <span class="node">Statutory PDF</span>
+  </div>
+
+  <div class="outcome" style="margin-top:4mm">
+    <span class="k">Outcome</span>
+    <p>
+      The full range of statutory disclosure products is in production &mdash; residential, commercial,
+      tax, tenancy, fire severity and more. Report generation moved off the request path onto a queued
+      pipeline with warmup caching; report content is locked down by automated checks so a formatting
+      change cannot quietly alter a legally binding document; infrastructure is defined as code on AWS,
+      with permissions tightened to least privilege after a security review.
+    </p>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>03 &middot; Atlas SDI Report Engine</span></div>
+</section>
+
+<!-- ================= 04 / ATLAS PORTAL ================= -->
+<section class="sheet">
+  <p class="proj-index">FLAGSHIP 02 &nbsp;/&nbsp; SAAS &middot; ORDER TO DELIVERY</p>
+  <h2 class="proj-title">Atlas NHD Customer Portal</h2>
+  <p class="proj-tagline">
+    Atlas Geotech LLC &nbsp;<span class="badge">Contract &middot; Feb 2026 &ndash; Nov 2026</span>
+    &nbsp;<span class="badge amber">Sole developer &mdash; architecture, build and QA</span>
+  </p>
+  <hr class="rule-amber" style="margin-top:8pt">
+
+  <div class="grid2" style="margin-top:2mm">
+    <div>
+      <h4 class="block">The problem</h4>
+      <p>
+        Escrow officers and agents ordering a hazard disclosure need to find one specific parcel
+        &mdash; often from a partial address, sometimes with several APNs matching &mdash; then pick
+        the right report type, and receive a PDF they can attach to a transaction.
+      </p>
+      <p><b style="color:var(--ink)">Getting the wrong parcel means the wrong disclosure on a legally
+        binding sale.</b></p>
+
+      <h4 class="block" style="margin-top:6mm">Stack</h4>
+      <table class="stack-tbl">
+        <tr><td class="k">Frontend</td><td>Next.js App Router with route groups, an AuthGuard app shell, Zustand stores, and a Tailwind component system built to Figma frames</td></tr>
+        <tr><td class="k">Backend</td><td>Typed API client over the portal-admin JSON API and the Atlas SDI report endpoints</td></tr>
+        <tr><td class="k">Infrastructure</td><td>Multi-stage Docker with Next.js standalone output, non-root user and a health endpoint; env-driven proxying to the SDI</td></tr>
+        <tr><td class="k">Platform</td><td>JWT auth with refresh, per-user report access limits, auto-generated escrow numbering, email delivery</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <h4 class="block">Engineering decisions</h4>
+      <ul class="decisions">
+        <li><b>One resolution path for addresses.</b> Search resolves through a single backend
+          endpoint with typeahead and structured fallback, after removing a third-party address
+          vendor &mdash; the backend handles fuzzy matching natively, so one system owns the answer.</li>
+        <li><b>Entitlements enforced at the order boundary.</b> Per-user report limits live at the
+          API, not in the UI, so they cannot be bypassed by navigating directly.</li>
+        <li><b>Report types come from a catalog.</b> Labels are served by the backend rather than a
+          hardcoded frontend map, so adding a report type does not require a frontend release.</li>
+        <li><b>Route groups with a shared shell.</b> Routing restructured so the public marketing
+          site and the authenticated portal are cleanly separated behind one AuthGuard shell.</li>
+      </ul>
+
+      <h4 class="block" style="margin-top:6mm">Scope owned</h4>
+      <ul class="plain">
+        <li>Address search with APN disambiguation</li>
+        <li>Report selection and checkout</li>
+        <li>Order lifecycle and escrow numbering</li>
+        <li>PDF delivery and email notification</li>
+        <li>Authentication, refresh and access limits</li>
+        <li>Containerization and deployment</li>
+        <li>Marketing site rebuilt to Figma, portal ported onto it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flow" style="margin-top:6mm">
+    <span class="node">Address search</span><span class="pkt"></span>
+    <span class="node">APN disambiguation</span><span class="pkt"></span>
+    <span class="node">Report type</span><span class="pkt"></span>
+    <span class="node">Checkout</span><span class="pkt"></span>
+    <span class="node">PDF delivery</span>
+  </div>
+
+  <div class="outcome" style="margin-top:4mm">
+    <span class="k">Outcome</span>
+    <p>
+      The full order-to-delivery flow is in production, and the marketing site was rebuilt to Figma
+      with the portal ported onto it.
+    </p>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>04 &middot; Atlas NHD Customer Portal</span></div>
+</section>
+
+<!-- ================= 05 / READMINDME ================= -->
+<section class="sheet">
+  <p class="proj-index">FLAGSHIP 03 &nbsp;/&nbsp; AI &middot; RETRIEVAL-AUGMENTED GENERATION</p>
+  <h2 class="proj-title">ReadMindMe &mdash; RAG Study Platform</h2>
+  <p class="proj-tagline">
+    Personal project &nbsp;<span class="badge">Solo build</span>
+    &nbsp;<span class="badge amber">Architecture &middot; AI pipeline &middot; backend &middot; data modeling &middot; DevOps &middot; security</span>
+  </p>
+  <hr class="rule-amber" style="margin-top:8pt">
+
+  <div class="grid2" style="margin-top:2mm">
+    <div>
+      <h4 class="block">The problem</h4>
+      <p>
+        Built to push production-grade RAG end to end. Users ask theological questions and receive
+        scripture-grounded answers from a 14-stage pipeline: retrieve verses by pgvector similarity
+        across 36,819 embeddings, enrich with Greek/Hebrew morphology, cross-references and historical
+        context, then personalize using per-user memory and active prayer requests.
+      </p>
+
+      <h4 class="block" style="margin-top:5mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li><b>Two vector spaces, never a silent miss.</b> Bible verses for retrieval and per-user
+          memories for personalization, with hybrid fallbacks &mdash; vector, then keyword, then
+          Nave's Topical, then community-voted topic-to-verse &mdash; so retrieval never fails silently.</li>
+        <li><b>Tiered model selection.</b> GPT-4o for answers, GPT-4o-mini for background memory
+          extraction and rolling session summaries, plus parallel context retrieval across 10+
+          enrichment datasets in isolated DB sessions for throughput.</li>
+        <li><b>Two-schema Postgres design.</b> Static bible data (24 read-only tables, 603K
+          cross-references) separated from versioned application data, with refresh-token family
+          revocation, admin TOTP via Fernet-encrypted secrets, content moderation, an audit log,
+          feature flags and an AI kill switch.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="block">Stack</h4>
+      <table class="stack-tbl">
+        <tr><td class="k">Backend</td><td>FastAPI async Python, SQLAlchemy 2.0, Alembic, Pydantic v2</td></tr>
+        <tr><td class="k">Data</td><td>PostgreSQL with pgvector, Redis</td></tr>
+        <tr><td class="k">AI</td><td>OpenAI GPT-4o / GPT-4o-mini / embeddings / moderation, structured outputs</td></tr>
+        <tr><td class="k">Auth</td><td>Google OAuth, JWT with refresh-token rotation, TOTP 2FA, SlowAPI rate limiting</td></tr>
+        <tr><td class="k">Ops</td><td>Docker Compose with seed runners, profiles and reset paths; APScheduler</td></tr>
+      </table>
+
+      <h4 class="block" style="margin-top:5mm">Client surfaces</h4>
+      <ul class="plain">
+        <li>Mobile / web client and an admin dashboard as separate repos in one monorepo</li>
+        <li>Admin console with two-factor auth, content moderation and audit logging</li>
+      </ul>
+
+      <div class="shot" style="margin-top:5mm">
+        <img src="img/readmindme.jpg" alt="ReadMindMe landing page">
+      </div>
+    </div>
+  </div>
+
+  <h4 class="block" style="margin-top:6mm">Under the hood</h4>
+  <div class="metrics">
+    <div><span class="n">14</span><span class="l">Pipeline stages</span></div>
+    <div><span class="n">36,819</span><span class="l">Verse embeddings</span></div>
+    <div><span class="n">603K</span><span class="l">Cross-references</span></div>
+    <div><span class="n">24</span><span class="l">Read-only tables</span></div>
+    <div><span class="n">10+</span><span class="l">Enrichment datasets</span></div>
+    <div><span class="n">20</span><span class="l">API routers</span></div>
+    <div><span class="n">25</span><span class="l">Backend services</span></div>
+    <div><span class="n">33</span><span class="l">Alembic migrations</span></div>
+    <div><span class="n">~40</span><span class="l">Database tables</span></div>
+    <div><span class="n">12</span><span class="l">Compose services</span></div>
+    <div><span class="n">~3,400</span><span class="l">LOC AI service</span></div>
+    <div><span class="n">2</span><span class="l">Vector spaces</span></div>
+  </div>
+
+  <div class="outcome" style="margin-top:4mm">
+    <span class="k">Outcome</span>
+    <p>
+      A production-shaped backend demonstrating applied RAG, domain-modeling depth and operational
+      maturity &mdash; retrieval that degrades instead of failing, tiered model economics, and an
+      admin surface with the controls a real deployment needs.
+    </p>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>05 &middot; ReadMindMe</span></div>
+</section>
+
+<!-- ================= 06 / NDA LEGALTECH — PART 1 ================= -->
+<section class="sheet">
+  <p class="proj-index">FLAGSHIP 04 &nbsp;/&nbsp; AUTOMATION &middot; SIX PRODUCTION SYSTEMS</p>
+  <h2 class="proj-title">Private SaaS Platform &mdash; LegalTech</h2>
+  <p class="proj-tagline">
+    <span class="badge">Contract &middot; Jan 2026 &ndash; Oct 2026</span> &nbsp;<span class="badge nda">Private / NDA</span>
+    &nbsp;<span class="badge">React &middot; Node.js &middot; Express &middot; TypeScript &middot; Supabase &middot; n8n &middot; BullMQ &middot; Docker</span>
+  </p>
+  <hr class="rule-amber" style="margin-top:8pt">
+
+  <p style="max-width:150mm">
+    A self-help legal-document platform, built out as six internal production systems. The client,
+    product and domain are covered by an active NDA, so they are not named here and no screenshots
+    are shown &mdash; the engineering is described in full.
+  </p>
+
+  <div class="flow" style="margin-top:5pt">
+    <span class="node">Intake</span><span class="pkt"></span>
+    <span class="node">n8n orchestration</span><span class="pkt"></span>
+    <span class="node">Document</span><span class="pkt"></span>
+    <span class="node">Fingerprint</span><span class="pkt"></span>
+    <span class="node">Delivery</span>
+  </div>
+
+  <hr class="rule" style="margin:6mm 0">
+
+  <div class="card" style="margin-bottom:5mm">
+    <p class="mono amber" style="margin:0 0 2pt">SYSTEM 01</p>
+    <p class="card-title">Dynamic Document Generation Pipeline</p>
+    <p>
+      Legal forms are complex &mdash; static templates break the moment data changes. Built a
+      form-driven pipeline where users complete a SurveyJS questionnaire embedded in the storefront,
+      with answers auto-saving as they go. On submission the data triggers an n8n workflow that merges
+      it into a Word template, converts to PDF, and delivers it by email. Paired with an internal admin
+      app &mdash; built on the SurveyJS form builder &mdash; where staff manage forms, templates and
+      bundles without a developer, with all writes routed through a resource-style API rather than
+      direct database access.
+    </p>
+    <div class="flow" style="margin-top:4pt">
+      <span class="node">React</span><span class="pkt"></span>
+      <span class="node">Vite</span><span class="pkt"></span>
+      <span class="node">SurveyJS</span><span class="pkt"></span>
+      <span class="node">Supabase</span><span class="pkt"></span>
+      <span class="node">n8n</span>
+    </div>
+    <div class="outcome" style="margin-top:5pt">
+      <span class="k">Outcome</span>
+      <p>Zero manual document handling, and non-developers can ship new form types.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:5mm">
+    <p class="mono amber" style="margin:0 0 2pt">SYSTEM 02</p>
+    <p class="card-title">Anti-Piracy Document Fingerprinting</p>
+    <p>
+      Self-help legal documents are trivially resold once they leave your system. Built a two-part
+      fingerprinting subsystem: a Node/Express/TypeScript microservice that stamps formatted footers
+      into .docx files over a REST API (bold, italic, color, font, alignment), and a companion service
+      that injects per-purchase identity &mdash; user ID, email, timestamp &mdash; into the generated
+      PDF's metadata via pdf-lib. Both are called from the document pipeline, so every delivered file
+      is uniquely traceable to the buyer.
+    </p>
+    <div class="flow" style="margin-top:4pt">
+      <span class="node">Node.js</span><span class="pkt"></span>
+      <span class="node">Express</span><span class="pkt"></span>
+      <span class="node">TypeScript</span><span class="pkt"></span>
+      <span class="node">pdf-lib</span><span class="pkt"></span>
+      <span class="node">Docker</span>
+    </div>
+    <div class="outcome" style="margin-top:5pt">
+      <span class="k">Outcome</span>
+      <p>Every delivered document carries an invisible, per-buyer fingerprint.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="mono amber" style="margin:0 0 2pt">SYSTEM 03</p>
+    <p class="card-title">Court-Record Lead Classification Engine</p>
+    <p>
+      Daily public court-record exports arrive as zipped, caret-delimited flat files with separate
+      lookup tables for party types, case types and judges. Built a Node/Express/TypeScript backend
+      that parses the feed, filters to active family-law matters filed within 180 days, detects trigger
+      events in the docket &mdash; service returned, motion to withdraw &mdash; and classifies each
+      unrepresented party into one of four lead profiles with priority tiers: newly filed, recently
+      served, dropped by counsel, or simply unrepresented. Leads are enriched with human-readable
+      labels and batch-upserted behind a CRUD API.
+    </p>
+    <div class="outcome" style="margin-top:5pt">
+      <span class="k">Outcome</span>
+      <p>A raw daily court feed becomes a prioritized, deduplicated lead queue with no manual triage.</p>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>06 &middot; LegalTech &mdash; systems 01&ndash;03</span></div>
+</section>
+
+<!-- ================= 07 / NDA LEGALTECH — PART 2 ================= -->
+<section class="sheet">
+  <p class="proj-index">FLAGSHIP 04 &nbsp;/&nbsp; CONTINUED</p>
+  <h2 class="proj-title">Private SaaS Platform &mdash; LegalTech</h2>
+  <p class="proj-tagline">Systems 04 &ndash; 06 &nbsp;<span class="badge nda">Private / NDA</span></p>
+  <hr class="rule-amber" style="margin-top:8pt">
+
+  <div class="card" style="margin-top:2mm; margin-bottom:5mm">
+    <p class="mono amber" style="margin:0 0 2pt">SYSTEM 04</p>
+    <p class="card-title">Multi-Party Dispute Scheduling System</p>
+    <p>
+      Dispute negotiations require all three parties &mdash; creator, receiver and mediator &mdash; to
+      agree on a meeting time. Built a scheduling system where a creator proposes a date, the receiver
+      accepts or declines, and on agreement all three parties are notified automatically. Designed for
+      legal dispute workflows where neutral coordination matters.
+    </p>
+    <div class="flow" style="margin-top:4pt">
+      <span class="node">React</span><span class="pkt"></span>
+      <span class="node">Node.js</span><span class="pkt"></span>
+      <span class="node">Supabase</span><span class="pkt"></span>
+      <span class="node">Google Calendar</span>
+    </div>
+    <div class="outcome" style="margin-top:5pt">
+      <span class="k">Outcome</span>
+      <p>Three-party consent model with automated notifications on agreement.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:5mm">
+    <p class="mono amber" style="margin:0 0 2pt">SYSTEM 05</p>
+    <p class="card-title">Containerized Scheduling Service</p>
+    <p>
+      The scheduling workload outgrew a single process once reminders, confirmations and calendar sync
+      all needed to survive restarts. Split it into an Express API and a separate BullMQ worker over
+      Redis, with Postgres for state and migrations applied automatically on container start. The whole
+      stack &mdash; API, worker, database, cache and Traefik reverse proxy &mdash; ships as a documented
+      compose deployment with a written production runbook.
+    </p>
+    <div class="flow" style="margin-top:4pt">
+      <span class="node">Express</span><span class="pkt"></span>
+      <span class="node">BullMQ</span><span class="pkt"></span>
+      <span class="node">Redis</span><span class="pkt"></span>
+      <span class="node">Postgres</span><span class="pkt"></span>
+      <span class="node">Traefik</span>
+    </div>
+    <div class="outcome" style="margin-top:5pt">
+      <span class="k">Outcome</span>
+      <p>Background jobs survive restarts; the full stack deploys from one documented runbook.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="mono amber" style="margin:0 0 2pt">SYSTEM 06</p>
+    <p class="card-title">Mediator Rule Engine with Wear OS Integration</p>
+    <p>
+      Mediators need to trigger timed actions during sessions &mdash; reminders, check-ins, delays
+      &mdash; without interrupting the flow. Built a rule engine with three rule types: instant (fires
+      immediately), delay (fires after a set timer) and cron (fires on a set schedule). Rules are
+      configured in a frontend dashboard, mapped to named buttons, and surfaced on a Wear OS watch so
+      the mediator can fire any rule with a single button press. Also includes a voice command system
+      for natural-language scheduling.
+    </p>
+    <div class="flow" style="margin-top:4pt">
+      <span class="node">React</span><span class="pkt"></span>
+      <span class="node">Node.js</span><span class="pkt"></span>
+      <span class="node">Wear OS</span><span class="pkt"></span>
+      <span class="node">Android</span>
+    </div>
+    <div class="outcome" style="margin-top:5pt">
+      <span class="k">Outcome</span>
+      <p>Frontend rule configuration, then one-tap execution from a watch during live sessions.</p>
+    </div>
+  </div>
+
+  <div class="card panel" style="margin-top:6mm">
+    <p class="mono ink" style="margin:0 0 3pt">WHY IT'S PRESENTED THIS WAY</p>
+    <p style="margin:0">
+      This engagement is under an active NDA. The client, product, domain, hosting provider and the
+      jurisdiction whose court records feed the lead pipeline are all deliberately omitted, and no
+      screenshots are included. Architecture, stack and engineering decisions are described in full,
+      which is what the work is actually evidence of. Happy to talk through any of it in an interview.
+    </p>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>07 &middot; LegalTech &mdash; systems 04&ndash;06</span></div>
+</section>
+
+<style>
+  /* Two projects per page. Three per page overflowed the sheet and collided
+     with the running footer (measured on v1, page 8 and 9). */
+  .proj-block { break-inside: avoid; }
+  .proj-block + .proj-block { margin-top: 5mm; padding-top: 5mm; border-top: 0.5pt solid var(--line); }
+  .proj-block h3 { font-size: 12.5pt; font-weight: 600; color: var(--ink); margin: 2.5pt 0 0; letter-spacing: -0.3pt; }
+  .proj-row { display: grid; grid-template-columns: 84mm 1fr; gap: 7mm; margin-top: 3.5mm; }
+  .proj-row .line { font-size: 8.6pt; color: var(--muted); margin: 0 0 4pt; }
+</style>
+
+<!-- ================= 08 / SELECTED PROJECTS ================= -->
+<section class="sheet">
+  <div class="head">
+    <p class="mono amber">SELECTED CLIENT PROJECTS &nbsp;/&nbsp; 01 &ndash; 02</p>
+    <h2 class="section">Systems built for clients.</h2>
+  </div>
+
+  <div class="proj-block">
+    <p class="mono ink" style="margin:0">FULL-STACK &middot; ACE</p>
+    <h3>ACE Clinical Placement Platform</h3>
+    <p class="proj-tagline"><span class="badge">Contract &middot; Oct 2025 &ndash; Jan 2026</span> <span class="badge amber">Architecture, full-stack build, integrations, deployment, QA</span></p>
+    <div class="proj-row">
+      <div>
+        <div class="shot"><img src="img/ace.jpg" alt="ACE clinical placement platform admin"></div>
+        <div class="flow" style="margin-top:5pt">
+        <span class="node">CRM</span>
+        <span class="pkt"></span>
+        <span class="node">Booking</span>
+        <span class="pkt"></span>
+        <span class="node">Document</span>
+        <span class="pkt"></span>
+        <span class="node">Notify</span>
+      </div>
+        <h4 class="block" style="margin-top:5mm">Context</h4>
+        <p>Placement coordinators managed bookings, student profiles and document packs across Pipedrive, email threads and spreadsheets. Any status update required manual reconciliation across all three.</p>
+        <h4 class="block" style="margin-top:5mm">Stack</h4>
+        <p class="mono" style="line-height:1.7">NEXT.JS &middot; TYPESCRIPT &middot; TAILWIND &middot; LARAVEL &middot; CLERK &middot; MAPBOX &middot; PANDADOC &middot; PIPEDRIVE &middot; VERCEL</p>
+      </div>
+      <div>
+        <p class="line">CRM-synced booking platform with location search, automated onboarding, and document packs triggered on placement milestones.</p>
+        <h4 class="block" style="margin-top:5mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li>API-first booking flow so scheduling, profiles and documents stay consistent across web and CRM.</li>
+        <li>Document generation via PandaDoc templates triggered from milestone events.</li>
+        <li>Centralized error handling around third-party calls with retries and audit logs.</li>
+      </ul>
+        <div class="outcome" style="margin-top:4mm">
+        <span class="k">Outcome</span>
+        <p>Onboarding is templated, bookings stay in sync with CRM records, and coordinators see placement status without manual reconciliation.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-block">
+    <p class="mono ink" style="margin:0">FULL-STACK &middot; ASAP ROADWORTHYS</p>
+    <h3>Roadworthy Inspection Platform</h3>
+    <p class="proj-tagline"><span class="badge">Contract &middot; Sep 2025 &ndash; Nov 2025</span> <span class="badge amber">Frontend and backend pairing with QA on every release</span></p>
+    <div class="proj-row">
+      <div>
+        <div class="shot"><img src="img/asap.jpg" alt="ASAP Roadworthys booking flow"></div>
+        <div class="flow" style="margin-top:5pt">
+        <span class="node">Booking</span>
+        <span class="pkt"></span>
+        <span class="node">Stripe</span>
+        <span class="pkt"></span>
+        <span class="node">ServiceM8</span>
+        <span class="pkt"></span>
+        <span class="node">Brevo</span>
+      </div>
+        <h4 class="block" style="margin-top:5mm">Context</h4>
+        <p>Inspections required payments, job creation and customer messaging to stay in sync across three separate systems. A failure in any one broke the entire flow.</p>
+        <h4 class="block" style="margin-top:5mm">Stack</h4>
+        <p class="mono" style="line-height:1.7">REACT &middot; NODE.JS &middot; EXPRESS &middot; TYPESCRIPT &middot; STRIPE &middot; SERVICEM8 &middot; BREVO</p>
+      </div>
+      <div>
+        <p class="line">Booking-to-inspection pipeline integrating payments, job creation and lifecycle comms in one reliable flow.</p>
+        <h4 class="block" style="margin-top:5mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li>Idempotent API calls for payment and job creation to prevent duplicates on retry.</li>
+        <li>Validation paths for payment success and failure to keep bookings consistent.</li>
+        <li>Automated QA passes against Figma components to protect UX quality.</li>
+      </ul>
+        <div class="outcome" style="margin-top:4mm">
+        <span class="k">Outcome</span>
+        <p>Bookings reliably trigger payments, job templates and lifecycle emails &mdash; cutting manual cleanup and eliminating sync failures.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>08 &middot; Selected client projects</span></div>
+</section>
+
+<!-- ================= 09 / SELECTED PROJECTS ================= -->
+<section class="sheet">
+  <div class="head">
+    <p class="mono amber">SELECTED CLIENT PROJECTS &nbsp;/&nbsp; 03 &ndash; 04</p>
+    <h2 class="section">Operations under load.</h2>
+  </div>
+
+  <div class="proj-block">
+    <p class="mono ink" style="margin:0">OPERATIONS &middot; EMERGENCY RESPONSE</p>
+    <h3>Emergency Resource Information System</h3>
+    <p class="proj-tagline"><span class="badge">Client project &middot; case study</span> <span class="badge amber">Full-stack delivery</span></p>
+    <div class="proj-row">
+      <div>
+        <div class="shot"><img src="img/eris.jpg" alt="ERIS emergency resource system sign-in"></div>
+        <div class="flow" style="margin-top:5pt">
+        <span class="node">Inventory</span>
+        <span class="pkt"></span>
+        <span class="node">Dispatch</span>
+        <span class="pkt"></span>
+        <span class="node">Audit</span>
+        <span class="pkt"></span>
+        <span class="node">Report</span>
+      </div>
+        <h4 class="block" style="margin-top:5mm">Context</h4>
+        <p>Resource state had to stay consistent across reservations, dispatch and returns, while preserving an accountable history of movement between municipalities.</p>
+        <h4 class="block" style="margin-top:5mm">Stack</h4>
+        <p class="mono" style="line-height:1.7">LARAVEL &middot; INERTIA &middot; VUE &middot; MYSQL &middot; RBAC &middot; BACKUPS &middot; REPORTING</p>
+      </div>
+      <div>
+        <p class="line">Real-time resource management for responders &mdash; dispatch dashboards, movement audit trails and role-based access across municipalities.</p>
+        <h4 class="block" style="margin-top:5mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li><b>Resource state.</b> Centralized the operational state with movement history baked into the data model, so reservations, dispatch and returns cannot drift apart.</li>
+        <li><b>Auditability.</b> State transitions are recorded as part of the operational workflow &mdash; accountability is not bolted on later.</li>
+        <li><b>Access control.</b> Role-based access built around operational responsibilities across municipalities, not just a permissions matrix.</li>
+      </ul>
+        <div class="outcome" style="margin-top:4mm">
+        <span class="k">Outcome</span>
+        <p>Availability is visible across municipalities, resource lifecycle stays traceable, and state transitions remain reviewable for reporting.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-block">
+    <p class="mono ink" style="margin:0">OPERATIONS &middot; EMPORT</p>
+    <h3>Emport Employee Management</h3>
+    <p class="proj-tagline"><span class="badge">Contract &middot; Jan 2025 &ndash; Apr 2025</span> <span class="badge amber">Product architecture, full-stack build, QA, deployment</span></p>
+    <div class="proj-row">
+      <div>
+        <div class="shot"><img src="img/emport.jpg" alt="Emport daily time record dashboard"></div>
+        <div class="flow" style="margin-top:5pt">
+        <span class="node">Attendance</span>
+        <span class="pkt"></span>
+        <span class="node">Leave</span>
+        <span class="pkt"></span>
+        <span class="node">Payroll</span>
+        <span class="pkt"></span>
+        <span class="node">Export</span>
+      </div>
+        <h4 class="block" style="margin-top:5mm">Context</h4>
+        <p>Schools were managing attendance, payroll and leave approvals across scattered spreadsheets shared between HR and finance &mdash; reconciliation was manual and error-prone.</p>
+        <h4 class="block" style="margin-top:5mm">Stack</h4>
+        <p class="mono" style="line-height:1.7">LARAVEL &middot; REACT &middot; MYSQL</p>
+      </div>
+      <div>
+        <p class="line">Unified HR platform linking attendance, payroll and leave workflows with role-based access and audit exports.</p>
+        <h4 class="block" style="margin-top:5mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li>Modeled attendance, leave and payroll as linked workflows to keep calculations consistent.</li>
+        <li>Role-based permissions separating HR, finance and admin actions.</li>
+        <li>Audit-friendly exports so finance could reconcile without rework.</li>
+      </ul>
+        <div class="outcome" style="margin-top:4mm">
+        <span class="k">Outcome</span>
+        <p>Attendance, leave and payroll stay aligned with approvals and exports &mdash; removing manual reconciliation between HR and finance.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>09 &middot; Selected client projects</span></div>
+</section>
+
+<!-- ================= 10 / SELECTED PROJECTS ================= -->
+<section class="sheet">
+  <div class="head">
+    <p class="mono amber">SELECTED CLIENT PROJECTS &nbsp;/&nbsp; 05 &ndash; 06</p>
+    <h2 class="section">Commerce and inventory.</h2>
+  </div>
+
+  <div class="proj-block">
+    <p class="mono ink" style="margin:0">E-COMMERCE &middot; BOOSTLAB</p>
+    <h3>Boostlab Digital Storefront</h3>
+    <p class="proj-tagline"><span class="badge">Contract &middot; Jun 2025 &ndash; Aug 2025</span> <span class="badge amber">Frontend build, integrations, QA, deployment</span></p>
+    <div class="proj-row">
+      <div>
+        <div class="shot"><img src="img/boostlab.jpg" alt="Boostlab digital storefront"></div>
+        <div class="flow" style="margin-top:5pt">
+        <span class="node">Storefront</span>
+        <span class="pkt"></span>
+        <span class="node">Shopify</span>
+        <span class="pkt"></span>
+        <span class="node">Checkout</span>
+        <span class="pkt"></span>
+        <span class="node">Pixel</span>
+      </div>
+        <h4 class="block" style="margin-top:5mm">Context</h4>
+        <p>The team needed a storefront where payments, order syncing and analytics matched the designed experience exactly &mdash; no gaps between design and production.</p>
+        <h4 class="block" style="margin-top:5mm">Stack</h4>
+        <p class="mono" style="line-height:1.7">REACT &middot; TYPESCRIPT &middot; SHOPIFY &middot; CHECKOUT.COM &middot; META PIXEL</p>
+      </div>
+      <div>
+        <p class="line">Conversion-focused storefront with a Shopify backend, Checkout.com payments and Meta Pixel on key funnel steps.</p>
+        <h4 class="block" style="margin-top:5mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li>Aligned UI components to Figma tokens to preserve fidelity across breakpoints.</li>
+        <li>Payment and order flows instrumented with error states to prevent silent failures.</li>
+        <li>Analytics tagged on key funnel steps for clear attribution.</li>
+      </ul>
+        <div class="outcome" style="margin-top:4mm">
+        <span class="k">Outcome</span>
+        <p>A smooth checkout, orders syncing cleanly to Shopify, and accurate attribution &mdash; reducing cart drop-offs and support load.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-block">
+    <p class="mono ink" style="margin:0">OPERATIONS &middot; LOGIWARE</p>
+    <h3>LogiWare Inventory Platform</h3>
+    <p class="proj-tagline"><span class="badge">Freelance</span> <span class="badge amber">Frontend and backend delivery with QA and deployment</span></p>
+    <div class="proj-row">
+      <div>
+        <div class="shot"><img src="img/logiware.jpg" alt="LogiWare inventory platform sign-in"></div>
+        <div class="flow" style="margin-top:5pt">
+        <span class="node">Stock</span>
+        <span class="pkt"></span>
+        <span class="node">Shipment</span>
+        <span class="pkt"></span>
+        <span class="node">History</span>
+        <span class="pkt"></span>
+        <span class="node">Dashboard</span>
+      </div>
+        <h4 class="block" style="margin-top:5mm">Context</h4>
+        <p>Logistics teams were reconciling stock levels and shipment status across multiple trackers &mdash; no single source of truth meant slow fulfillment decisions.</p>
+        <h4 class="block" style="margin-top:5mm">Stack</h4>
+        <p class="mono" style="line-height:1.7">ASP.NET &middot; ANGULAR &middot; SQL SERVER</p>
+      </div>
+      <div>
+        <p class="line">Centralized inventory and shipment management with movement history, fulfillment dashboards and staged rollouts.</p>
+        <h4 class="block" style="margin-top:5mm">Engineering decisions</h4>
+      <ul class="decisions">
+        <li>Centralized inventory state with movement history to avoid conflicting records.</li>
+        <li>Dashboard views tuned for fulfillment and ops teams with actionable filters.</li>
+        <li>Deployment pipeline with staged rollouts to protect uptime.</li>
+      </ul>
+        <div class="outcome" style="margin-top:4mm">
+        <span class="k">Outcome</span>
+        <p>Teams see inventory and shipment status in one place &mdash; reducing manual reconciliation and enabling faster fulfillment decisions.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>10 &middot; Selected client projects</span></div>
+</section>
+
+<!-- ================= 11 / EXPERIENCE ================= -->
+<section class="sheet">
+  <div class="head">
+    <p class="mono amber">TRACK RECORD</p>
+    <h2 class="section">Where I've built.</h2>
+    <p class="lede">Long-term roles and project clients, labeled as what they are.</p>
+  </div>
+
+  <div class="tl" style="margin-top:6mm">
+    <div class="tl-row current">
+      <div class="tl-head">
+        <span class="tl-role">Full-Stack Developer <span class="tl-org">&mdash; Atlas Geotech LLC</span>
+          <span class="badge" style="margin-left:3pt">Contract</span></span>
+        <span class="tl-date">Feb 2026 &ndash; Nov 2026</span>
+      </div>
+      <p class="tl-line">
+        One of the core engineers on the platform behind California's statutory hazard disclosures, and
+        front-end lead on the hazard analysis application. Built the PDF report engine and an async report
+        queue, parcel-level hazard determination in PostGIS, the customer portal at atlasnhd.com, and the
+        first Terraform stack on AWS. About 1,500 commits across five repositories.
+      </p>
+    </div>
+
+    <div class="tl-row current">
+      <div class="tl-head">
+        <span class="tl-role">Lead Full-Stack Developer <span class="tl-org">&mdash; Private SaaS Platform (Client under NDA)</span>
+          <span class="badge" style="margin-left:3pt">Contract</span></span>
+        <span class="tl-date">Jan 2026 &ndash; Oct 2026</span>
+      </div>
+      <p class="tl-line">
+        Sole engineer on a self-hosted legal-document automation platform: a generate, stamp, convert, sign
+        and notify pipeline on n8n, a self-hosted e-signature service replacing a paid SaaS, small
+        Node/TypeScript services, and the container infrastructure behind 10+ apps.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">Analyst II, ERP Product Application <span class="tl-org">&mdash; DXC Technology</span>
+          <span class="badge amber" style="margin-left:3pt">Employment</span></span>
+        <span class="tl-date">Aug 2023 &ndash; Dec 2025</span>
+      </div>
+      <p class="tl-line">
+        Enterprise QA across server/OS, terminal-based applications, database links, drivers and user access
+        provisioning for business-critical ERP systems. Developed and maintained automated test scripts,
+        raising regression coverage and cutting manual verification effort each release cycle.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">Full-Stack Developer <span class="tl-org">&mdash; ACE</span>
+          <span class="badge" style="margin-left:3pt">Contract</span></span>
+        <span class="tl-date">Oct 2025 &ndash; Jan 2026</span>
+      </div>
+      <p class="tl-line">
+        Clinical placement booking platform connecting students and preceptors &mdash; Mapbox location search,
+        Clerk authentication, PandaDoc document packs and Pipedrive CRM sync.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">Backend Developer <span class="tl-org">&mdash; ASAP Roadworthys</span>
+          <span class="badge" style="margin-left:3pt">Contract</span></span>
+        <span class="tl-date">Sep 2025 &ndash; Nov 2025</span>
+      </div>
+      <p class="tl-line">
+        Booking backend for a vehicle inspection service, syncing jobs and customer records with ServiceM8
+        and sending automated emails through Brevo. Designed the payment and booking flow so customers were
+        never double-charged or double-booked when a request was retried.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">Frontend Developer <span class="tl-org">&mdash; Boostlab</span>
+          <span class="badge" style="margin-left:3pt">Contract</span></span>
+        <span class="tl-date">Jun 2025 &ndash; Aug 2025</span>
+      </div>
+      <p class="tl-line">
+        Conversion-focused storefront with Shopify checkout, Checkout.com payments and Meta Pixel tracking
+        on key funnel steps.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">Instructor &amp; Developer <span class="tl-org">&mdash; The Tech Academy</span>
+          <span class="badge" style="margin-left:3pt">Contract</span></span>
+        <span class="tl-date">Jan 2025 &ndash; Jun 2025</span>
+      </div>
+      <p class="tl-line">
+        Maintained the academy's ASP.NET MVC learning management system; reviewed student submissions and
+        mentored learners through technical troubleshooting.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">Full-Stack Developer <span class="tl-org">&mdash; Emport</span>
+          <span class="badge" style="margin-left:3pt">Contract</span></span>
+        <span class="tl-date">Jan 2025 &ndash; Apr 2025</span>
+      </div>
+      <p class="tl-line">
+        Employee management platform for academic institutions &mdash; attendance tracking, workload
+        scheduling, leave approval workflow and automated reporting.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">Full-Stack Developer <span class="tl-org">&mdash; Freelance</span></span>
+        <span class="tl-date">2022 &ndash; 2023</span>
+      </div>
+      <p class="tl-line">
+        Booking systems, POS modules and reservation platforms for small and mid-sized businesses across
+        ASP.NET MVC, Laravel, React, Vue and Inertia &mdash; requirements through deployment and production
+        support.
+      </p>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-head">
+        <span class="tl-role">System &amp; Infrastructure Engineer, Intern <span class="tl-org">&mdash; Apollo Tech</span></span>
+        <span class="tl-date">Feb 2023 &ndash; May 2023</span>
+      </div>
+      <p class="tl-line">
+        Set up and maintained physical servers and system software; handled networking tasks and server
+        issue resolution.
+      </p>
+    </div>
+  </div>
+
+  <hr class="rule" style="margin:7mm 0 6mm">
+
+  <div class="grid2">
+    <div>
+      <h4 class="block">Education</h4>
+      <p style="margin:0"><b style="color:var(--ink)">BSc Information Technology</b><br>
+        Mindanao State University, Naawan &mdash; major in Database Systems<br>
+        <span class="mono">AUG 2018 &ndash; JUL 2023</span></p>
+    </div>
+    <div>
+      <h4 class="block">Certification</h4>
+      <p style="margin:0"><b style="color:var(--ink)">Process Data Analyst &mdash; SAP Signavio</b> (Certified Associate)<br>
+        Process mining, SiGNAL, SAP Signavio Process Insights &amp; Intelligence<br>
+        <span class="mono">SEP 2025 &ndash; SEP 2026</span></p>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Portfolio</span><span>11 &middot; Track record</span></div>
+</section>
+
+<!-- ================= 12 / CONTACT ================= -->
+<section class="sheet">
+  <div style="padding-top:38mm">
+    <p class="mono amber">WORKING TOGETHER</p>
+    <h2 class="section" style="font-size:26pt; letter-spacing:-0.8pt; margin-top:6pt">
+      Let's talk about what you're building.
+    </h2>
+    <hr class="rule-amber" style="margin-top:10pt">
+    <p style="font-size:10pt; line-height:1.65; color:var(--muted); max-width:120mm; margin-top:9pt">
+      Everything in this portfolio was built end to end &mdash; requirements, architecture,
+      implementation, QA, deployment and the support afterwards. If your team needs someone who can
+      hold a system together across the frontend, the API, the data and the automation, I'd like to
+      hear about it.
+    </p>
+
+    <div class="contact-grid" style="margin-top:12mm">
+      <div><span class="k">Email</span><span class="v">canaresmiko3@gmail.com</span></div>
+      <div><span class="k">Phone</span><span class="v">+63 909 611 6995</span></div>
+      <div><span class="k">Location</span><span class="v">Misamis Oriental, Philippines</span></div>
+      <div><span class="k">Portfolio</span><span class="v">ikoy.vercel.app</span></div>
+      <div><span class="k">LinkedIn</span><span class="v">linkedin.com/in/miko-canares</span></div>
+      <div><span class="k">GitHub</span><span class="v">github.com/koushin07</span></div>
+    </div>
+
+    <div class="card panel" style="margin-top:12mm">
+      <p class="mono ink" style="margin:0 0 4pt">FURTHER READING</p>
+      <p style="margin:0">
+        Full case studies with interactive system diagrams &mdash; Atlas NHD, ReadMindMe, ERIS and ACE
+        &mdash; are at <b style="color:var(--ink)">ikoy.vercel.app/work</b>. A separate ATS-formatted CV
+        is available on request or at <b style="color:var(--ink)">ikoy.vercel.app/Miko-Canares-CV.pdf</b>.
+      </p>
+    </div>
+
+    <div class="cover-chain" style="margin-top:14mm">
+      <span class="node">Full-stack</span><span class="pkt"></span>
+      <span class="node">AI &amp; RAG</span><span class="pkt"></span>
+      <span class="node">Automation</span><span class="pkt"></span>
+      <span class="node">Integrations</span><span class="pkt"></span>
+      <span class="node">QA</span>
+    </div>
+  </div>
+
+  <div class="foot"><span>Miko Ca&ntilde;ares &middot; Full-Stack Engineer</span><span>12 &middot; Contact</span></div>
+</section>
+
+</body>
+</html>

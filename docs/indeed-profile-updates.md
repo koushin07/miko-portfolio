@@ -107,3 +107,17 @@ field, the Atlas entry, and the Python/FastAPI/PostGIS/AWS skills all match this
 **One drift found:** the resume header's **Location field now shows "Manila"**, not the
 documented "Cagayan de Oro City, Misamis Oriental 9000." Not edited — flagging for you to
 confirm before it gets corrected again.
+
+---
+
+## ✅ Role change pushed live (2026-11-13)
+
+- **Summary** — "Currently building…" replaced with "Most recently built…" plus the NDA platform.
+- **Atlas Geotech** — "I currently work here" unchecked; **February 2026 to November 2026**;
+  description rewritten in past tense.
+- **Private SaaS Platform (Client under NDA)** — **January 2026 to October 2026**,
+  description rewritten (NDA-safe).
+- ☐ Unrecognised entry: **"Backend Developer — Newco • Manila — Present"** with no dates or
+  description (plus an empty "Backend Developer" stub). Not created by us; left untouched.
+- ☐ The uploaded `miko-canares.pdf` is still the old CV — use "Replace file" with
+  `public/Miko-Canares-CV.pdf`.

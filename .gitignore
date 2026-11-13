@@ -34,3 +34,4 @@ Thumbs.db
 
 # Stale Make.com export, superseded by the in-house Google Calendar integration
 *.blueprint.json
+.pdf-review/

@@ -144,25 +144,49 @@
   <div class="role">
     <div class="role-head">
       <div class="role-title">Full-Stack Developer | <span class="org">Atlas Geotech LLC</span></div>
-      <div class="dates">Feb 2026 - Present</div>
+      <div class="dates">Feb 2026 - Nov 2026</div>
     </div>
     <p class="meta"><span class="tag">Contract</span>
-      <span class="stack">Python, FastAPI, PostGIS, GeoServer, Celery, Next.js, Terraform, AWS ECS</span></p>
+      <span class="stack">Python, FastAPI, PostGIS, Celery, Redis, WeasyPrint, React 19, Terraform, AWS</span></p>
     <ul>
-      <li>Appointed front-end lead on the hazard analysis application, coordinating two developers and owning
-          delivery tracking for the team.</li>
-      <li>Primary developer on the platform that produces California's legally required natural hazard disclosure
-          reports — checking a property against dozens of state and federal hazard datasets and generating the
-          finished legal document automatically, replacing a manual research and formatting process.</li>
-      <li>Designed and built the report generation service covering the company's full range of disclosure products,
-          from residential and commercial reports through to tax and tenancy disclosures.</li>
-      <li>Diagnosed and fixed a recurring production outage that was crashing the reporting service under load,
-          restoring stability during peak ordering periods.</li>
-      <li>Built the customer portal end to end — property search, report ordering, checkout, and delivery — used by
-          escrow officers and real estate agents to buy reports.</li>
-      <li>Automated the pipeline that keeps hazard data current, so dataset updates publish without taking the service
-          offline, and added a fallback so a federal data outage cannot stop reports being issued.</li>
-      <li>Set up the cloud infrastructure and deployment process on AWS using Docker and Terraform.</li>
+      <li>One of the core engineers on the platform that produces California's legally required natural hazard
+          disclosure reports, working across the hazard API, PDF reports, customer website, order system and AWS
+          infrastructure (about 1,500 commits across five repositories). Front-end lead on the hazard analysis app.</li>
+      <li>Built the disclosure PDF reports in Python and WeasyPrint (Natural Hazard Disclosure, tenant flood,
+          environmental, property tax, invoice and a 31-page combined bundle), matched to designer mockups and
+          approved legal copy.</li>
+      <li>Designed an asynchronous report queue (Celery, Redis, S3) that generates and delivers paid reports, holds
+          defective ones for QA instead of shipping them, and serves downloads through CloudFront signed URLs.</li>
+      <li>Built a PostGIS engine that tests a property's whole parcel against hazard layers, and made determinations
+          fail safe so a data-source outage can never print a false "not in zone" on a legal disclosure.</li>
+      <li>Ported the customer portal to atlasnhd.com (React 19, TypeScript, Tailwind), with address, APN and owner
+          search, multi-report and guest checkout, and a report queue; extended the FastAPI order system with
+          invoicing, account types and 30+ database migrations.</li>
+      <li>Wrote the first Terraform stack for running the API on AWS (ECS Fargate, RDS, S3, CloudFront, SES) and
+          led a security hardening pass: WAF, GuardDuty, encrypted backups, and secrets moved into Secrets Manager.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-head">
+      <div class="role-title">Lead Full-Stack Developer | <span class="org">Private SaaS Platform (Client under NDA)</span></div>
+      <div class="dates">Jan 2026 - Oct 2026</div>
+    </div>
+    <p class="meta"><span class="tag">Contract</span>
+      <span class="stack">n8n, Node.js, TypeScript, React, Next.js, Supabase, PostgreSQL, Redis, Docker</span></p>
+    <ul>
+      <li>Sole engineer on a self-hosted legal-document automation platform: designed the architecture, wrote the
+          services and ran the infrastructure, about a dozen containerized services across 10+ apps behind one
+          reverse proxy with automatic TLS.</li>
+      <li>Built the document pipeline end to end (questionnaire answers merged into Word templates, stamped,
+          converted to PDF, signed and emailed), orchestrated by n8n, plus an admin tool that lets staff create new
+          document types without a developer.</li>
+      <li>Replaced a paid e-signature SaaS with a self-hosted, webhook-integrated signing service, keeping
+          signatures, audit trail and documents in-house.</li>
+      <li>Added copy protection that marks every document with buyer-identifying details, and a system that turns
+          daily public court records into a ranked list of sales leads.</li>
+      <li>Built scheduling apps and secure client upload links, and an encrypted rebuild-from-package backup with
+          per-app setup runbooks so the whole platform can be restored on new hosting.</li>
     </ul>
   </div>
 
@@ -260,47 +284,6 @@
   </div>
 
   <h2>Projects</h2>
-  <!-- Client work shown as a project rather than an employment entry: the systems and
-       skills stay visible, without an employer relationship or dates attached. -->
-  <div class="compact">
-    <div class="role-head">
-      <div class="role-title">Legal Document SaaS | <span class="org">Six internal production systems</span></div>
-      <div class="dates">Client work, under NDA</div>
-    </div>
-    <p><span class="stack">React, Node.js, Express, TypeScript, Supabase, n8n, BullMQ, Docker</span> — Document
-      generation, copy protection, lead generation, and scheduling for a self-help legal-document platform. Built
-      the pipeline that turns a customer's completed questionnaire into a finished legal document delivered to their
-      inbox, plus an admin tool letting staff create new document types without a developer. Added copy protection
-      marking every document with details identifying the buyer, and a system that turns daily public court records
-      into a ranked list of sales leads.</p>
-  </div>
-  <div class="compact">
-    <div class="role-head">
-      <div class="role-title">ReadMindMe | <span class="org">AI-Powered Bible Study Platform</span></div>
-      <div class="dates">Personal</div>
-    </div>
-    <p><span class="stack">FastAPI, PostgreSQL, Redis, OpenAI</span> — A Bible study app that answers users'
-      questions with relevant scripture, using AI search across the full biblical text enriched with original-language
-      detail and cross-references, and tailored to each user's history. Includes a complete admin console with
-      two-factor authentication, content moderation, and audit logging.</p>
-  </div>
-
-  <h2>Technical Skills</h2>
-  <div class="skills">
-    <p><b>Languages:</b> TypeScript, JavaScript, Python, PHP, C#, SQL</p>
-    <p><b>Frontend:</b> React, Next.js, Vue, Inertia, Tailwind CSS, Angular</p>
-    <p><b>Backend:</b> FastAPI, Node.js, Express, Laravel, ASP.NET Core</p>
-    <p><b>Databases:</b> PostgreSQL, PostGIS, Supabase, MySQL, Redis, pgvector</p>
-    <p><b>Cloud &amp; Infrastructure:</b> AWS (ECS, RDS, S3, CloudFront), Docker, Terraform, CI/CD, Linux</p>
-    <p><b>AI &amp; Machine Learning:</b> OpenAI API, embeddings, vector search, retrieval-augmented generation (RAG)</p>
-    <p><b>Testing &amp; QA:</b> Pytest, Vitest, PHPUnit, Postman, regression testing, API testing, ERP validation</p>
-    <p><b>Automation &amp; Integrations:</b> n8n, Celery, BullMQ, Stripe, Shopify, ServiceM8, Pipedrive, PandaDoc</p>
-  </div>
-
-  <!-- Dates inline here, not in a right-aligned flex child: on the final page the
-       flex dates were being extracted after the whole document, detaching them
-       from their entry. Inline keeps reading order correct for ATS parsers. -->
-  <h2>Education &amp; Certification</h2>
   <div class="compact">
     <p class="role-title">BSc Information Technology, <span class="org">Mindanao State University, Naawan</span>
       <span class="dates">&nbsp;&nbsp;Aug 2018 - Jul 2023</span></p>

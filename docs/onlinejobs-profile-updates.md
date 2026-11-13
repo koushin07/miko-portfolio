@@ -204,3 +204,14 @@ whatever you've settled on. This field is also in Account Settings.
 - **Portfolio link** points at `ikoy.vercel.app` and works.
 - **Your headline** — *"Full-Stack Web Developer | Systems, QA & Workflow Automation"* — is
   specific and names a differentiator. Better than most on the platform.
+
+---
+
+## ✅ Role change pushed live (2026-11-13)
+
+- **Profile Description** — "Right now I build…" replaced with Atlas (Feb–Nov 2026) and the
+  NDA platform (Jan–Oct 2026) in past tense.
+- **Skill descriptions** rewritten to past tense: Python, Fullstack, PostgreSQL, React JS,
+  Docker, CICD. Ratings and experience levels unchanged.
+- ☐ Still yours to change (account settings): **"Hired Full Time on Jan 5, 2026"** status,
+  and the Iligan address.

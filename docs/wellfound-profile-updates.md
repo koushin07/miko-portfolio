@@ -130,3 +130,5 @@ All three drifts from the 2026-08-22 re-verification note fixed and confirmed li
 | **LinkedIn URL** | `https://www.linkedin.com/in/miko-canares` |
 | **Bio** | "Full-stack developer for AI, SaaS & Automation - Python/FastAPI, TypeScript/Next.js, PostgreSQL/PostGIS, AWS. QA background." |
 | **Desired salary** | $45,000 |
+
+**Re-verified 2026-09-03:** all three fixed fields still holding (bio, LinkedIn URL, $45,000). "Profile last updated Aug 22" — no silent changes since the fix.

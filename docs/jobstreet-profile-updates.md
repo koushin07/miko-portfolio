@@ -113,3 +113,16 @@ prompt still unresolved.
 Personal summary's opening line updated to match the portfolio's positioning — "regulated,
 data-heavy work" replaced with "AI, SaaS & Automation" — rest of the summary unchanged.
 Verified live.
+
+**Re-verified 2026-09-03:** summary fix holding. New observation: **Salary expectation is set to PHP 60,000/month** — well below the rates set elsewhere (OnlineJobs ₱96,800/mo equivalent, Wellfound $45,000/yr). Not changed — your call whether to raise it.
+
+---
+
+## ✅ Role change pushed live (2026-11-13)
+
+- **Personal summary** — "Currently building…" replaced with "Most recently built…" (Atlas)
+  plus the NDA platform; trimmed to fit JobStreet's 700-character cap.
+- **Atlas Geotech** — dates were already Feb – Nov 2026; description rewritten in past tense.
+- **Private SaaS Platform (Client under NDA)** — end **Apr 2026 → Oct 2026**, description
+  rewritten (NDA-safe).
+- ☐ The attached resume file is still the old CV — replace it with `public/Miko-Canares-CV.pdf`.

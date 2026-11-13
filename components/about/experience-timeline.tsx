@@ -7,8 +7,8 @@ import { Reveal } from "@/components/motion/reveal"
 
 /*
   Experience as a chronological engineering timeline — spec §10-§12.
-  Real roles and dates only; the current role carries more weight and
-  links to the actual work it produced.
+  Real roles and dates only; the featured roles carry more weight and
+  link to the actual work they produced.
 */
 
 interface TimelineEntry {
@@ -19,6 +19,7 @@ interface TimelineEntry {
   kind: "Contract" | "Employment"
   line: string
   current?: boolean
+  featured?: boolean
   related?: { label: string; href: string }[]
 }
 
@@ -27,13 +28,25 @@ const entries: TimelineEntry[] = [
     year: "2026",
     role: "Full-Stack Developer",
     company: "Atlas Geotech LLC",
-    period: "Feb 2026 – Present",
+    period: "Feb 2026 – Nov 2026",
     kind: "Contract",
-    current: true,
-    line: "Determination and reporting pipeline behind California statutory hazard disclosure — the full range of disclosure products, a queued rendering pipeline, and the customer portal.",
+    featured: true,
+    line: "One of the core engineers on a California hazard-disclosure platform — the PDF report engine, an async report queue, parcel-level hazard determination in PostGIS, the customer portal at atlasnhd.com, the order system, and the first Terraform stack on AWS.",
     related: [
       { label: "ATLAS NHD", href: "/case-studies/atlas-nhd" },
       { label: "ATLAS SDI REPORT ENGINE", href: "/case-studies/atlas-nhd" },
+    ],
+  },
+  {
+    role: "Lead Full-Stack Developer",
+    company: "Private SaaS Platform (Client under NDA)",
+    period: "Jan 2026 – Oct 2026",
+    kind: "Contract",
+    featured: true,
+    line: "Sole engineer on a self-hosted legal-document automation platform — a generate, stamp, convert, sign and notify pipeline on n8n, a self-hosted e-signature service replacing a paid SaaS, small Node/TypeScript services, and the container infrastructure behind 10+ apps.",
+    related: [
+      { label: "AUTOMATION PLATFORM", href: "/automation" },
+      { label: "THE SIX SYSTEMS", href: "/projects#private-legaltech" },
     ],
   },
   {
@@ -101,12 +114,12 @@ export function ExperienceTimeline() {
                 aria-hidden="true"
                 className={cn(
                   "absolute top-1.5 left-0 size-[11px] rounded-full border-2",
-                  entry.current ? "border-amber bg-amber/30" : "border-border bg-card",
+                  entry.current || entry.featured ? "border-amber bg-amber/30" : "border-border bg-card",
                 )}
               />
               <div
                 className={cn(
-                  entry.current && "panel border-amber/30 p-6",
+                  (entry.current || entry.featured) && "panel border-amber/30 p-6",
                 )}
               >
                 <div className="flex flex-wrap items-center gap-2.5">

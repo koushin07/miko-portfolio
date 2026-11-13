@@ -136,3 +136,16 @@ Full-Stack Developer | AI, SaaS & Automation | Next.js · Python · FastAPI · A
 ```
 
 Matches the site's actual positioning (`lib/seo.ts`: "Full-Stack Developer for AI, SaaS & Automation").
+
+---
+
+## ✅ Role change pushed live (2026-11-13)
+
+- **Atlas Geotech** — dates were already Feb 2026 – Nov 2026. Description rewritten in past
+  tense from the full Atlas work summary (core engineer, PDF report engine, async report
+  queue, PostGIS parcel engine, atlasnhd.com portal, first Terraform stack + security pass).
+- **Private SaaS Platform (Client under NDA)** — end date **Apr 2026 → Oct 2026**.
+  Description rewritten: sole engineer, generate→sign pipeline on n8n, self-hosted
+  e-signature replacing a SaaS, Node/TS microservices, container infra for 10+ apps, DR
+  backup. No client name, product name, domain or hosting provider.
+- Verified on the live experience page after save. LinkedIn has no About section yet.

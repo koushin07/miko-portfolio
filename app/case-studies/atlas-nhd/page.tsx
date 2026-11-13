@@ -149,7 +149,7 @@ export default function CaseStudyPage() {
         <div className="relative mx-auto max-w-[1200px] px-6 pt-32 pb-16 lg:px-8 lg:pt-40 lg:pb-20">
           <p className="text-node text-muted-foreground">CASE STUDY — GEOSPATIAL SAAS PLATFORM</p>
           <p className="mt-6 font-mono text-3xl tracking-tight text-foreground md:text-5xl">ATLAS NHD</p>
-          <p className="mt-4 text-sm text-muted-foreground">Atlas Geotech LLC · Full-Stack Developer · Feb 2026–present</p>
+          <p className="mt-4 text-sm text-muted-foreground">Atlas Geotech LLC · Full-Stack Developer · Feb 2026–Nov 2026</p>
           <h1 className="text-lg-custom mt-6 max-w-3xl font-normal text-muted-foreground">
             From government geodata to a delivered disclosure report — California statutory hazard disclosure,
             automated end to end into a legally-formatted PDF in a homebuyer&apos;s inbox.
